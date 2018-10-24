@@ -3,7 +3,11 @@ import "./Footer.css";
 
 const Footer = () => (
   <footer className="footer">
-    <span>Copyright 2018 icon appName</span>
+
+    <span className="left">Copyright © 2018</span>
+    <span className="right">Authors: Aparajita - Marshall - Luke - Aboozar</span>
+=======
+    
   </footer>
 );
 

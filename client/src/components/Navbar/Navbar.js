@@ -1,82 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
+
+import React, { Component } from 'react';
+import { NavLink, Link } from "react-router-dom";
 import "./Navbar.css";
 
+class NavBar extends Component {
 
-const Navbar = props => (
-  <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <Link className="navbar-brand" to="/">
-      appName
-    </Link>
-    <div>
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <Link
-            to="/"
-            className={
-              window.location.pathname === "/" || window.location.pathname === "/main"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            About
-          </Link>
-        </li>
+  
+  render(){
 
-        <li className="nav-item">
-          <Link
-            to="/"
-            className={
-              window.location.pathname === "/about" || window.location.pathname === "/about"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            About
-          </Link>
-        </li>
-       
-        <li className="nav-item">
-          <Link
-            to="/search"
-            className={
-              window.location.pathname === "/search"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            Search
-          </Link>
-        </li>
+    return(
+      <div>
+<nav className="navbar navbar-inverse">
 
-         <li className="nav-item">
-          <Link
-            to="/signIn"
-            className={
-              window.location.pathname === "/signIn"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            Sign-In
-          </Link>
-        </li>
-
-         <li className="nav-item">
-          <Link
-            to="/signOut"
-            className={
-              window.location.pathname === "/signOut"
-                ? "nav-link active"
-                : "nav-link"
-            }
-          >
-            Sign-Out
-          </Link>
-        </li>
-      </ul>
+  <div className="container-fluid">
+    <div className="navbar-header customNav">
+      <a className="navbar-brand " href="#">Wall of Kindness</a>
     </div>
-  </nav>
-);
+    
+    <ul className="nav navbar-nav">
 
-export default Navbar;
+    <li className={
+    window.location.pathname === "/" || window.location.pathname === "/home"
+      ? "active"
+      : ""
+  }>
+    <NavLink to="/" >Home</NavLink>
+    </li>
+
+    <li className={
+    window.location.pathname === "/search"
+      ? "active"
+      : ""
+  }>
+    <NavLink to="/search" >Search</NavLink>
+    </li>
+
+<li className={
+    window.location.pathname === "/dashboard"
+      ? "active"
+      : ""
+  }>
+    <NavLink to="/dashboard" >Dashboard</NavLink>
+    </li>
+
+    </ul>
+    <ul className="nav navbar-nav navbar-right">
+    <li className={
+    window.location.pathname === "/signUp" 
+      ? "active"
+      : ""
+  }>
+    <NavLink to="/signUp" ><span class="glyphicon glyphicon-user"></span> Sign Up</NavLink>
+    </li>
+
+    <li className={
+    window.location.pathname === "/signIn" 
+      ? "active"
+      : ""
+  }>
+    <NavLink to="/signIn" ><span class="glyphicon glyphicon-log-in"></span> Sign In</NavLink>
+    </li>
+      
+    </ul>
+  </div>
+</nav>
+
+      
+      
+      </div>
+  )} 
+} 
+
+
+export default NavBar;
+
+
