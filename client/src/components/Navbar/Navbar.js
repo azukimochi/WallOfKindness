@@ -8,7 +8,7 @@ class NavBar extends Component {
   
   render(){
     // const {isAuthenticated, user} = this.props.auth;
-     const isAuthenticated= false
+     const isAuthenticated= true
     
 
     const authPages = (
