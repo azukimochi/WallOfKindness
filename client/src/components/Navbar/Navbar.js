@@ -8,7 +8,7 @@ class NavBar extends Component {
   
   render(){
     // const {isAuthenticated, user} = this.props.auth;
-     const isAuthenticated= true
+     const isAuthenticated= false
     
 
     const authPages = (
@@ -47,7 +47,7 @@ class NavBar extends Component {
                     <img src=""
                         className="rounded-circle"
                         style={{ width: '25px', marginRight: '5px'}} />
-                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                            <span className="glyphicon glyphicon-log-out"></span> Logout
                 </a>
                 </li>
     </ul>
@@ -82,7 +82,7 @@ window.location.pathname === "/signUp"
   ? "active"
   : ""
 }>
-<NavLink to="/signUp" ><span class="glyphicon glyphicon-user"></span> Sign Up</NavLink>
+<NavLink to="/signUp" ><span className="glyphicon glyphicon-user"></span> Sign Up</NavLink>
 </li>
 
 <li className={
@@ -90,7 +90,7 @@ window.location.pathname === "/signIn"
   ? "active"
   : ""
 }>
-<NavLink to="/signIn" ><span class="glyphicon glyphicon-log-in"></span> Sign In</NavLink>
+<NavLink to="/signIn" ><span className="glyphicon glyphicon-log-in"></span> Sign In</NavLink>
 </li>
 </ul>
     </div>
