@@ -6,7 +6,7 @@ const Footer = () => (
 
     <span className="left">Copyright © 2018</span>
     <span className="right">Authors: Aparajita - Marshall - Luke - Aboozar</span>
-=======
+
     
   </footer>
 );
