@@ -12,8 +12,9 @@ import Search from "./pages/Search";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import DashboardPage from "./pages/Dashboard";
+// import NoMatch from "./pages/NoMa   tch";
 import Chat from "./pages/Chat";
-import NoMatch from "./pages/NoMatch";
+// import NoMatch from "./pages/NoMatch";
 
 ////////Import Components//////////////////
 
@@ -36,7 +37,7 @@ const App = () => (
         {/* <Route exact path="/donerPage" component={DonerPage} /> */}
         <Route exact path="/signIn" component={SignIn} />
         <Route exact path="/signUp" component={SignUp} />
-        <Route component={NoMatch} />
+        {/* <Route component={NoMatch} /> */}
 
         
 

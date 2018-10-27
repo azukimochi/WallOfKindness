@@ -3,6 +3,8 @@ import Wrapper from "../../components/Wrapper";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
+import API from "../../utils/API";
+
 // import SearchResults from "../../components/MakeRequest";
 
 
@@ -11,8 +13,8 @@ class Search extends Component {
 
     // insert state changes and methods here
     state = {
-        item: "",
-        area: "",
+        gifts: "",
+        address: "",
         range: "",
         results: [],
         sectionTitle: ""
@@ -28,26 +30,26 @@ class Search extends Component {
     displaySearchResults = () => {
         return this.state.results.map(result => {
             <SearchResults
-            id = {result.id}
-            key = {result.id}
-            item = {result.item}
-            wallName = {result.wallName}
-            doner = {result.firstName}
-            address = {result.streetAddress1}
-            handleRequestButton = {this.handleRequestButton}
+                id={result._id}
+                key={result._id}
+                gifts={result.gifts}
+                wallName={result.wallName}
+                donor={result.firstName}
+                address={result.streetAddress1}
+                handleRequestButton={this.handleRequestButton}
 
 
-            
+
             />
         })
     }
-    handleItemChange = event => {
-        this.setState({ item: event.target.value });
+    handleGiftsChange = event => {
+        this.setState({ gifts: event.target.value });
     }
 
 
     handleAreaChange = event => {
-        this.setState({ area: event.target.value });
+        this.setState({ address: event.target.value });
     };
 
 
@@ -56,16 +58,19 @@ class Search extends Component {
     };
 
     handleSearchBtnSubmit = event => {
+
         event.preventDefault();
+        console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
-        //     API.searchWalls({
-        //         item: this.state.item,
-        //         area: this.state.area,
-        //         range: this.state.range
-        //     })
-        //     .then(res => this.loadWalls())
-        //     .catch(err => console.log(err))
-        // }
+        if (this.state.gifts){
+            API.lookForGifts({
+                gifts: this.state.gifts,
+                address: this.state.address,
+                range: this.state.range
+            })
+            .then(res => this.displaySearchResults())
+            .catch(err => console.log(err))
+        }
 
     };
 
@@ -79,15 +84,15 @@ class Search extends Component {
             <div>
                 <Wrapper>
                     <SearchWall
-                        handleItemChange={this.handleItemChange}
+                        handleGiftsChange={this.handleGiftsChange}
                         handleAreaChange={this.handleAreaChange}
                         handleRangeChange={this.handleRangeChange}
                         handleSearchBtnSubmit={this.handleSearchBtnSubmit}
                         displaySearchResults={this.displaySearchResults}
-                      
-                        />
+
+                    />
                     <SearchResults
-                        
+
                         results={this.state.results}
                     />
                     {/* <MakeRequest /> */}
