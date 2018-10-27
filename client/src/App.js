@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //////////////Import Pages///////////////////
 
-// import Main from "./pages/Main";
-// import Search from "./pages/Search";
+import Main from "./pages/Main";
+import Search from "./pages/Search";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import DashboardPage from "./pages/Dashboard";
@@ -28,8 +28,8 @@ const App = () => (
       <Navbar />
       <Wrapper>
 
-        {/* <Route exact path="/" component={Main} /> */}
-        {/* <Route exact path="/search" component={Search} /> */}
+        <Route exact path="/" component={Main} />
+        <Route exact path="/search" component={Search} />
         <Route exact path="/dashboard" component={DashboardPage} />
         {/* <Route exact path="/donerPage" component={DonerPage} /> */}
         <Route exact path="/signIn" component={SignIn} />

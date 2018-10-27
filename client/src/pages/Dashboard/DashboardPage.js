@@ -88,7 +88,8 @@ class DashboardPage extends Component {
     this.setState({gifts: data.gifts});
 };
 
-updateWall() {
+updateWall(e) {
+  // e.preventDefault();
   axios({
     method: 'post',
     url: 'walls/update',
@@ -115,6 +116,7 @@ updateWall() {
 }
 
 addClicked(e) {
+  e.preventDefault();
   let itemClicked = e.target.id;
   let currentState = this.state[itemClicked];
   currentState.push("");
