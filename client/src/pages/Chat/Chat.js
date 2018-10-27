@@ -10,6 +10,10 @@ import "./Chat.css";
     {
         senderId: "aparajita",
         text: "Yes, it is!"
+    }, 
+    {   
+        senderId: "aboozar",
+        text: "great I'll pick it up today!"
     }
     ];
 
