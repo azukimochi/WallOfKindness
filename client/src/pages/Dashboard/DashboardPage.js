@@ -89,7 +89,7 @@ class DashboardPage extends Component {
 };
 
 updateWall(e) {
-  // e.preventDefault();
+  e.preventDefault();
   axios({
     method: 'post',
     url: 'walls/update',
@@ -124,6 +124,7 @@ addClicked(e) {
 };
 
 removeClicked(e) {
+  e.preventDefault();
   let itemClicked = e.target.dataset.attribute;
   let itemGroup = e.target.dataset.group;
   let currentState = this.state[itemGroup];
