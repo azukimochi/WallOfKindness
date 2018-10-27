@@ -1,5 +1,6 @@
 import React from 'react'; 
 import  MessageList  from '../../components/Chat/MessageList'
+import "./Chat.css";
 
     const DUMMY_DATA = [
     {
@@ -30,3 +31,5 @@ class Chat extends React.Component {
         )
     }
 }
+
+export default Chat; 
