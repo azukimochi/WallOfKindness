@@ -25,6 +25,10 @@ class SignUp extends Component {
       password_confirm: this.state.password_confirm
     };
     this.props.registerUser(user, this.props.history);
+
+    // this.setState({
+    //   isAuthentication: !this.state.isAuthenticated
+    // })
   };
 
   // componentDidMount() {
