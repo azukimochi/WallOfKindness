@@ -15,8 +15,8 @@ const wallSeed = [
     userName: "aboozarmojdeh",
     email: "angel1@wallofkindness.com",
     isAngle: false,
-    wallName: "",
-    category: ["Breads, rolls, biscuits", "tarts"],
+    wallName: "Love",
+    category: ["Breads"],
     gifts: ["Apple tarts"],
     streetAddress1: "9471 yonge street",
     streetAddress2: "Apt. 5",
@@ -28,13 +28,34 @@ const wallSeed = [
     latitude: 43.88493,
     phoneNumber: "647-555-55555",
     dateAdded: new Date(Date.now())
+  },
+  {
+    firstName: "John",
+    middleName: "Johny",
+    lastName: "Mckollin",
+    userName: "johnMc",
+    email: "angel2@wallofkindness.com",
+    isAngle: false,
+    wallName: "Loving people",
+    category: ["Clothes"],
+    gifts: ["T-Shirt"],
+    streetAddress1: "9472 yonge street",
+    streetAddress2: "Apt. 5",
+    city: "richmondhill",
+    stateOrProvince: "ON",
+    zipCode: "l4c6z10",
+    county: "Canada",
+    longitude: -78.43039,
+    latitude: 42.88493,
+    phoneNumber: "647-222-2222",
+    dateAdded: new Date(Date.now())
   }
 ];
 
 db.Walls.remove({})
   .then(() => db.Walls.collection.insertMany(wallSeed))
   .then(data => {
-    console.log(data.insertedIds.length + " records inserted!");
+    console.log(data.result.n + " records inserted!");
     process.exit(0);
   })
   .catch(err => {

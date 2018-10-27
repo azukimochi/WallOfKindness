@@ -1,7 +1,6 @@
 module.exports = {
 	Walls: require("./Walls"),
-	guestMessage: require("./guestMessage"),
-	Category: require("./Category"),
-	SavedSearches: require("./SavedSearches"),
-	SavedAngels: require("./SavedAngels")
+	// guestMessage: require("./guestMessage"),
+	// SavedAngels: require("./SavedAngels"),
+	// Users:require("./Users")
 };
