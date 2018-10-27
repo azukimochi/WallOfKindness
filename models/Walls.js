@@ -7,7 +7,7 @@ const wallSchema = new Schema({
   lastName: { type: String, required: false },
   userName: { type: String, required: true, index: { unique: true } },
   email: { type: String, required: true, index: { unique: true } },
-  isAngel: { type: Boolean, default: false },
+  isDonor: { type: Boolean, default: false },
   wallName: { type: String, required: false },
   category: [{ type: String, required: false }],
   gifts: [{ type: String }],

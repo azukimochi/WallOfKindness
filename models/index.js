@@ -1,6 +1,6 @@
 module.exports = {
 	Walls: require("./Walls"),
 	// guestMessage: require("./guestMessage"),
-	// SavedAngels: require("./SavedAngels"),
+	// SavedDonors: require("./SavedDonors"),
 	// Users:require("./Users")
 };
