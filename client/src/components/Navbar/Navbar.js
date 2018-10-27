@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import { NavLink, Link } from "react-router-dom";
 import "./Navbar.css";
 
+
 class NavBar extends Component {
   // const {isAuthenticated, user} = this.props.auth;
   
   render(){
     // const {isAuthenticated, user} = this.props.auth;
-     const isAuthenticated= false
+     const isAuthenticated= true
     
 
     const authPages = (
