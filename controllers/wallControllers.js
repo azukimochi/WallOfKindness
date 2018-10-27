@@ -7,7 +7,7 @@ module.exports = {
   // Angle Routes:
   //==========================================
 
-  findAllAngles: function(req, res) {
+  findAllAngels: function(req, res) {
     db.Walls
       .find({isAngle: true})
       .sort({wallName: 1 })
