@@ -129,11 +129,14 @@ class WallBody extends Component {
 
   render() {
     let categories = this.props.categories.map((item, index) => (
-        <li><input data-group="categories" data-attribute={index} onChange={this.props.inputChangeHandler} type="text" value={item} /><i className="fa fa-trash-o" aria-hidden="true" data-group="categories" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
-      ));
+        <li><input data-group="categories" data-attribute={index} onChange={this.props.inputChangeHandler} type="text" value={item} />
+        <i className="fas fa-trash-alt" aria-hidden="true" data-group="categories" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
+       
+ ));
   
       let gifts = this.props.gifts.map((item, index) => (
-        <li><input data-attribute={index} data-group="gifts" onChange={this.props.inputChangeHandler} type="text" value={item} /><i className="fa fa-trash-o" aria-hidden="true" data-group="gifts" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
+        <li><input data-attribute={index} data-group="gifts" onChange={this.props.inputChangeHandler} type="text" value={item} /><br />
+        <i className="fas fa-trash-alt" aria-hidden="true" data-group="gifts" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
       ));
 
 
@@ -144,7 +147,7 @@ class WallBody extends Component {
       <form>
         <Row>
           <Col size="md-6">
-                       <h3 style={{textAlign:"center"}}>Welcome, First Name{this.props.angel}</h3>
+                       <h3 style={{textAlign:"center"}}>Welcome, First Name{this.props.donor}</h3>
             {/* <form> */}
             <Input
                 // value={this.props.names.firstName}
@@ -259,7 +262,7 @@ class WallBody extends Component {
           <Col size="md-6 sm-12">
 
           <Jumbotron>
-            <h5>{`Angel Name: ${this.props.firstName} ${this.props.lastName}`}</h5>
+            <h5>{`Donor Name: ${this.props.firstName} ${this.props.lastName}`}</h5>
             <h5>{`Wall Name: ${this.props.wallName}`}</h5>
             <h5>{`Email: ${this.props.email} `}</h5>
             <h5>{`Address: ${this.props.streetAddress1}, ${this.props.city}, ${this.props.state}, ${this.props.zipCode} `}</h5>

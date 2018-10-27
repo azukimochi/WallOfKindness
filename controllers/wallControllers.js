@@ -4,12 +4,12 @@ module.exports = {
 
 
     //==========================================
-  // Angel Routes:
+  // Donor Routes:
   //==========================================
 
-  findAllAngels: function(req, res) {
+  findAllDonors: function(req, res) {
     db.Walls
-      .find({isAngel: true})
+      .find({isDonor: true})
       .sort({wallName: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
