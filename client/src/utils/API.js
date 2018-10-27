@@ -1,9 +1,15 @@
 import axios from "axios";
 
+
 export default {
   // Gets all books
-  getBooks: function() {
-    return axios.get("/api/books");
+  lookForGifts: function(searchParams) {
+    // return axios.get("/api/searchGifts");
+    return axios.get("/api/walls/searchGifts?gifts=" + searchParams.gifts + "&area=" + searchParams.address + "&range=" + searchParams.range)
+    .catch(function(error){
+      console.log(error);
+    })
+    
   },
   // Gets the book with the given id
   getBook: function(id) {
@@ -18,3 +24,9 @@ export default {
     return axios.post("/api/books", bookData);
   }
 };
+
+function add (a,b){
+  return a.num; // return 'a'
+}
+
+add({num: 1, letter: 'a'})
