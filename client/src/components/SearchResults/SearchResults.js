@@ -3,21 +3,23 @@ import "./SearchResults.css";
 
 
 const SearchResults = props => (
-    <ul className="list-group search-results">
-        {/* <h2> Results</h2> */}
-        {props.results.map(result => (
-            <li key={result} className="list-group-item">
-                <h4>Gifts: {props.gifts}</h4>
-                <p> Wall: {props.wallName}</p>
-                <p> Doner: {props.donor}</p>
-                <p> Address: {props.streetAddress1}</p>
-                <button className="btn btn-primary">Request</button>
-                {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
-            </li>
-        ))}
-    </ul>
+    <div>
+        <ul className="list-group search-results">
+            {/* <h2> Results</h2> */}
+            {props.results.map(result => (
+                <li key={props.id} className="list-group-item">
+                    <h4>firstName: {props.firstName}</h4>
+                    {/* <p> Wall: {this.props.wallName}</p> */}
+                    {/* <p> email: {this.props.email}</p> */}
+                    {/* <p> zipcode: {this.props.zipCode}</p> */}
+                    <button className="btn btn-primary">Request</button>
+                    {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
+                </li>
+              ))}
+        </ul>
+    </div>
 
-  
+
 );
 
 export default SearchResults;

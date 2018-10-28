@@ -45,12 +45,19 @@ module.exports = {
   },
 
   findAllGifts: function (req, res) {
-    console.log(req.query);
-    db.Walls
-      .find({ gifts: req.body.gifts })
-      .sort({ wallName: 1 })
-      .then(dbModel => res.json(dbModel))
+    // console.log( req.query);
+
+      db.Walls
+      .find({gifts:req.query.gifts}, {"firstName":1, "wallName" : 1, "email": 1, "zipCode": 1})
+    
+      // .sort({ wallName: 1 })
+      .then(dbModel => 
+        // console.log(dbModel),
+        res.json(dbModel))
       .catch(err => res.status(422).json(err));
+        
+
+    
   },
 
 };
