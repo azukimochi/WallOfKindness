@@ -17,7 +17,8 @@ class Search extends Component {
         address: "",
         range: "",
         results: [],
-        sectionTitle: ""
+        sectionTitle: "",
+        limit: null
 
     };
 
@@ -32,11 +33,13 @@ class Search extends Component {
             <SearchResults
                 id={result._id}
                 key={result._id}
-                gifts={result.gifts}
+                // gifts={result.gifts}
                 wallName={result.wallName}
-                donor={result.firstName}
-                address={result.streetAddress1}
-                handleRequestButton={this.handleRequestButton}
+                firstName={result.firstName}
+                email = {result.email}
+                zipCode = {result.zipCode}
+                // address={result.streetAddress1}
+                // handleRequestButton={this.handleRequestButton}
 
 
 
@@ -68,15 +71,35 @@ class Search extends Component {
                 address: this.state.address,
                 range: this.state.range
             })
-            .then(res => this.displaySearchResults())
+            
+            .then(res => {
+                let resultsArray = [];
+                // let finalArray =[];
+                console.log("results:" , res);
+                res.data.forEach(function(element){
+                    console.log(element);
+                    resultsArray.push(element);
+                    
+                });
+                console.log("result array:" , resultsArray);
+                this.setState({results:resultsArray})
+                // resultsArray.map(({firstName, email, zipCode}) => {
+                // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
+                // console.log("final array:" , finalArray);
+                // })
+                // res.data.map(({firstName, email, zipCode}) => {
+            //         resultsArray.push({firstName: firstName, email:email, zipCode:zipCode})
+            //     // });
+            // this.setState(prevState => ({
+            //     results: [...prevState].concat(resultsArray).splice(0, this.state.limit)
+            // }), console.log("golabiiii",this.state.limit))
+         
+            // console.log("state is " + JSON.stringify(this.state));
+            })
             .catch(err => console.log(err))
         }
 
     };
-
-
-
-
 
 
     render() {

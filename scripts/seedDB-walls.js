@@ -38,7 +38,7 @@ const wallSeed = [
     isDonor: false,
     wallName: "Loving people",
     category: ["Clothes"],
-    gifts: ["T-Shirt"],
+    gifts: ["Apple tarts"],
     streetAddress1: "9472 yonge street",
     streetAddress2: "Apt. 5",
     city: "richmondhill",
