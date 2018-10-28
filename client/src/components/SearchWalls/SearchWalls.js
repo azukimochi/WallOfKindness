@@ -11,8 +11,8 @@ const SearchWall = props => (
                 <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
                     <input
-                        onChange={props.handleItemChange}
-                        name="item"
+                        onChange={props.handleGiftsChange}
+                        name="gifts"
                         type="text"
                         className="searchItem"
                         placeholder="e.g.Rice, Pasta, T-shirt"
@@ -23,7 +23,7 @@ const SearchWall = props => (
                     <label htmlFor="area">Area</label><br />
                     <input
                         onChange={props.handleAreaChange}
-                        name="area"
+                        name="address"
                         type="text"
                         className="searchArea"
                         placeholder="Enter address or zip code"
