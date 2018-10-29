@@ -3,15 +3,19 @@ import "./SearchResults.css";
 
 
 const SearchResults = props => (
+    
     <div>
         <ul className="list-group search-results">
             {/* <h2> Results</h2> */}
+            {console.log("props is:",props)}
             {props.results.map(result => (
-                <li key={props.id} className="list-group-item">
-                    <h4>firstName: {props.firstName}</h4>
-                    {/* <p> Wall: {this.props.wallName}</p> */}
-                    {/* <p> email: {this.props.email}</p> */}
-                    {/* <p> zipcode: {this.props.zipCode}</p> */}
+                
+                <li key={result.id} className="list-group-item">
+             
+                    <h4>firstName: {result.firstName}</h4>
+                    <p> Wall: {result.wallName}</p>
+                    <p> email: {result.email}</p>
+                    <p> zipcode: {result.zipCode}</p>
                     <button className="btn btn-primary">Request</button>
                     {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
                 </li>
