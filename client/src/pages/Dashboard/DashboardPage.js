@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
+// import DeleteBtn from "../../components/DeleteBtn";
+// import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+// import { Link } from "react-router-dom";
+// import { Col, Row, Container } from "../../components/Grid";
+// import { List, ListItem } from "../../components/List";
+// import { Input, TextArea, FormBtn } from "../../components/Form";
 import axios from 'axios';
-import Autocomplete from  'react-autocomplete';
-import { giftTypeStock, matchGiftType } from './dataGiftType';
-import { giftNameStock, matchGiftName } from './dataGiftName';
+// import Autocomplete from  'react-autocomplete';
+// import { giftTypeStock, matchGiftType } from './dataGiftType';
+// import { giftNameStock, matchGiftName } from './dataGiftName';
 
-import './autocomplete.css';
+// import './autocomplete.css';
 import Dashboard from './Dashboard.js';
 class DashboardPage extends Component {
   state = {
@@ -21,16 +21,16 @@ class DashboardPage extends Component {
     user: {},
     names:{
       firstName:'',
-      middleNmae:'',
+      // middleNmae:'',
       lastName:''
     },
     address: {
-      streetAddress1: '',
-      streetAddress2: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      phoneNumber:''
+      // streetAddress1: '',
+      // streetAddress2: '',
+      // city: '',
+      // state: '',
+      zipCode: ''
+      // phoneNumber:''
     },
     categories: [],
     gifts: [],
@@ -41,48 +41,62 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
-    this.loadWall();
+    // this.loadWall();
   }
 
 
 
-  loadWall = () => {
-    // API.getBooks()
-    //   .then(res =>
-    //     this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-    //   )
-    //   .catch(err => console.log(err));
-    console.log("going to load user");
-    axios({
-      method: 'post',
-      url: 'walls/load',
-      params: {
-        id: this.state.user.email
-      }
-    })
-    .then((response) => {
-      console.log(response);
-      this.loadReponseData(response.data[0]);
-    })
-  };
+  // loadWall = () => {
+  //   // e.preventDefault();
+  //   console.log(this.state);
+  
+  //   console.log(this.state.gifts);
+  //   // if (this.state.item && this.state.area && this.state.range){
+    
+  //       // API.saveWallInfo({
+  //         API.loadWallInfo({
+  //         id : this.state.user.email,
+  //         firstName:this.state.names.firstName,
+  //         // middleName:this.state.names.middleName,
+  //         lastName:this.state.names.lastName,
+  //         // streetAddress1 : this.state.address.streetAddress1,
+  //         // streetAddress2 : this.state.address.streetAddress2,
+  //         city : this.state.address.city,
+  //         // state : this.state.address.state,
+  //         zipCode : this.state.address.zipCode,
+  //         category : this.state.categories,
+  //         gifts: this.state.gifts,
+  //         wallName: this.state.wall.wallName
+  
+  //       })
+             
+  
+     
+  //   .then((response) => {
+  //     console.log(response.data);
+  //     this.loadReponseData(response.data);
+  //   })
+  
+  // }
+  
 
   loadReponseData(data){
     this.setState({
       names:{
         firstName:data.firstName,
-        middleNmae:data.middleNmae,
+        // middleNmae:data.middleNmae,
         lastName:data.lastName
 
       }
     });
     this.setState({
       address:{
-        streetAddress1: data.streetAddress1,
-        streetAddress2: data.streetAddress2,
-        city: data.city,
-        state: data.state,
+        // streetAddress1: data.streetAddress1,
+        // streetAddress2: data.streetAddress2,
+        // city: data.city,
+        // state: data.state,
         zipCode: data.zipCode,
-        phoneNumber:data.phoneNumber
+        // phoneNumber:data.phoneNumber
     }});
     this.setState({categories: data.category});
     this.setState({gifts: data.gifts});
@@ -90,29 +104,34 @@ class DashboardPage extends Component {
 
 updateWall(e) {
   e.preventDefault();
-  axios({
-    method: 'post',
-    url: 'walls/update',
-    params: {
-      id : this.state.user.email,
-      firstName:this.state.names.firstName,
-      middleName:this.state.names.middleName,
-      lastName:this.state.names.lastName,
-      streetAddress1 : this.state.address.streetAddress1,
-      streetAddress2 : this.state.address.streetAddress2,
-      city : this.state.address.city,
-      state : this.state.address.state,
-      zipCode : this.state.address.zipCode,
-      category : this.state.categories,
-      gifts: this.state.gifts,
-      wallName: this.state.wall.wallName,
-      phoneNumber:this.state.address.phoneNumber
-    }
-  })
+  console.log(this.state);
+
+  console.log(this.state.gifts);
+  // if (this.state.item && this.state.area && this.state.range){
+  
+      API.saveWallInfo({
+        id : this.state.user.email,
+        firstName:this.state.names.firstName,
+        // middleName:this.state.names.middleName,
+        lastName:this.state.names.lastName,
+        // streetAddress1 : this.state.address.streetAddress1,
+        // streetAddress2 : this.state.address.streetAddress2,
+        city : this.state.address.city,
+        // state : this.state.address.state,
+        zipCode : this.state.address.zipCode,
+        category : this.state.categories,
+        gifts: this.state.gifts,
+        wallName: this.state.wall.wallName
+
+      })
+           
+
+   
   .then((response) => {
     console.log(response.data);
     this.loadReponseData(response.data);
   })
+
 }
 
 addClicked(e) {
@@ -162,7 +181,7 @@ itemChange(e) {
       categories={this.state.categories} 
       gifts={this.state.gifts} 
       wallName={this.state.wall.wallName} 
-      btnClickHandler={() => {this.updateWall()}} 
+      btnClickHandler={(e) => {this.updateWall(e)}} 
       addClick={(e) => {this.addClicked(e)}} 
       removeClick={(e) => {this.removeClicked(e)}} 
       itemChanged={(e) => {this.itemChange(e)}} 
