@@ -145,7 +145,7 @@ class WallBody extends Component {
               <Col size="md-6 sm-12">
           {/* <h5>Type of Gift:</h5> */}
 
- <Autocomplete
+ {/* <Autocomplete
           value={ this.state.giftType }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -166,11 +166,12 @@ class WallBody extends Component {
               { item.name }
             </div>
           )}
-        />
-<button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add</button>
+          
+        /> */}
+<button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add Categories</button>
               <ul>
 
-               {this.state.giftType} {/* for testing */}
+               {/* {this.state.giftType} for testing */}
                 {categories}
               </ul>
               <br />
@@ -178,7 +179,7 @@ class WallBody extends Component {
               <Col size="md-6 sm-12">
 
                {/* <h5 className="MType">Gift Name:</h5> */}
-               <Autocomplete
+               {/* <Autocomplete
           value={ this.state.giftName }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Name of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -199,8 +200,8 @@ class WallBody extends Component {
               { item.name }
             </div>
           )}
-        />
-        <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add</button>
+        /> */}
+        <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add Gifts</button>
 
               <ul>
               {this.state.giftName} {/* for testing */}

@@ -74,7 +74,7 @@ class DashboardPage extends Component {
      
   //   .then((response) => {
   //     console.log(response.data);
-  //     this.loadReponseData(response.data);
+  //     this.loadReponseData(response.data[0]);
   //   })
   
   // }
@@ -134,21 +134,28 @@ updateWall(e) {
 
 }
 
-addClicked(e) {
+addClicked=(e)=> {
   e.preventDefault();
+  console.log("e.target",e.target)
   let itemClicked = e.target.id;
+
   let currentState = this.state[itemClicked];
+  console.log("itemClicked",itemClicked )
+  console.log("current state",currentState )
   currentState.push("");
+  console.log("current state",currentState )
   this.setState({itemClicked: currentState});
+  
+  
 };
 
 removeClicked(e) {
   e.preventDefault();
   let itemClicked = e.target.dataset.attribute;
-  let itemGroup = e.target.dataset.group;
-  let currentState = this.state[itemGroup];
-  currentState.splice(itemClicked, 1);
-  this.setState({itemGroup: currentState});
+    let itemGroup = e.target.dataset.group;
+    let currentState = this.state[itemGroup];
+    currentState.splice(itemClicked, 1);
+    this.setState({itemGroup: currentState});
 };
 
 

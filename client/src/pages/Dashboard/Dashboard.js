@@ -8,8 +8,8 @@ const Dashboard = ({ secretData, user, gifts, categories, wallName, address, btn
   <WallBody donor={user.name} gifts={gifts} categories={categories} address={address} email={user.email} addGiftBtnClick={addClick} addCategoryBtnClick={addClick} removeClickHandler={removeClick} submitBtnClick={btnClickHandler} inputChangeHandler={itemChanged} />
 );
 
-Dashboard.propTypes = {
-  secretData: PropTypes.string.isRequired
-};
+// Dashboard.propTypes = {
+//   secretData: PropTypes.string.isRequired
+// };
 
 export default Dashboard;
