@@ -3,7 +3,7 @@ import MessageList  from '../../components/Chat/MessageList'
 import { Title } from "../../components/Chat/Title"
 import { Chatkit, ChatManager, TokenProvider } from '@pusher/chatkit'
 import "./Chat.css";
-import SendMessageForm from '../SendMessageForm'
+import SendMessageForm from './SendMessageForm'
 
 
 const instanceLocator = 'v1:us1:eb4922a9-2084-4a4f-9ef7-a77080e3c804'
@@ -29,10 +29,13 @@ const roomId = 19371666;
 
 class Chat extends React.Component {
 
-state = { 
-    messages: []
-}
-
+    constructor() {
+        super()
+        this.state = {
+            messages: []
+        }
+        this.sendMessage = this.sendMessage.bind(this)
+    } 
 
     componentDidMount() {
         const chatManager = new ChatManager({
@@ -46,6 +49,7 @@ state = {
 
     chatManager.connect()
     .then(currentUser => {
+        this.currentUser = currentUser
         currentUser.subscribeToRoom({
         roomId: roomId, 
         hooks: {
@@ -61,7 +65,7 @@ state = {
 
     sendMessage(text) {
         this.currentUser.sendMessage({
-            text, 
+            text: text, 
             roomId: roomId
         })
     }

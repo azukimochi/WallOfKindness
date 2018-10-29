@@ -1,14 +1,19 @@
 import React from 'react'
 
 class SendMessageForm extends React.Component {
-
-    state = {
-        messages: []
-    }
+constructor() {
+  super()
+  this.state = {
+    message: ''
+  }
+  this.handleChange = this.handleChange.bind(this)
+  this.handleSubmit = this.handleSubmit.bind(this)
+}
+  
 
     handleChange(e) {
         this.setState({
-          messages: e.target.value
+          message: e.target.value
         })
       }
 
@@ -16,7 +21,7 @@ class SendMessageForm extends React.Component {
         e.preventDefault()
         this.props.sendMessage(this.state.message)
         this.setState({
-            messages: []
+            message: []
         })
     }
   render() {
@@ -27,7 +32,7 @@ class SendMessageForm extends React.Component {
         <input 
         onChange={this.handleChange}
         value={this.state.message}
-        placeholder="Type Your Message Here"
+        placeholder="Enter Message"
         type="text"/>
         
       </form>   
