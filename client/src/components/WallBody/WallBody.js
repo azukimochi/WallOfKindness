@@ -22,8 +22,12 @@ class WallBody extends Component {
 
 
   render() {
+
+
+    
     let categories = this.props.categories.map((item, index) => (
-        <li><input data-group="categories" data-attribute={index} onChange={this.props.inputChangeHandler} type="text" value={item} />
+       
+      <li><input data-group="categories" data-attribute={index} onChange={this.props.inputChangeHandler} type="text" value={item} />
         <i className="fas fa-trash-alt" aria-hidden="true" data-group="categories" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
        
  ));
@@ -145,7 +149,7 @@ class WallBody extends Component {
               <Col size="md-6 sm-12">
           {/* <h5>Type of Gift:</h5> */}
 
- {/* <Autocomplete
+ <Autocomplete
           value={ this.state.giftType }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -167,13 +171,13 @@ class WallBody extends Component {
             </div>
           )}
           
-        /> */}
+        />
 <button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add Categories</button>
-              <ul>
+              <ol>
 
                {/* {this.state.giftType} for testing */}
                 {categories}
-              </ul>
+              </ol>
               <br />
               </Col>
               <Col size="md-6 sm-12">
@@ -203,10 +207,10 @@ class WallBody extends Component {
         /> */}
         <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add Gifts</button>
 
-              <ul>
+              <ol>
               {this.state.giftName} {/* for testing */}
               {gifts}
-              </ul>
+              </ol>
               </Col>
           
           
