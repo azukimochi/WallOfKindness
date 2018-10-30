@@ -46,38 +46,38 @@ class DashboardPage extends Component {
 
 
 
-  // loadWall = () => {
-  //   // e.preventDefault();
-  //   console.log(this.state);
+  loadWall = () => {
+    // e.preventDefault();
+    console.log(this.state);
   
-  //   console.log(this.state.gifts);
-  //   // if (this.state.item && this.state.area && this.state.range){
+    console.log(this.state.gifts);
+    // if (this.state.item && this.state.area && this.state.range){
     
-  //       // API.saveWallInfo({
-  //         API.loadWallInfo({
-  //         id : this.state.user.email,
-  //         firstName:this.state.names.firstName,
-  //         // middleName:this.state.names.middleName,
-  //         lastName:this.state.names.lastName,
-  //         // streetAddress1 : this.state.address.streetAddress1,
-  //         // streetAddress2 : this.state.address.streetAddress2,
-  //         city : this.state.address.city,
-  //         // state : this.state.address.state,
-  //         zipCode : this.state.address.zipCode,
-  //         category : this.state.categories,
-  //         gifts: this.state.gifts,
-  //         wallName: this.state.wall.wallName
+        // API.saveWallInfo({
+          API.loadWallInfo({
+          id : this.state.user.email,
+          firstName:this.state.names.firstName,
+          // middleName:this.state.names.middleName,
+          lastName:this.state.names.lastName,
+          // streetAddress1 : this.state.address.streetAddress1,
+          // streetAddress2 : this.state.address.streetAddress2,
+          city : this.state.address.city,
+          // state : this.state.address.state,
+          zipCode : this.state.address.zipCode,
+          category : this.state.categories,
+          gifts: this.state.gifts,
+          wallName: this.state.wall.wallName
   
-  //       })
+        })
              
   
      
-  //   .then((response) => {
-  //     console.log(response.data);
-  //     this.loadReponseData(response.data[0]);
-  //   })
+    .then((response) => {
+      console.log(response.data);
+      this.loadReponseData(response.data[0]);
+    })
   
-  // }
+  }
   
 
   loadReponseData(data){
@@ -106,7 +106,7 @@ updateWall(e) {
   e.preventDefault();
   console.log(this.state);
 
-  console.log(this.state.gifts);
+  // console.log(this.state.gifts);
   // if (this.state.item && this.state.area && this.state.range){
   
       API.saveWallInfo({
@@ -145,8 +145,7 @@ addClicked=(e)=> {
   currentState.push("");
   console.log("current state",currentState )
   this.setState({itemClicked: currentState});
-  
-  
+    
 };
 
 removeClicked(e) {
