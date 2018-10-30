@@ -16,18 +16,14 @@ class Search extends Component {
         gifts: "",
         address: "",
         range: "",
+        errorMessage: "",
         results: [],
         sectionTitle: "",
-        limit: null
-
+        limit: null,
+        hasSearched:false
     };
 
-    // componentDidMount(){
-    //     this.loadWalls();
-    // };
-    // loadWalls = () => {
-    //     API.
-    // }
+
     displaySearchResults = () => {
         return this.state.results.map(result => {
             if(result){
@@ -52,6 +48,11 @@ class Search extends Component {
 
         })
     }
+
+    handleErrorMessage = () => {
+        this.setState({errorMessage: "Please fill in all fields before searching."})
+        console.log(this.state.errorMessage);
+    }
     handleGiftsChange = event => {
         this.setState({ gifts: event.target.value });
     }
@@ -69,7 +70,7 @@ class Search extends Component {
     handleSearchBtnSubmit = event => {
 
         event.preventDefault();
-        console.log(this.state.gifts);
+        // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
         if (this.state.gifts){
             API.lookForGifts({
@@ -80,7 +81,6 @@ class Search extends Component {
             
             .then(res => {
                 let resultsArray = [];
-                // let finalArray =[];
                 console.log("results:" , res);
                 res.data.forEach(function(element){
                     console.log(element);
@@ -89,6 +89,17 @@ class Search extends Component {
                 });
                 console.log("result array:" , resultsArray);
                 this.setState({results:resultsArray})
+                // if (resultsArray.length === 0){
+                //     let resultState = this.state.results.push("Sorry. This item is not available.");
+                //     this.setState({results:resultState})
+                //     
+                //     console.log(this.state.results);
+                    
+                // }
+                // else {
+                // }
+
+
                 // resultsArray.map(({firstName, email, zipCode}) => {
                 // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
                 // console.log("final array:" , finalArray);
@@ -104,6 +115,15 @@ class Search extends Component {
             })
             .catch(err => console.log(err))
         }
+        if (this.state.gifts === "" || this.state.address === "" || this.state.range === ""){
+            this. handleErrorMessage();
+            console.log("working");
+            
+        }  
+        
+        this.setState({
+            hasSearched: true
+        })
 
     };
 
@@ -118,12 +138,24 @@ class Search extends Component {
                         handleRangeChange={this.handleRangeChange}
                         handleSearchBtnSubmit={this.handleSearchBtnSubmit}
                         displaySearchResults={this.displaySearchResults}
+                        errorMessage={this.state.errorMessage}
+
 
                     />
+
+                { this.state.hasSearched ? 
+                (
                     <SearchResults
 
                         results={this.state.results}
+                    
                     />
+                )
+                :
+                
+                    <h1>welcome!</h1>
+                
+                }
                     {/* <MakeRequest /> */}
                 </Wrapper>
 
