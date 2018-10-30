@@ -26,7 +26,9 @@ class Search extends Component {
 
     displaySearchResults = () => {
         return this.state.results.map(result => {
-            <SearchResults
+            if(result){
+           <SearchResults
+               
                 id={result._id}
                 key={result._id}
                 // gifts={result.gifts}
@@ -37,9 +39,13 @@ class Search extends Component {
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
 
-
+               
 
             />
+            }
+           
+
+
         })
     }
 

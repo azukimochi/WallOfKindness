@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
+// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
-import { Link } from "react-router-dom";
+// import API from "../../utils/API";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
+// import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
-import axios from 'axios';
+// import axios from 'axios';
 import Autocomplete from  'react-autocomplete';
 import { giftTypeStock, matchGiftType } from './dataGiftType';
 import { giftNameStock, matchGiftName } from './dataGiftName';
 
 import './autocomplete.css';
-import Dashboard from './Dashboard.js';
+// import Dashboard from './Dashboard.js';
 class WallBody extends Component {
   state = {
    giftType: "",
@@ -20,112 +20,6 @@ class WallBody extends Component {
        
   };
 
-//   componentDidMount() {
-//     this.loadWall();
-//   }
-
-
-
-//   loadWall = () => {
-//     // API.getBooks()
-//     //   .then(res =>
-//     //     this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-//     //   )
-//     //   .catch(err => console.log(err));
-//     console.log("going to load user");
-//     axios({
-//       method: 'post',
-//       url: 'walls/load',
-//       params: {
-//         id: this.state.user.email
-//       }
-//     })
-//     .then((response) => {
-//       console.log(response);
-//       this.loadReponseData(response.data[0]);
-//     })
-//   };
-
-//   loadReponseData(data){
-//     this.setState({
-//       address:{
-//         streetAddress1: data.streetAddress1,
-//         streetAddress2: data.streetAddress2,
-//         city: data.city,
-//         state: data.state,
-//         zipCode: data.zipCode
-//     }});
-//     this.setState({categories: data.category});
-//     this.setState({gifts: data.inventory});
-// };
-
-// updateWall() {
-//   axios({
-//     method: 'post',
-//     url: 'walls/update',
-//     params: {
-//       id : this.state.user.email,
-//       streetAddress1 : this.state.address.streetAddress1,
-//       streetAddress2 : this.state.address.streetAddress2,
-//       city : this.state.address.city,
-//       state : this.state.address.state,
-//       zipCode : this.state.address.zipCode,
-//       category : this.state.categories,
-//       inventory: this.state.goods,
-//       businessName: this.state.shop.businessName
-//     }
-//   })
-//   .then((response) => {
-//     console.log(response.data);
-//     this.loadReponseData(response.data);
-//   })
-// }
-
-// addClicked(e) {
-//   let itemClicked = e.target.id;
-//   let currentState = this.state[itemClicked];
-//   currentState.push("");
-//   this.setState({itemClicked: currentState});
-// };
-
-// removeClicked(e) {
-//   let itemClicked = e.target.dataset.attribute;
-//   let itemGroup = e.target.dataset.group;
-//   let currentState = this.state[itemGroup];
-//   currentState.splice(itemClicked, 1);
-//   this.setState({itemGroup: currentState});
-// };
-
-
-// itemChange(e) {
-//   let itemToChange = e.target.dataset.attribute;
-//   let itemGroup = e.target.dataset.group;
-//   let currentState = this.state[itemGroup];
-//   currentState[itemToChange] = e.target.value;
-//   this.setState({itemGroup: currentState});
-// };
-
- 
-
-//   handleInputChange = event => {
-//     const { name, value } = event.target;
-//     this.setState({
-//       [name]: value
-//     });
-//   };
-
-//   handleFormSubmit = event => {
-//     event.preventDefault();
-//     if (this.state.title && this.state.author) {
-//       API.saveBook({
-//         title: this.state.title,
-//         author: this.state.author,
-//         synopsis: this.state.synopsis
-//       })
-//         .then(res => this.loadBooks())
-//         .catch(err => console.log(err));
-//     }
-//   };
 
   render() {
     let categories = this.props.categories.map((item, index) => (
@@ -158,7 +52,7 @@ class WallBody extends Component {
                 data-attribute="firstName"
                 id="UserfirstName"
               />
-              <Input
+              {/* <Input
                 // value={this.props.names.middleName}
                 onChange={this.props.inputChangeHandler}
                 name="middleName"
@@ -166,7 +60,7 @@ class WallBody extends Component {
                 data-group="names" 
                 data-attribute="middleName"
                 id="UsermiddleName"
-              />
+              /> */}
               <Input
                 // value={this.props.names.lastName}
                 onChange={this.props.inputChangeHandler}
@@ -185,7 +79,7 @@ class WallBody extends Component {
                 data-attribute="wallName"
                 id="wallName"
               />
-              <Input
+              {/* <Input
                 // value={this.props.address.streetAddress1}
                 onChange={this.props.inputChangeHandler}
                 name="streetAddress1"
@@ -202,7 +96,7 @@ class WallBody extends Component {
                 data-group="address" 
                 data-attribute="streetAddress2"
                 id="UserAddress"
-              />
+              /> */}
               <Input
                 // value={this.props.address.city}
                 onChange={this.props.inputChangeHandler}
@@ -212,7 +106,7 @@ class WallBody extends Component {
                 data-attribute="city"
                 id="UserAddress"
               />
-              <Input
+              {/* <Input
                 // value={this.props.address.state}
                 onChange={this.props.inputChangeHandler}
                 name="state"
@@ -220,7 +114,7 @@ class WallBody extends Component {
                 data-group="address" 
                 data-attribute="state"
                 id="UserAddress"
-              />
+              /> */}
               <Input
                 // value={this.props.address.zipCode}
                 onChange={this.props.inputChangeHandler}
@@ -239,7 +133,7 @@ class WallBody extends Component {
                 data-attribute="email"
                 id="UserEmail"
               />
-               <Input
+               {/* <Input
                 // value={this.props.address.phoneNumber}
                 onChange={this.props.inputChangeHandler}
                 name="phoneNumber"
@@ -247,31 +141,11 @@ class WallBody extends Component {
                 data-group="address" 
                 data-attribute="phoneNumber"
                 id="UserphoneNumber"
-              />
-              
-              
-              <FormBtn
-              id="updateWallButton"
-                // disabled={!(this.state.author && this.state.title)}
-                onClick={this.props.submitBtnClick}
-              >
-                Update Wall
-              </FormBtn>
-            {/* </form> */}
-          </Col>
-          <Col size="md-6 sm-12">
+              /> */}
+              <Col size="md-6 sm-12">
+          {/* <h5>Type of Gift:</h5> */}
 
-          <Jumbotron>
-            <h5>{`Donor Name: ${this.props.firstName} ${this.props.lastName}`}</h5>
-            <h5>{`Wall Name: ${this.props.wallName}`}</h5>
-            <h5>{`Email: ${this.props.email} `}</h5>
-            <h5>{`Address: ${this.props.streetAddress1}, ${this.props.city}, ${this.props.state}, ${this.props.zipCode} `}</h5>
-          </Jumbotron>
-
-          <Col size="md-6 sm-12">
-          <h5>Type of Gift:</h5>
-
- <Autocomplete
+ {/* <Autocomplete
           value={ this.state.giftType }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -292,19 +166,20 @@ class WallBody extends Component {
               { item.name }
             </div>
           )}
-        />
-<button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add</button>
+          
+        /> */}
+<button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add Categories</button>
               <ul>
 
-               {this.state.giftType} {/* for testing */}
+               {/* {this.state.giftType} for testing */}
                 {categories}
               </ul>
               <br />
               </Col>
               <Col size="md-6 sm-12">
 
-               <h5 className="MType">Gift Name:</h5>
-               <Autocomplete
+               {/* <h5 className="MType">Gift Name:</h5> */}
+               {/* <Autocomplete
           value={ this.state.giftName }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Name of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -325,8 +200,8 @@ class WallBody extends Component {
               { item.name }
             </div>
           )}
-        />
-        <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add</button>
+        /> */}
+        <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add Gifts</button>
 
               <ul>
               {this.state.giftName} {/* for testing */}
@@ -334,6 +209,27 @@ class WallBody extends Component {
               </ul>
               </Col>
           
+          
+              
+              <FormBtn 
+              id="updateWallButton"
+                // disabled={!(this.state.author && this.state.title)}
+                onClick={this.props.submitBtnClick}
+              >
+                Update Wall
+              </FormBtn>
+              <br />
+            {/* </form> */}
+          </Col>
+          <Col size="md-6 sm-12">
+<br />
+          <Jumbotron>
+            <h5>{`Donor Name: ${this.props.firstName} ${this.props.lastName}`}</h5>
+            <h5>{`Wall Name: ${this.props.wallName}`}</h5>
+            <h5>{`Email: ${this.props.email} `}</h5>
+            <h5>{`Address: ${this.props.city}, ${this.props.zipCode} `}</h5>
+          </Jumbotron>
+
            
             
           </Col>
