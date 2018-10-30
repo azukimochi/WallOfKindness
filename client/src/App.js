@@ -39,7 +39,7 @@ const App = () => (
         <Route exact path="/signUp" component={SignUp} />
         {/* <Route component={NoMatch} /> */}
 
-        
+
 
       </Wrapper>
       <Footer />
@@ -48,4 +48,3 @@ const App = () => (
 );
 
 export default App;
-
