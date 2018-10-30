@@ -6,7 +6,7 @@ const SearchWall = props => (
     <div className="searchBox">
         <div className="container">
             <h2 className="searchTitle">Search</h2>
-            <p></p>
+            <p className="errorMessage">{props.errorMessage}</p>
             <div className="row">
                 <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
@@ -56,7 +56,7 @@ const SearchWall = props => (
                 </div>
             </div>
 
-            <div className="row" id="resultsSection">
+            {/* {/* <div className="row" id="resultsSection">
                 <div className="col-lg-12">
                     <div className="panel panel-primary">
                         <div className="panel-heading">
@@ -70,10 +70,10 @@ const SearchWall = props => (
                             {props.displaySearchResults()}
                         </div>
                     </div>
-                </div>
+                </div> 
 
 
-            </div>
+            </div> */}
 
         </div>
     </div>
