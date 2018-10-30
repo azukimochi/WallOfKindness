@@ -24,7 +24,7 @@ const Main = () => (
           <h3>Donate</h3>
           <p>Sign up to make your 'Wall of Kindness' and become a donor. A donee may contact you via messages for more information.</p>
           <a href="signUp"><button className="registerBtn">Register</button></a>
-          <a href="signIn"><button className="signInBtn">Sign-In</button></a>
+          <a href="login"><button className="signInBtn">Sign-In</button></a>
          
           </Col>
         </Row>

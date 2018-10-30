@@ -1,10 +1,8 @@
 {
-  "name": "nytreact",
+  "name": "wall-of-kindness",
   "version": "1.0.0",
-  "description": "Wall of Kindness",
+  "description": "wall-of-kindness",
   "main": "server.js",
-  "author": "",
-  "license": "ISC",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -15,11 +13,12 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "devDependencies": {
-    "concurrently": "^4.0.1",
-    "nodemon": "^1.18.4"
-  },
+  "author": "Aboozar-Aparajita-Marshall-Like",
+  "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^5.0.0",
+    "jsonwebtoken": "^8.1.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
@@ -27,5 +26,9 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.3.4",
     "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
   }
 }

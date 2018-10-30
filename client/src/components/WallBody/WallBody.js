@@ -23,7 +23,7 @@ class WallBody extends Component {
 
   render() {
 
-
+console.log("in propse:",this.props)
     
     let categories = this.props.categories.map((item, index) => (
        
@@ -129,7 +129,7 @@ class WallBody extends Component {
                 id="UserAddress"
               />
               <Input
-                // value={this.props.email}
+                value={this.props.email}
                 onChange={this.props.inputChangeHandler}
                 name="email"
                 placeholder="Email (required)"
