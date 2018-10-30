@@ -7,8 +7,9 @@ import SendMessageForm from './SendMessageForm'
 
 
 const instanceLocator = 'v1:us1:eb4922a9-2084-4a4f-9ef7-a77080e3c804'
-const testToken = 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/eb4922a9-2084-4a4f-9ef7-a77080e3c804/token'
+const token = 'https://us1.pusherplatform.io/services/chatkit_token_provider/v1/eb4922a9-2084-4a4f-9ef7-a77080e3c804/token'
 const username = 'aboozar';
+// const username = 'aparajita'; 
 // const roomId = 19371644; 
 const roomId = 19371666; 
 
@@ -42,7 +43,7 @@ class Chat extends React.Component {
             instanceLocator: instanceLocator, 
             userId: username, 
             tokenProvider: new TokenProvider({
-                url: testToken
+                url: token
             })
         })  
     
@@ -70,7 +71,6 @@ class Chat extends React.Component {
         })
     }
     
-
 
     render() {
         return (
