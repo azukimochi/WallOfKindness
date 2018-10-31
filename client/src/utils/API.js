@@ -22,6 +22,9 @@ export default {
   // Saves wall info to the database
   saveWallInfo: function(wallData) {
     return axios.post("/api/wallsUpdate", wallData);
+  },
+  createNewWall: function(newWallData) {
+    return axios.post("/createWall", newWallData);
   }
   // ,
   // loadWallInfo: function(wallData) {
