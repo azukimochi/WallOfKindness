@@ -8,11 +8,13 @@ const app = express();
 app.use(bodyParser.json());
 
 
+///////this route is for creating new wall after user sign up
+router.route("/createWall").post(wallControllers.createWall);
 
 
 router.route("/searchGifts").get(wallControllers.findAllGifts);
 router.route("/saveWallInfo").post(wallControllers.updateWall);
-// router.route("/loadWallInfo").post(wallControllers.loadWall);
+// router.route("/loadWallInfo").get(wallControllers.loadWall);
 
 
 module.exports = router;

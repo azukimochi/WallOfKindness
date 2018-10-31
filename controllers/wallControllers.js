@@ -15,12 +15,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  // createWall: function (req, res) {
-  //   db.Walls
-  //     .create(req.query)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
+  
+  createWall: function (req, res) {
+    db.Walls
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
   findWallById: function (req, res) {
     db.Walls
