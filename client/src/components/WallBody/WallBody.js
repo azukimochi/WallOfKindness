@@ -23,7 +23,7 @@ class WallBody extends Component {
 
   render() {
 
-
+console.log("in propse:",this.props)
     
     let categories = this.props.categories.map((item, index) => (
        
@@ -129,7 +129,7 @@ class WallBody extends Component {
                 id="UserAddress"
               />
               <Input
-                // value={this.props.email}
+                value={this.props.email}
                 onChange={this.props.inputChangeHandler}
                 name="email"
                 placeholder="Email (required)"
@@ -149,7 +149,7 @@ class WallBody extends Component {
               <Col size="md-6 sm-12">
           {/* <h5>Type of Gift:</h5> */}
 
- <Autocomplete
+ {/* <Autocomplete
           value={ this.state.giftType }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -171,7 +171,7 @@ class WallBody extends Component {
             </div>
           )}
           
-        />
+        /> */}
 <button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add Categories</button>
               <ol>
 

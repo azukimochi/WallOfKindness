@@ -44,7 +44,7 @@ class DashboardPage extends Component {
     // this.loadWall();
   }
 
-
+  
 
   loadWall = () => {
     // e.preventDefault();
@@ -55,7 +55,7 @@ class DashboardPage extends Component {
     
         // API.saveWallInfo({
           API.loadWallInfo({
-          id : this.state.user.email,
+          email : this.state.user.email,
           firstName:this.state.names.firstName,
           // middleName:this.state.names.middleName,
           lastName:this.state.names.lastName,
