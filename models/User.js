@@ -6,11 +6,11 @@ const
 		email: { type: String, required: true, unique: true },
 		password: { type: String, required: true },
 		isDonor: { type: Boolean, default: false },
- 		wallName: { type: String, required: false },
- 		category: [{ type: String, required: false }],
- 		gifts: [{ type: String,required: false }],
-    	city: { type: String, required: false },
-  		zipCode: { type: String, required: false }
+ 		wallName: { type: String, default:'',required: false },
+ 		category: [{ type: String, default:'',required: false }],
+ 		gifts: [{ type: String,default:'',required: false }],
+    	city: { type: String, default:'',required: false },
+  		zipCode: { type: String, default:'',required: false }
 	})
 
 // adds a method to a user document object to create a hashed password

@@ -6,6 +6,8 @@ import API from "../../utils/API";
 // import { Col, Row, Container } from "../../components/Grid";
 // import { List, ListItem } from "../../components/List";
 // import { Input, TextArea, FormBtn } from "../../components/Form";
+import httpClient from '../../httpClient'
+
 import axios from "axios";
 // import Autocomplete from  'react-autocomplete';
 // import { giftTypeStock, matchGiftType } from './dataGiftType';
@@ -15,72 +17,49 @@ import axios from "axios";
 import Dashboard from "./Dashboard.js";
 class DashboardPage extends Component {
   state = {
-    giftType: "",
-    giftName: "",
-    secretData: "",
-    user: {},
-    names: {
-      firstName: "",
-      // middleNmae:'',
-      lastName: ""
-    },
-    address: {
-      // streetAddress1: '',
-      // streetAddress2: '',
-      // city: '',
-      // state: '',
-      zipCode: ""
-      // phoneNumber:''
-    },
-    categories: [],
-    gifts: [],
-    wall: {
-      wallName: "Aboozar"
-    }
+   
+     currentUser: httpClient.getCurrentUser() 
   };
 
   componentDidMount() {
     // this.loadWall();
-    console.log("HELLO");
-    this.setState({
-      wallName: this.state.wall.wallName
-    });
-    console.log(this.wallName);
+    console.log("HELLO", this.state);
+    
   }
 
   loadWall = () => {
     // e.preventDefault();
-    console.log(this.state);
-
-    console.log(this.state.gifts);
-    // if (this.state.item && this.state.area && this.state.range){
-
-    // API.saveWallInfo({
-    API.loadWallInfo({
-      email: this.state.user.email,
-      firstName: this.state.names.firstName,
-      // middleName:this.state.names.middleName,
-      lastName: this.state.names.lastName,
-      // streetAddress1 : this.state.address.streetAddress1,
-      // streetAddress2 : this.state.address.streetAddress2,
-      city: this.state.address.city,
-      // state : this.state.address.state,
-      zipCode: this.state.address.zipCode,
-      category: this.state.categories,
-      gifts: this.state.gifts,
-      wallName: this.state.wall.wallName
-    }).then(response => {
-      console.log(response.data);
-      this.loadReponseData(response.data[0]);
-    });
+    console.log("too load wall",this.state);
+   
+      httpClient.getUserInfo({
+        
+        email: this.state.email,
+       
+        
+      }).then(user => {
+        
+         //   firstName: this.state.names.firstName,
+        //   // middleName:this.state.names.middleName,
+        //   lastName: this.state.names.lastName,
+        //   // streetAddress1 : this.state.address.streetAddress1,
+        //   // streetAddress2 : this.state.address.streetAddress2,
+        //   city: this.state.address.city,
+        //   // state : this.state.address.state,
+        //   zipCode: this.state.address.zipCode,
+        //   category: this.state.categories,
+        //   gifts: this.state.gifts,
+        //   wallName: this.state.wall.wallName
+        console.log("user",user);
+      });
+      
   };
 
-  loadReponseData(data) {
+  loadReponseData(user) {
     this.setState({
       names: {
-        firstName: data.firstName,
+        firstName: user.firstName,
         // middleNmae:data.middleNmae,
-        lastName: data.lastName
+        lastName: user.lastName
       }
     });
     this.setState({
@@ -89,12 +68,12 @@ class DashboardPage extends Component {
         // streetAddress2: data.streetAddress2,
         // city: data.city,
         // state: data.state,
-        zipCode: data.zipCode
+        zipCode: user.zipCode
         // phoneNumber:data.phoneNumber
       }
     });
-    this.setState({ categories: data.category });
-    this.setState({ gifts: data.gifts });
+    this.setState({ categories: user.category });
+    this.setState({ gifts: user.gifts });
   }
 
   updateWall(e) {
@@ -150,13 +129,13 @@ class DashboardPage extends Component {
     return (
       <div>
         <Dashboard
-          secretData={this.state.secretData}
-          user={this.state.user}
-          address={this.state.address}
-          names={this.state.names}
-          categories={this.state.categories}
-          gifts={this.state.gifts}
-          wallName={this.state.wall.wallName}
+         email={this.state.currentUser.email}
+          user={this.state.currentUser.user}
+          name={this.state.currentUser.name}
+          categories={this.state.currentUser.categories}
+          gifts={this.state.currentUser.gifts}
+          wallName={this.state.currentUser.wallName}
+          zipCode={this.state.currentUser.zipCode}
           btnClickHandler={e => {
             this.updateWall(e);
           }}

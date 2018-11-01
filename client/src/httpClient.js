@@ -15,10 +15,17 @@ httpClient.setToken = function(token) {
 
 httpClient.getCurrentUser = function() {
 	const token = this.getToken()
-	console.log(token)
+	const decodedToken=jwtDecode(token)
+	console.log("token:",token)
+	console.log("decoded user ID:",decodedToken)
 	if(token) return jwtDecode(token)
+	
+	
 	return null
+	
 }
+
+
 
 httpClient.logIn = function(credentials) {
 	return this({ method: 'post', url: '/api/users/authenticate', data: credentials })
@@ -33,6 +40,17 @@ httpClient.logIn = function(credentials) {
 			}
 		})
 }
+
+// httpClient.getUserInfo = function(searchParams) {
+// 	// return axios.get("/api/user/" + userId)
+// 		return axios.get("/api/user/")
+// 	.then((res) => {
+// 		console.log('res', res)
+// 	})
+//     .catch(function(error){
+//       console.log(error);
+//     })
+// }
 
 // logIn and signUp functions could be combined into one since the only difference is the url we're sending a request to..
 httpClient.signUp = function(userInfo) {

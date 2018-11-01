@@ -14,88 +14,87 @@ import { giftNameStock, matchGiftName } from "./dataGiftName";
 import "./autocomplete.css";
 // import Dashboard from './Dashboard.js';
 class WallBody extends Component {
-  state = {
-    giftType: "",
-    giftName: "",
-    secretData: "",
-    user: {},
-    names: {
-      firstName: "",
-      // middleNmae:'',
-      lastName: ""
-    },
-    address: {
-      // streetAddress1: '',
-      // streetAddress2: '',
-      // city: '',
-      // state: '',
-      zipCode: ""
-      // phoneNumber:''
-    },
-    categories: [],
-    gifts: [],
-    wall: {
-      wallName: "Aboozar"
-    }
-  };
+  // state = {
+  //   giftType: "",
+  //   giftName: "",
+  //   secretData: "",
+  //   user: {},
+  //   names: {
+  //     firstName: "",
+  //     // middleNmae:'',
+  //     lastName: ""
+  //   },
+  //   address: {
+  //     // streetAddress1: '',
+  //     // streetAddress2: '',
+  //     // city: '',
+  //     // state: '',
+  //     zipCode: ""
+  //     // phoneNumber:''
+  //   },
+  //   categories: [],
+  //   gifts: [],
+  //   wall: {
+  //     wallName: "Aboozar"
+  //   }
+  // };
 
   render() {
     console.log("in propse:", this.props);
 
-    let categories = this.props.categories.map((item, index) => (
-      <li>
-        <input
-          data-group="categories"
-          data-attribute={index}
-          onChange={this.props.inputChangeHandler}
-          type="text"
-          value={item}
-        />
-        <i
-          className="fas fa-trash-alt"
-          aria-hidden="true"
-          data-group="categories"
-          data-attribute={index}
-          onClick={this.props.removeClickHandler}
-        />
-      </li>
-    ));
+    // let categories = this.props.categories.map((item, index) => (
+    //   <li>
+    //     <input
+    //       data-group="categories"
+    //       data-attribute={index}
+    //       onChange={this.props.inputChangeHandler}
+    //       type="text"
+    //       value={item}
+    //     />
+    //     <i
+    //       className="fas fa-trash-alt"
+    //       aria-hidden="true"
+    //       data-group="categories"
+    //       data-attribute={index}
+    //       onClick={this.props.removeClickHandler}
+    //     />
+    //   </li>
+    // ));
 
-    let gifts = this.props.gifts.map((item, index) => (
-      <li>
-        <input
-          data-attribute={index}
-          data-group="gifts"
-          onChange={this.props.inputChangeHandler}
-          type="text"
-          value={item}
-        />
-        <br />
-        <i
-          className="fas fa-trash-alt"
-          aria-hidden="true"
-          data-group="gifts"
-          data-attribute={index}
-          onClick={this.props.removeClickHandler}
-        />
-      </li>
-    ));
-// console.log(props)
+    // let gifts = this.props.gifts.map((item, index) => (
+    //   <li>
+    //     <input
+    //       data-attribute={index}
+    //       data-group="gifts"
+    //       onChange={this.props.inputChangeHandler}
+    //       type="text"
+    //       value={item}
+    //     />
+    //     <br />
+    //     <i
+    //       className="fas fa-trash-alt"
+    //       aria-hidden="true"
+    //       data-group="gifts"
+    //       data-attribute={index}
+    //       onClick={this.props.removeClickHandler}
+    //     />
+    //   </li>
+    // ));
+console.log("aboo and luke",this.props)
     return (
       <Container fluid>
         <form>
           <Row>
             <Col size="md-6">
               <h3 style={{ textAlign: "center" }}>
-                Welcome, First Name
-                {this.props.donor}
+                Welcome, {this.props.donor}
               </h3>
               {/* <form> */}
               <Input
-                // value={this.props.names.firstName}
+                value={this.props.donor}
                 onChange={this.props.inputChangeHandler}
-                name="firstName"
-                placeholder="First Name (required)"
+                name="name"
+                placeholder="Full Name"
                 data-group="names"
                 data-attribute="firstName"
                 id="UserfirstName"
@@ -109,7 +108,7 @@ class WallBody extends Component {
                 data-attribute="middleName"
                 id="UsermiddleName"
               /> */}
-              <Input
+              {/* <Input
                 // value={this.props.names.lastName}
                 onChange={this.props.inputChangeHandler}
                 name="lastName"
@@ -117,13 +116,13 @@ class WallBody extends Component {
                 data-group="names"
                 data-attribute="lastName"
                 id="UserlastName"
-              />
+              /> */}
               <Input
               
-                value={this.state.wall.wallName}
+                value={this.props.wallName}
                 onChange={this.props.inputChangeHandler}
                 name="wallName"
-                placeholder="Wall Name (required)"
+                placeholder="Wall Name"
                 data-group="wall"
                 data-attribute="wallName"
                 id="wallName"
@@ -147,7 +146,7 @@ class WallBody extends Component {
                 id="UserAddress"
               /> */}
               <Input
-                // value={this.props.address.city}
+                value={this.props.city}
                 onChange={this.props.inputChangeHandler}
                 name="city"
                 placeholder="City (required)"
@@ -165,7 +164,7 @@ class WallBody extends Component {
                 id="UserAddress"
               /> */}
               <Input
-                // value={this.props.address.zipCode}
+                value={this.props.zipCode}
                 onChange={this.props.inputChangeHandler}
                 name="zipCode"
                 placeholder="Zip Code (required)"
@@ -226,7 +225,7 @@ class WallBody extends Component {
                 </button>
                 <ol>
                   {/* {this.state.giftType} for testing */}
-                  {categories}
+                  {/* {categories} */}
                 </ol>
                 <br />
               </Col>
@@ -263,8 +262,8 @@ class WallBody extends Component {
                 </button>
 
                 <ol>
-                  {this.state.giftName} {/* for testing */}
-                  {gifts}
+                  {/* {this.state.giftName} for testing */}
+                  {/* {gifts} */}
                 </ol>
               </Col>
 
@@ -281,12 +280,10 @@ class WallBody extends Component {
             <Col size="md-6 sm-12">
               <br />
               <Jumbotron>
-                <h5>{`Donor Name: ${this.props.name} ${
-                  this.props.lastName
-                }`}</h5>
+                <h5>{`Donor Name: ${this.props.donor}`}</h5>
                 <h5>{`Wall Name: ${this.props.wallName}`}</h5>
                 <h5>{`Email: ${this.props.email} `}</h5>
-                <h5>{`Address: ${this.props.city}, ${this.props.zipCode} `}</h5>
+                <h5>{`ZipCode: ${this.props.zipCode} `}</h5>
               </Jumbotron>
             </Col>
           </Row>
