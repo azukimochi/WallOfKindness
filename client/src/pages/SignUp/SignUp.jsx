@@ -1,6 +1,8 @@
 import React from 'react'
 import httpClient from '../../httpClient'
 import API from "../../utils/API";
+// const wallControllers = require("../../controllers/wallControllers");
+// import routes from '../../routes/api'
 // sign up form behaves almost identically to log in form. We could create a flexible Form component to use for both actions, but for now we'll separate the two:
 class SignUp extends React.Component {
 	state = {
@@ -28,29 +30,10 @@ class SignUp extends React.Component {
 			}
 			
 		})
-		this.createWall()
+		
 		// console.log("ino beggo",this.state.fields)
 	}
 
-	createWall=()=>{
-		console.log("ino beggo",this.state.fields)
-		API.createNewWall({
-			firstName:this.state.fields.name,
-			lastName:"",
-			userName:"",
-			email: this.state.fields.email,
-			isDonor:true,
-			city : "",
-			zipCode : "",
-			category : [],
-			gifts: [],
-			wallName: ""
-	
-		  })
-		.then(() => {
-		  console.log('New Wall Created');
-		})
-	  }
 
 
 	

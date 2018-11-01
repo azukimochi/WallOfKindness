@@ -7,52 +7,96 @@ import { Col, Row, Container } from "../../components/Grid";
 // import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 // import axios from 'axios';
-import Autocomplete from  'react-autocomplete';
-import { giftTypeStock, matchGiftType } from './dataGiftType';
-import { giftNameStock, matchGiftName } from './dataGiftName';
+import Autocomplete from "react-autocomplete";
+import { giftTypeStock, matchGiftType } from "./dataGiftType";
+import { giftNameStock, matchGiftName } from "./dataGiftName";
 
-import './autocomplete.css';
+import "./autocomplete.css";
 // import Dashboard from './Dashboard.js';
 class WallBody extends Component {
   state = {
-   giftType: "",
-    giftName:""
-       
+    giftType: "",
+    giftName: "",
+    secretData: "",
+    user: {},
+    names: {
+      firstName: "",
+      // middleNmae:'',
+      lastName: ""
+    },
+    address: {
+      // streetAddress1: '',
+      // streetAddress2: '',
+      // city: '',
+      // state: '',
+      zipCode: ""
+      // phoneNumber:''
+    },
+    categories: [],
+    gifts: [],
+    wall: {
+      wallName: "Aboozar"
+    }
   };
 
-
   render() {
+    console.log("in propse:", this.props);
 
-console.log("in propse:",this.props)
-    
     let categories = this.props.categories.map((item, index) => (
-       
-      <li><input data-group="categories" data-attribute={index} onChange={this.props.inputChangeHandler} type="text" value={item} />
-        <i className="fas fa-trash-alt" aria-hidden="true" data-group="categories" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
-       
- ));
-  
-      let gifts = this.props.gifts.map((item, index) => (
-        <li><input data-attribute={index} data-group="gifts" onChange={this.props.inputChangeHandler} type="text" value={item} /><br />
-        <i className="fas fa-trash-alt" aria-hidden="true" data-group="gifts" data-attribute={index} onClick={this.props.removeClickHandler}></i></li>
-      ));
+      <li>
+        <input
+          data-group="categories"
+          data-attribute={index}
+          onChange={this.props.inputChangeHandler}
+          type="text"
+          value={item}
+        />
+        <i
+          className="fas fa-trash-alt"
+          aria-hidden="true"
+          data-group="categories"
+          data-attribute={index}
+          onClick={this.props.removeClickHandler}
+        />
+      </li>
+    ));
 
-
+    let gifts = this.props.gifts.map((item, index) => (
+      <li>
+        <input
+          data-attribute={index}
+          data-group="gifts"
+          onChange={this.props.inputChangeHandler}
+          type="text"
+          value={item}
+        />
+        <br />
+        <i
+          className="fas fa-trash-alt"
+          aria-hidden="true"
+          data-group="gifts"
+          data-attribute={index}
+          onClick={this.props.removeClickHandler}
+        />
+      </li>
+    ));
+// console.log(props)
     return (
-
-   
       <Container fluid>
-      <form>
-        <Row>
-          <Col size="md-6">
-                       <h3 style={{textAlign:"center"}}>Welcome, First Name{this.props.donor}</h3>
-            {/* <form> */}
-            <Input
+        <form>
+          <Row>
+            <Col size="md-6">
+              <h3 style={{ textAlign: "center" }}>
+                Welcome, First Name
+                {this.props.donor}
+              </h3>
+              {/* <form> */}
+              <Input
                 // value={this.props.names.firstName}
                 onChange={this.props.inputChangeHandler}
                 name="firstName"
                 placeholder="First Name (required)"
-                data-group="names" 
+                data-group="names"
                 data-attribute="firstName"
                 id="UserfirstName"
               />
@@ -70,16 +114,17 @@ console.log("in propse:",this.props)
                 onChange={this.props.inputChangeHandler}
                 name="lastName"
                 placeholder="Last Name (required)"
-                data-group="names" 
+                data-group="names"
                 data-attribute="lastName"
                 id="UserlastName"
               />
               <Input
-                // value={this.props.wall.wallName}
+              
+                value={this.state.wall.wallName}
                 onChange={this.props.inputChangeHandler}
                 name="wallName"
                 placeholder="Wall Name (required)"
-                data-group="wall" 
+                data-group="wall"
                 data-attribute="wallName"
                 id="wallName"
               />
@@ -106,7 +151,7 @@ console.log("in propse:",this.props)
                 onChange={this.props.inputChangeHandler}
                 name="city"
                 placeholder="City (required)"
-                data-group="address" 
+                data-group="address"
                 data-attribute="city"
                 id="UserAddress"
               />
@@ -124,7 +169,7 @@ console.log("in propse:",this.props)
                 onChange={this.props.inputChangeHandler}
                 name="zipCode"
                 placeholder="Zip Code (required)"
-                data-group="address" 
+                data-group="address"
                 data-attribute="zipCode"
                 id="UserAddress"
               />
@@ -133,11 +178,11 @@ console.log("in propse:",this.props)
                 onChange={this.props.inputChangeHandler}
                 name="email"
                 placeholder="Email (required)"
-                data-group="user" 
+                data-group="user"
                 data-attribute="email"
                 id="UserEmail"
               />
-               {/* <Input
+              {/* <Input
                 // value={this.props.address.phoneNumber}
                 onChange={this.props.inputChangeHandler}
                 name="phoneNumber"
@@ -147,9 +192,9 @@ console.log("in propse:",this.props)
                 id="UserphoneNumber"
               /> */}
               <Col size="md-6 sm-12">
-          {/* <h5>Type of Gift:</h5> */}
+                {/* <h5>Type of Gift:</h5> */}
 
- {/* <Autocomplete
+                {/* <Autocomplete
           value={ this.state.giftType }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -172,18 +217,22 @@ console.log("in propse:",this.props)
           )}
           
         /> */}
-<button id="categories" className="button btn btn-primary" onClick={this.props.addCategoryBtnClick}>Add Categories</button>
-              <ol>
-
-               {/* {this.state.giftType} for testing */}
-                {categories}
-              </ol>
-              <br />
+                <button
+                  id="categories"
+                  className="button btn btn-primary"
+                  onClick={this.props.addCategoryBtnClick}
+                >
+                  Add Categories
+                </button>
+                <ol>
+                  {/* {this.state.giftType} for testing */}
+                  {categories}
+                </ol>
+                <br />
               </Col>
               <Col size="md-6 sm-12">
-
-               {/* <h5 className="MType">Gift Name:</h5> */}
-               {/* <Autocomplete
+                {/* <h5 className="MType">Gift Name:</h5> */}
+                {/* <Autocomplete
           value={ this.state.giftName }
           inputProps={{ id: 'states-autocomplete',placeholder: 'Name of Gift' }}
           wrapperStyle={{ position: 'relative', display: 'inline-block' }}
@@ -205,39 +254,42 @@ console.log("in propse:",this.props)
             </div>
           )}
         /> */}
-        <button id="gifts" className="button btn btn-primary" onClick={this.props.addGiftBtnClick}>Add Gifts</button>
+                <button
+                  id="gifts"
+                  className="button btn btn-primary"
+                  onClick={this.props.addGiftBtnClick}
+                >
+                  Add Gifts
+                </button>
 
-              <ol>
-              {this.state.giftName} {/* for testing */}
-              {gifts}
-              </ol>
+                <ol>
+                  {this.state.giftName} {/* for testing */}
+                  {gifts}
+                </ol>
               </Col>
-          
-          
-              
-              <FormBtn 
-              id="updateWallButton"
+
+              <FormBtn
+                id="updateWallButton"
                 // disabled={!(this.state.author && this.state.title)}
                 onClick={this.props.submitBtnClick}
               >
                 Update Wall
               </FormBtn>
               <br />
-            {/* </form> */}
-          </Col>
-          <Col size="md-6 sm-12">
-<br />
-          <Jumbotron>
-            <h5>{`Donor Name: ${this.props.firstName} ${this.props.lastName}`}</h5>
-            <h5>{`Wall Name: ${this.props.wallName}`}</h5>
-            <h5>{`Email: ${this.props.email} `}</h5>
-            <h5>{`Address: ${this.props.city}, ${this.props.zipCode} `}</h5>
-          </Jumbotron>
-
-           
-            
-          </Col>
-        </Row>
+              {/* </form> */}
+            </Col>
+            <Col size="md-6 sm-12">
+              <br />
+              <Jumbotron>
+                <h5>{`Donor Name: ${this.props.name} ${
+                  this.props.lastName
+                }`}</h5>
+                <h5>{`Wall Name: ${this.props.wallName}`}</h5>
+                <h5>{`Email: ${this.props.email} `}</h5>
+                <h5>{`Address: ${this.props.city}, ${this.props.zipCode} `}</h5>
+              </Jumbotron>
+            </Col>
+          </Row>
         </form>
       </Container>
     );
