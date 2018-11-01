@@ -12,20 +12,6 @@ const username = 'aboozar';
 // const roomId = 19371644; 
 const roomId = 19371666; 
 
-    const DUMMY_DATA = [
-    {
-        senderId: "aboozar",
-        text: "Hello, is the food still available?"
-    },
-    {
-        senderId: "aparajita",
-        text: "Yes, it is!"
-    }, 
-    {   
-        senderId: "aboozar",
-        text: "great I'll pick it up today!"
-    }
-    ];
 
 class Chat extends React.Component {
 
