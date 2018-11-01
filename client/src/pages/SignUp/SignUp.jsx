@@ -25,7 +25,7 @@ class SignUp extends React.Component {
 			if(user) {
 				this.props.onSignUpSuccess(user)
 				this.props.history.push('/')
-				// console.log("ino beggo",this.props)
+				// console.log("user",user)
 				// this.createWall(this.state.fields.name, this.state.fields.email)
 			}
 			
