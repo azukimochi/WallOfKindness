@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@pusher/chatkit-client@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@pusher/chatkit-client/-/chatkit-client-1.0.2.tgz#6838edde9ee05b744389ba6b0f2c00d9db942e33"
+  integrity sha512-e8Edxma5bD6crs+2U0wXtUEiinkRwAa7gc6P2BAV+kjb1+9Ej/9OJS4oOxtnfpQI1HFX8ZPOL3q9HE+/4EUnQA==
+  dependencies:
+    pusher-platform "^0.15.2"
+    ramda "^0.25.0"
+
 "@pusher/chatkit@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@pusher/chatkit/-/chatkit-1.0.1.tgz#d5863087604f5c19090d0489911197c90f1c9915"
