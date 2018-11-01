@@ -16,14 +16,11 @@
   "author": "Aboozar-Aparajita-Marshall-Like",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "@pusher/chatkit": "^1.0.1",
     "@pusher/chatkit-client": "^1.0.2",
-=======
     "bcrypt-nodejs": "0.0.3",
     "dotenv": "^5.0.0",
     "jsonwebtoken": "^8.1.0",
->>>>>>> master
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
