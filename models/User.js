@@ -4,7 +4,13 @@ const
 	userSchema = new mongoose.Schema({
 		name: { type: String },
 		email: { type: String, required: true, unique: true },
-		password: { type: String, required: true }
+		password: { type: String, required: true },
+		isDonor: { type: Boolean, default: false },
+ 		wallName: { type: String, required: false },
+ 		category: [{ type: String, required: false }],
+ 		gifts: [{ type: String,required: false }],
+    	city: { type: String, required: false },
+  		zipCode: { type: String, required: false }
 	})
 
 // adds a method to a user document object to create a hashed password
