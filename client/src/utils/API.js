@@ -19,14 +19,16 @@ export default {
   deleteBook: function(id) {
     return axios.delete("/api/books/" + id);
   },
-  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
+  // Saves wall info to the database
+  saveWallInfo: function(wallData) {
+    return axios.post("/api/wallsUpdate", wallData);
+  },
+  createNewWall: function(newWallData) {
+    return axios.post("/createWall", newWallData);
   }
+  // ,
+  // loadWallInfo: function(wallData) {
+  //   return axios.post("/api/wallsLoad", wallData);
+  // }
 };
 
-function add (a,b){
-  return a.num; // return 'a'
-}
-
-add({num: 1, letter: 'a'})
