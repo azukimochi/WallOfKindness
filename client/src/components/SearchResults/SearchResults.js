@@ -29,7 +29,7 @@ props.results.length === 0 ?
                         {props.results.map(result => (
 
                             <li key={result.id} className="list-group-item">
-                                <h4>firstName: {result.firstName}</h4>
+                                <h4>Full Name: {result.name}</h4>
                                 <p> Wall: {result.wallName}</p>
                                 <p> email: {result.email}</p>
                                 <p> zipcode: {result.zipCode}</p>
