@@ -31,9 +31,9 @@ class Search extends Component {
                
                 id={result._id}
                 key={result._id}
-                // gifts={result.gifts}
+                gifts={result.gifts}
                 wallName={result.wallName}
-                firstName={result.firstName}
+                name={result.name}
                 email = {result.email}
                 zipCode = {result.zipCode}
                 // address={result.streetAddress1}

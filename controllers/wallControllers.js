@@ -48,8 +48,8 @@ module.exports = {
   findAllGifts: function (req, res) {
     // console.log( req.query);
 
-      db.Walls
-      .find({gifts:req.query.gifts}, {"firstName":1, "wallName" : 1, "email": 1, "zipCode": 1})
+      db.User
+      .find({gifts:req.query.gifts}, {"name":1, "wallName" : 1, "email": 1, "zipCode": 1})
     
       // .sort({ wallName: 1 })
       .then(dbModel => 

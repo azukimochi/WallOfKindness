@@ -15,8 +15,8 @@ const wallSeed = [
 		
 		isDonor: true,
  		wallName: "love",
- 		category: '[food]',
- 		gifts: '[cake]',
+ 		category: 'food',
+ 		gifts: ['cake'],
     	city: "toronto",
   		zipCode: "22222",
         
@@ -29,8 +29,8 @@ const wallSeed = [
 		
 		isDonor: true,
  		wallName: "Kind",
- 		category: '[food]',
- 		gifts: '[burger]',
+ 		category: 'food',
+ 		gifts: ['burger'],
     	city: "toronto",
   		zipCode: "555555",
         
@@ -43,8 +43,8 @@ const wallSeed = [
 		
 		isDonor: true,
  		wallName: "Calm",
- 		category: '[clothes]',
- 		gifts: '[shoe]',
+ 		category: 'clothes',
+ 		gifts: ['shoe'],
     	city: "toronto",
   		zipCode: "6666",
         
@@ -57,8 +57,8 @@ const wallSeed = [
 		
 		isDonor: true,
  		wallName: "Sport",
- 		category: '[clothes]',
- 		gifts: '[cap]',
+ 		category: 'clothes',
+ 		gifts: ['cap'],
     	city: "toronto",
   		zipCode: "8888",
         
