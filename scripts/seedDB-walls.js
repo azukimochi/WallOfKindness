@@ -21,6 +21,48 @@ const wallSeed = [
   		zipCode: "22222",
         
     dateAdded: new Date(Date.now())
+  },
+  {
+    name: "Aparajita",
+    
+		email: "Aparajita@gmail.com",
+		
+		isDonor: true,
+ 		wallName: "Kind",
+ 		category: '[food]',
+ 		gifts: '[burger]',
+    	city: "toronto",
+  		zipCode: "555555",
+        
+    dateAdded: new Date(Date.now())
+  },
+  {
+    name: "Luke",
+    
+		email: "Luke@gmail.com",
+		
+		isDonor: true,
+ 		wallName: "Calm",
+ 		category: '[clothes]',
+ 		gifts: '[shoe]',
+    	city: "toronto",
+  		zipCode: "6666",
+        
+    dateAdded: new Date(Date.now())
+  },
+  {
+    name: "Marshall",
+    
+		email: "Marshall@gmail.com",
+		
+		isDonor: true,
+ 		wallName: "Sport",
+ 		category: '[clothes]',
+ 		gifts: '[cap]',
+    	city: "toronto",
+  		zipCode: "8888",
+        
+    dateAdded: new Date(Date.now())
   }
 ];
 
