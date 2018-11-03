@@ -20,26 +20,26 @@ httpClient.getCurrentUser = function() {
 	console.log("token:",token)
 	// console.log("decoded user ID:",decodedToken)
 	if(token) return jwtDecode(token)
-	
-	
-	return null
-	
+
+
+	return null;
+
 }
 
 httpClient.getUserInfo = function() {
 	const token = this.getToken()
 	const decodedToken=jwtDecode(token)
 	// console.log(token)
-	if(token) 
-	return axios.get("/api/user/"+decodedToken._id)
+	if(token)
+	return axios.get("/api/users/"+token)
 	.then((res) => {
 		console.log('res', res)
 	})
     .catch(function(error){
       console.log(error);
-    }) 
-	
-	
+    })
+
+
 	return console.log("decoded user ID:",decodedToken._id)
 	return null
 }
@@ -59,20 +59,23 @@ httpClient.logIn = function(credentials) {
 }
 
 
-// httpClient.updateUser = function(userInfo) {
-// 	return this({ method: 'post', url: 'api/users/' + userInfo._id, data: userInfo})
-// 		.then((response) => {
-// 			console.log('updated user', response)
-// 			const token = response.data.token;
+httpClient.updateUser = function(userInfo) {
 
-// 			if(token) {
-// 				this.defaults.headers.common.token = this.setToken(token);
-// 				return jwtDecode(token)
-// 			} else {
-// 				return false
-// 			}
-// 		})
-// }
+	return this({ method: 'put', url: '/api/users/' + userInfo._id, data: userInfo})
+		.then((serverResponse) => {
+			const token = serverResponse.data.token;
+			console.log('token', token)
+			console.log('updated user', serverResponse)
+			console.log('user info', userInfo);
+
+			if(token) {
+				this.defaults.headers.common.token = this.setToken(token);
+				return jwtDecode(token)
+			} else {
+				return false
+			}
+		})
+}
 
 // httpClient.getUserInfo = function(searchParams) {
 // 	// return axios.get("/api/user/" + userId)
