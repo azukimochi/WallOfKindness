@@ -23,31 +23,3 @@ usersRouter.route('/:id')
 module.exports = usersRouter
 
 
-// const
-// router = require("express").Router();
-// 	express = require('express'),
-// 	usersRouter = new express.Router(),
-// 	usersCtrl = require('../../controllers/users.js'),
-// 	verifyToken = require('../../serverAuth.js').verifyToken
-
-// usersRouter.route('/')
-// 	.get(usersCtrl.index)
-// 	.post(usersCtrl.create)
-
-// 	usersRouter.route('/api/users/:id')
-// 	.get(usersCtrl.show)
-// 	.post(usersCtrl.update)
-
-// usersRouter.post('/authenticate', usersCtrl.authenticate)
-
-
-// usersRouter.use(verifyToken)
-
-// // usersRouter.route('/update/:id')
-// // 	.get(usersCtrl.show)
-// // 	.patch(usersCtrl.update)
-// // 	.delete(usersCtrl.destroy)
-
-	
-
-// module.exports = usersRouter

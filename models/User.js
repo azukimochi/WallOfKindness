@@ -7,7 +7,7 @@ const
 		password: { type: String, required: true },
 		isDonor: { type: Boolean, default: false },
  		wallName: { type: String, default:'',required: false },
- 		category: { type: String, default:'',required: false },
+ 		categories: [{ type: String, default:'',required: false }],
  		gifts: [{ type: String,default:'',required: false }],
     	city: { type: String, default:'',required: false },
   		zipCode: { type: String, default:'',required: false }

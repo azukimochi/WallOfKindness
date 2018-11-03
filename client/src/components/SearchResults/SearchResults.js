@@ -3,6 +3,8 @@ import "./SearchResults.css";
 
 
 const SearchResults = props => 
+
+
 // console.log("props:" , props.results.length)
 props.results.length === 0 ?
     (
@@ -23,6 +25,7 @@ props.results.length === 0 ?
                     </h3>
                 </div>
                 <div className="panel-body">
+                
                     <ul className="list-group search-results">
                         {/* <h2> Results</h2> */}
                         {console.log("props is:", props)}
@@ -30,10 +33,16 @@ props.results.length === 0 ?
 
                             <li key={result.id} className="list-group-item">
                                 <h4>Full Name: {result.name}</h4>
-                                <p> Wall: {result.wallName}</p>
-                                <p> email: {result.email}</p>
-                                <p> zipcode: {result.zipCode}</p>
-                                <button className="btn btn-primary">Request</button>
+                                <p> Wall Name: {result.wallName.toUpperCase()}</p>
+                                <p> Email Address: {result.email}</p>
+                                <p> City: {result.city.toUpperCase()}</p>
+                                <p> Zip Code: {result.zipCode}</p>
+                                <button className="btn btn-primary" onClick={props.handleRequestButton}>Request</button>
+                                {/* <p style={{visibility: this.state.showEmailForm ? 'visible':'hidden' }}></p>
+                                <p style={{visibility: 'hidden' }}></p>
+                                <p style={{visibility: 'hidden' }}></p>
+                                <p style={{visibility: 'hidden' }}></p> */}
+
                                 {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
                             </li>
                         ))}
