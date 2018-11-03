@@ -17,40 +17,30 @@ import axios from "axios";
 import Dashboard from "./Dashboard.js";
 class DashboardPage extends Component {
   state = {
-   
-     currentUser: httpClient.getCurrentUser() 
+     currentUser: httpClient.getCurrentUser()
   };
 
-  
-  // componentDidMount() {
-    
-  //     axios.get("/api/user/"+decodedToken._id)
-  //     .then((res) => {
-  //       console.log('res', res)
-  //     })
-  //       .catch(function(error){
-  //         console.log(error);
-  //       }) 
-      
-      
-  //     return console.log("decoded user ID:",decodedToken._id)
-  //     return null
-  //   }
-  //   console.log("HELLO", this.state);
-    
+  componentWillMount() {
+    this.setState({
+      currentUser: httpClient.getCurrentUser()
+    });
+    console.log('on mount', this.state.currentUser);
+  }
+
+
   // }
 
   // loadWall = () => {
   //   // e.preventDefault();
   //   console.log("too load wall",this.state);
-   
+
   //     httpClient.getUserInfo({
-        
+
   //       email: this.state.email,
-       
-        
+
+
   //     }).then(user => {
-        
+
   //        //   firstName: this.state.names.firstName,
   //       //   // middleName:this.state.names.middleName,
   //       //   lastName: this.state.names.lastName,
@@ -64,7 +54,7 @@ class DashboardPage extends Component {
   //       //   wallName: this.state.wall.wallName
   //       console.log("user",user);
   //     });
-      
+
   // };
 
   // loadReponseData(user) {
@@ -89,52 +79,22 @@ class DashboardPage extends Component {
   //   this.setState({ gifts: user.gifts });
   // }
 
-  
 
-  
+
+
   updateWall = (e) => {
     e.preventDefault();
-    // const { history } = this.props;
-    
-    // httpClientUpdate.updateUser(this.state.currentUser._id).then(user => {
-		// 	this.setState({currentUser:this.state.currentUser})
-		// 	// if(user) {
-		// 		// this.props.onSignUpSuccess(user)
-    //     // this.props.history.push('/')
-    //     history.push('/update/'+this.state.currentUser._id)
-		// 		// console.log("user",user)
-		// 		// this.createWall(this.state.fields.name, this.state.fields.email)
-		// 	// }
-			
-		// })
-    // console.log(this.state.gifts);
-    // if (this.state.item && this.state.area && this.state.range){
 
-      const { name, wallName, email, zipCode, categories,gifts,_id } = this.state.currentUser;
-
-      // axios.get('/api/users/'+this.state.currentUser._id, { name, wallName, email, zipCode, categories,gifts,_id })
-      //   .then((res) => {
-          // httpClientUpdate.updateUser(this.state.currentUser._id);
-          // console.log("result",res)
-          // httpClient.updateUser(this.state.currentUser._id, res)
-          // this.props.history.push('/update/'+this.state.currentUser._id)
-
-
-   
-        // });
+      const { name, wallName, email, city, zipCode, categories, gifts, _id } = this.state.currentUser;
 
       httpClient.updateUser(this.state.currentUser)
         .then(user => {
-          this.setState({currentUser: this.setState.currentUser})
-
-          if(user) {
-            this.props.history.push('/api/users/'+this.state.currentUser._id)
-            console.log('user', user)
-          }
+          this.setState({currentUser: this.state.currentUser})
+          console.log('USER', this.state.currentUser);
         })
 
     console.log('current wall info', this.state.currentUser);
-  
+
   }
 
   addClicked = e => {
@@ -167,6 +127,12 @@ class DashboardPage extends Component {
     let currentState = this.state[itemGroup];
     itemState[e.target.name] = e.target.value;
     this.setState({ currentUser: itemState });
+
+    var storageName = localStorage.setItem("updatedName", itemState.name);
+    var storageWallName = localStorage.setItem("updatedWallName", itemState.wallName);
+    var storageEmail = localStorage.setItem("updatedEmail", itemState.email);
+    var storageCity = localStorage.setItem("updatedCity", itemState.city);
+    var storageZipCode = localStorage.setItem("updatedZipcode", itemState.zipCode);
   }
 
   // itemChange(e) {
@@ -177,20 +143,19 @@ class DashboardPage extends Component {
   //   this.setState({itemGroup: currentState});
   // };
 
-  
 
   render() {
     return (
       <div>
         <Dashboard
-         email={this.state.currentUser.email}
+         email={this.state.currentUser.email ? this.state.currentUser.email : window.localStorage.updatedEmail }
           user={this.state.currentUser.user}
-          name={this.state.currentUser.name}
+          name={this.state.currentUser.name ? this.state.currentUser.name : window.localStorage.updatedName}
           categories={this.state.currentUser.categories}
           gifts={this.state.currentUser.gifts}
-          wallName={this.state.currentUser.wallName}
-          zipCode={this.state.currentUser.zipCode}
-          city={this.state.currentUser.city}
+          wallName={this.state.currentUser.wallName ? this.state.currentUser.wallName : window.localStorage.updatedWallName }
+          zipCode={this.state.currentUser.zipCode ? this.state.currentUser.zipCode : window.localStorage.updatedZipcode }
+          city={this.state.currentUser.city ? this.state.currentUser.city : window.localStorage.updatedCity }
           btnClickHandler={e => {
             this.updateWall(e);
           }}
