@@ -20,6 +20,8 @@ class DashboardPage extends Component {
    
      currentUser: httpClient.getCurrentUser() 
   };
+
+  
   // componentDidMount() {
     
   //     axios.get("/api/user/"+decodedToken._id)
@@ -137,41 +139,45 @@ class DashboardPage extends Component {
 
   addClicked = e => {
     e.preventDefault();
-    console.log("e.target", e.target);
+    // console.log("e.target", e.target);
+    // console.log("kalle kiri", this.state);
     let itemClicked = e.target.id;
-
-    let currentState = this.state[itemClicked];
-    console.log("itemClicked", itemClicked);
-    console.log("current state", currentState);
+    let currentState = this.state.currentUser[itemClicked];
+   // console.log("current state", currentState);
     currentState.push("");
-    console.log("current state", currentState);
     this.setState({ itemClicked: currentState });
   };
 
   removeClicked(e) {
     e.preventDefault();
     let itemClicked = e.target.dataset.attribute;
+    console.log("e.target.dataset",e.target.dataset)
     let itemGroup = e.target.dataset.group;
-    let currentState = this.state[itemGroup];
+    let currentState = this.state.currentUser[itemGroup];
     currentState.splice(itemClicked, 1);
     this.setState({ itemGroup: currentState });
   }
 
-  itemChange(e) {
+  itemChange=(e) =>{
     let itemToChange = e.target.dataset.attribute;
+    console.log("e.target",e.target)
     const itemState = this.state.currentUser;
+    console.log("this.state.currentUser",this.state.currentUser)
     let itemGroup = e.target.dataset.group;
     let currentState = this.state[itemGroup];
     itemState[e.target.name] = e.target.value;
     this.setState({ currentUser: itemState });
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  // itemChange(e) {
+  //   let itemToChange = e.target.dataset.attribute;
+  //   let itemGroup = e.target.dataset.group;
+  //   let currentState = this.state[itemGroup];
+  //   currentState[itemToChange] = e.target.value;
+  //   this.setState({itemGroup: currentState});
+  // };
+
+  
 
   render() {
     return (
@@ -184,6 +190,7 @@ class DashboardPage extends Component {
           gifts={this.state.currentUser.gifts}
           wallName={this.state.currentUser.wallName}
           zipCode={this.state.currentUser.zipCode}
+          city={this.state.currentUser.city}
           btnClickHandler={e => {
             this.updateWall(e);
           }}

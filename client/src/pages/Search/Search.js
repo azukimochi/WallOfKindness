@@ -20,7 +20,9 @@ class Search extends Component {
         results: [],
         sectionTitle: "",
         limit: null,
-        hasSearched:false
+        hasSearched:false,
+        showEmailForm:false
+        
     };
 
 
@@ -36,6 +38,8 @@ class Search extends Component {
                 name={result.name}
                 email = {result.email}
                 zipCode = {result.zipCode}
+                city = {result.city}
+                // showEmailForm={result.showEmailForm}
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
 
@@ -54,14 +58,21 @@ class Search extends Component {
         console.log(this.state.errorMessage);
     }
     handleGiftsChange = event => {
-        this.setState({ gifts: event.target.value.toLowerCase() });
+        this.setState({ gifts: event.target.value });
     }
 
 
     handleAreaChange = event => {
-        this.setState({ address: event.target.value.toLowerCase() });
+        this.setState({ address: event.target.value });
     };
 
+    handleRequestButton=event=>{
+        event.preventDefault();
+        document.getElementById('emailForm').classList.remove("invisible");
+        // this.setState({ showEmailForm: true });
+        console.log("hello")
+
+    }
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
@@ -139,6 +150,7 @@ class Search extends Component {
                         handleSearchBtnSubmit={this.handleSearchBtnSubmit}
                         displaySearchResults={this.displaySearchResults}
                         errorMessage={this.state.errorMessage}
+                        
 
 
                     />
@@ -148,6 +160,7 @@ class Search extends Component {
                     <SearchResults
 
                         results={this.state.results}
+                        handleRequestButton={this.handleRequestButton}
                     
                     />
                 )
