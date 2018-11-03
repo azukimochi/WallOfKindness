@@ -4,6 +4,9 @@ import Wrapper from "../../components/Wrapper";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
 import API from "../../utils/API";
+import Autocomplete from "react-autocomplete";
+import { giftTypeStock, matchGiftType } from "./dataGiftType";
+import { giftNameStock, matchGiftName } from "./dataGiftName";
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -20,53 +23,62 @@ class Search extends Component {
         results: [],
         sectionTitle: "",
         limit: null,
-        hasSearched:false,
-        showEmailForm:false
-        
+        hasSearched: false,
+        showEmailForm: false,
+        giftType: "",
+        giftName: ""
+
     };
 
 
     displaySearchResults = () => {
         return this.state.results.map(result => {
-            if(result){
-           <SearchResults
-               
-                id={result._id}
-                key={result._id}
-                gifts={result.gifts}
-                wallName={result.wallName}
-                name={result.name}
-                email = {result.email}
-                zipCode = {result.zipCode}
-                city = {result.city}
+            if (result) {
+                <SearchResults
+
+                    id={result._id}
+                    key={result._id}
+                    gifts={result.gifts}
+                    wallName={result.wallName}
+                    name={result.name}
+                    email={result.email}
+                    zipCode={result.zipCode}
+                    city={result.city}
                 // showEmailForm={result.showEmailForm}
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
 
-               
 
-            />
+
+                />
             }
-           
+
 
 
         })
     }
 
     handleErrorMessage = () => {
-        this.setState({errorMessage: "Please fill in all fields before searching."})
+        this.setState({ errorMessage: "Please fill in all fields before searching." })
         console.log(this.state.errorMessage);
     }
     handleGiftsChange = event => {
-        this.setState({ gifts: event.target.value });
+        this.setState({ gifts: event.target.value.toLowerCase() });
     }
 
+    handleGiftsInputChange = (event, giftType) => {
+        this.setState({ giftType: event.target.value.toLowerCase() })
+    }
+
+    handleGiftsType = giftType => {
+        this.setState({ giftType })
+    }
 
     handleAreaChange = event => {
         this.setState({ address: event.target.value });
     };
 
-    handleRequestButton=event=>{
+    handleRequestButton = event => {
         event.preventDefault();
         document.getElementById('emailForm').classList.remove("invisible");
         // this.setState({ showEmailForm: true });
@@ -83,55 +95,55 @@ class Search extends Component {
         event.preventDefault();
         // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
-        if (this.state.gifts){
+        if (this.state.giftType) {
             API.lookForGifts({
-                gifts: this.state.gifts,
+                gifts: this.state.giftType,
                 address: this.state.address,
                 range: this.state.range
             })
-            
-            .then(res => {
-                let resultsArray = [];
-                console.log("results:" , res);
-                res.data.forEach(function(element){
-                    console.log(element);
-                    resultsArray.push(element);
-                    
-                });
-                console.log("result array:" , resultsArray);
-                this.setState({results:resultsArray})
-                // if (resultsArray.length === 0){
-                //     let resultState = this.state.results.push("Sorry. This item is not available.");
-                //     this.setState({results:resultState})
-                //     
-                //     console.log(this.state.results);
-                    
-                // }
-                // else {
-                // }
+
+                .then(res => {
+                    let resultsArray = [];
+                    console.log("results:", res);
+                    res.data.forEach(function (element) {
+                        console.log(element);
+                        resultsArray.push(element);
+
+                    });
+                    console.log("result array:", resultsArray);
+                    this.setState({ results: resultsArray })
+                    // if (resultsArray.length === 0){
+                    //     let resultState = this.state.results.push("Sorry. This item is not available.");
+                    //     this.setState({results:resultState})
+                    //     
+                    //     console.log(this.state.results);
+
+                    // }
+                    // else {
+                    // }
 
 
-                // resultsArray.map(({firstName, email, zipCode}) => {
-                // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
-                // console.log("final array:" , finalArray);
-                // })
-                // res.data.map(({firstName, email, zipCode}) => {
-            //         resultsArray.push({firstName: firstName, email:email, zipCode:zipCode})
-            //     // });
-            // this.setState(prevState => ({
-            //     results: [...prevState].concat(resultsArray).splice(0, this.state.limit)
-            // }), console.log("golabiiii",this.state.limit))
-         
-            // console.log("state is " + JSON.stringify(this.state));
-            })
-            .catch(err => console.log(err))
+                    // resultsArray.map(({firstName, email, zipCode}) => {
+                    // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
+                    // console.log("final array:" , finalArray);
+                    // })
+                    // res.data.map(({firstName, email, zipCode}) => {
+                    //         resultsArray.push({firstName: firstName, email:email, zipCode:zipCode})
+                    //     // });
+                    // this.setState(prevState => ({
+                    //     results: [...prevState].concat(resultsArray).splice(0, this.state.limit)
+                    // }), console.log("golabiiii",this.state.limit))
+
+                    // console.log("state is " + JSON.stringify(this.state));
+                })
+                .catch(err => console.log(err))
         }
-        if (this.state.gifts === "" || this.state.address === "" || this.state.range === ""){
-            this. handleErrorMessage();
+        if (this.state.giftType === "" || this.state.address === "" || this.state.range === "") {
+            this.handleErrorMessage();
             console.log("working");
-            
-        }  
-        
+
+        }
+
         this.setState({
             hasSearched: true
         })
@@ -145,30 +157,33 @@ class Search extends Component {
                 <Wrapper>
                     <SearchWall
                         handleGiftsChange={this.handleGiftsChange}
+                        handleGiftsType={this.handleGiftsType}
+                        handleGiftsInputChange={this.handleGiftsInputChange}
                         handleAreaChange={this.handleAreaChange}
                         handleRangeChange={this.handleRangeChange}
                         handleSearchBtnSubmit={this.handleSearchBtnSubmit}
                         displaySearchResults={this.displaySearchResults}
                         errorMessage={this.state.errorMessage}
-                        
-
+                        giftTypeStock={this.giftTypeStock}
+                        giftType={this.state.giftType}
 
                     />
-
-                { this.state.hasSearched ? 
-                (
-                    <SearchResults
-
-                        results={this.state.results}
-                        handleRequestButton={this.handleRequestButton}
                     
-                    />
-                )
-                :
-                
-                    <h1>welcome!</h1>
-                
-                }
+
+                    {this.state.hasSearched ?
+                        (
+                            <SearchResults
+
+                                results={this.state.results}
+                                handleRequestButton={this.handleRequestButton}
+
+                            />
+                        )
+                        :
+
+                        <h1>welcome!</h1>
+
+                    }
                     {/* <MakeRequest /> */}
                 </Wrapper>
 

@@ -40,7 +40,7 @@ props.results.length === 0 ?
                                 <button className="btn btn-primary" onClick={props.handleRequestButton}>Request</button>
                                 
                                     <form id='emailForm' className="invisible">
-                                        <h4>To: </h4>
+                                        <h4>To: {result.email}</h4>
                                         <h4>From: <input type="text" id="emailFrom" placeholder="Your Email"/></h4>
                                         <h4><input type="text" id="emailSubject" placeholder="Subject Line" /></h4>
                                         <br />
