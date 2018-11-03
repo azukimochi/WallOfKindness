@@ -27,6 +27,8 @@ if (process.env.NODE_ENV === "production") {
   
   // Add routes, both API and view
   app.use(routes);
+  
+console.log(routes); 
 
 app.use(express.static(`${__dirname}/client/build`))
 app.use(logger('dev'))

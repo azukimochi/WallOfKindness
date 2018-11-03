@@ -4,6 +4,7 @@ import Wrapper from "../../components/Wrapper";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
 import API from "../../utils/API";
+import axios from 'axios'; 
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -20,6 +21,7 @@ class Search extends Component {
         results: [],
         sectionTitle: "",
         limit: null,
+        email: "", 
         hasSearched:false,
         showEmailForm:false
         
@@ -81,24 +83,28 @@ class Search extends Component {
     
     };
 
-    sendEmail(e){
+    sendEmail=(e)=>{
         e.preventDefault();
-    
+
+
+
         // set route to send through the email
         axios({
           method: 'post',
-          url: 'send/mail',
+          url: '/api/send/mail',
           params: {
-            emailTo: results.email,
+            emailTo: this.state.results[0].email,
             emailFrom: document.getElementById('emailFrom').value,
             emailSubject: document.getElementById('emailSubject').value,
             emailBody: document.getElementById('emailBody').value
           }
         }).then((response) => {
           console.log(response);
+          console.log(this.state.results[0].email);
+
         })
-        this.clearEmailForm();
-        this.emailSentMessage();
+        // this.clearEmailForm();
+        // this.emailSentMessage();
       
     };
 
@@ -196,6 +202,7 @@ class Search extends Component {
 
                         results={this.state.results}
                         handleRequestButton={this.handleRequestButton}
+                        sendEmail={this.sendEmail}
                     
                     />
                 )
