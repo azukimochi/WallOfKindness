@@ -46,7 +46,7 @@ props.results.length === 0 ?
                                         <br />
                                         <textarea id="emailBody"> </textarea>
                                         <br />
-                                        {/* <button onClick={props.clickHandler} id="emailSendButton" className="smallButton">Send</button> */}
+                                        <button onClick={props.sendEmail} type="submit" id="emailSendButton" className="smallButton">Send</button>
                                     </form>
                            
                              

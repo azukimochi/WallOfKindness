@@ -14,30 +14,30 @@ import { giftNameStock, matchGiftName } from "./dataGiftName";
 import "./autocomplete.css";
 // import Dashboard from './Dashboard.js';
 class WallBody extends Component {
-  // state = {
-  //   giftType: "",
-  //   giftName: "",
-  //   secretData: "",
-  //   user: {},
-  //   names: {
-  //     firstName: "",
-  //     // middleNmae:'',
-  //     lastName: ""
-  //   },
-  //   address: {
-  //     // streetAddress1: '',
-  //     // streetAddress2: '',
-  //     // city: '',
-  //     // state: '',
-  //     zipCode: ""
-  //     // phoneNumber:''
-  //   },
-  //   categories: [],
-  //   gifts: [],
-  //   wall: {
-  //     wallName: "Aboozar"
-  //   }
-  // };
+  state = {
+    giftType: "",
+    giftName: "",
+    secretData: "",
+    user: {},
+    names: {
+      firstName: "",
+      // middleNmae:'',
+      lastName: ""
+    },
+    address: {
+      // streetAddress1: '',
+      // streetAddress2: '',
+      // city: '',
+      // state: '',
+      zipCode: ""
+      // phoneNumber:''
+    },
+    categories: [],
+    gifts: [],
+    wall: {
+      wallName: "Aboozar"
+    }
+  };
 
   render() {
     console.log("in propse:", this.props);
