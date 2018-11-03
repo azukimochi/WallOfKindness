@@ -67,9 +67,10 @@ class Search extends Component {
     };
 
     handleRequestButton=event=>{
-        // event.preventDefault();
-        this.setState({ showEmailForm: true });
-        console.log("hello",this.state)
+        event.preventDefault();
+        document.getElementById('emailForm').classList.remove("invisible");
+        // this.setState({ showEmailForm: true });
+        console.log("hello")
 
     }
 

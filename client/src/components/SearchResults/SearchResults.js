@@ -38,10 +38,18 @@ props.results.length === 0 ?
                                 <p> City: {result.city.toUpperCase()}</p>
                                 <p> Zip Code: {result.zipCode}</p>
                                 <button className="btn btn-primary" onClick={props.handleRequestButton}>Request</button>
-                                {/* <p style={{visibility: this.state.showEmailForm ? 'visible':'hidden' }}></p>
-                                <p style={{visibility: 'hidden' }}></p>
-                                <p style={{visibility: 'hidden' }}></p>
-                                <p style={{visibility: 'hidden' }}></p> */}
+                                
+                                    <form id='emailForm' className="invisible">
+                                        <h4>To: </h4>
+                                        <h4>From: <input type="text" id="emailFrom" placeholder="Your Email"/></h4>
+                                        <h4><input type="text" id="emailSubject" placeholder="Subject Line" /></h4>
+                                        <br />
+                                        <textarea id="emailBody"> </textarea>
+                                        <br />
+                                        {/* <button onClick={props.clickHandler} id="emailSendButton" className="smallButton">Send</button> */}
+                                    </form>
+                           
+                             
 
                                 {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
                             </li>
