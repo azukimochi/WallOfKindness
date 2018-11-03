@@ -72,7 +72,42 @@ class Search extends Component {
         // this.setState({ showEmailForm: true });
         console.log("hello")
 
-    }
+    };
+
+    clearEmailForm(){
+        document.getElementById('emailFrom').value = '';
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+    
+    };
+
+    sendEmail(e){
+        e.preventDefault();
+    
+        // set route to send through the email
+        axios({
+          method: 'post',
+          url: 'send/mail',
+          params: {
+            emailTo: results.email,
+            emailFrom: document.getElementById('emailFrom').value,
+            emailSubject: document.getElementById('emailSubject').value,
+            emailBody: document.getElementById('emailBody').value
+          }
+        }).then((response) => {
+          console.log(response);
+        })
+        this.clearEmailForm();
+        this.emailSentMessage();
+      
+    };
+
+    emailSentMessage(){
+        let toast = document.getElementById('toast');
+        toast.classList.remove('invisible');
+        setTimeout(function(){toast.classList.add('invisible')}, 2000);
+      
+    };
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
