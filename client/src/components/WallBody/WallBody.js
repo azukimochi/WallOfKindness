@@ -42,44 +42,44 @@ class WallBody extends Component {
   render() {
     console.log("in propse:", this.props);
 
-    // let categories = this.props.categories.map((item, index) => (
-    //   <li>
-    //     <input
-    //       data-group="categories"
-    //       data-attribute={index}
-    //       onChange={this.props.inputChangeHandler}
-    //       type="text"
-    //       value={item}
-    //     />
-    //     <i
-    //       className="fas fa-trash-alt"
-    //       aria-hidden="true"
-    //       data-group="categories"
-    //       data-attribute={index}
-    //       onClick={this.props.removeClickHandler}
-    //     />
-    //   </li>
-    // ));
+    let categories = this.props.categories.map((item, index) => (
+      <li>
+        <input
+          data-group="categories"
+          data-attribute={index}
+          onChange={this.props.inputChangeHandler}
+          type="text"
+          value={item}
+        />
+        <i
+          className="fas fa-trash-alt"
+          aria-hidden="true"
+          data-group="categories"
+          data-attribute={index}
+          onClick={this.props.removeClickHandler}
+        />
+      </li>
+    ));
 
-    // let gifts = this.props.gifts.map((item, index) => (
-    //   <li>
-    //     <input
-    //       data-attribute={index}
-    //       data-group="gifts"
-    //       onChange={this.props.inputChangeHandler}
-    //       type="text"
-    //       value={item}
-    //     />
-    //     <br />
-    //     <i
-    //       className="fas fa-trash-alt"
-    //       aria-hidden="true"
-    //       data-group="gifts"
-    //       data-attribute={index}
-    //       onClick={this.props.removeClickHandler}
-    //     />
-    //   </li>
-    // ));
+    let gifts = this.props.gifts.map((item, index) => (
+      <li>
+        <input
+          data-attribute={index}
+          data-group="gifts"
+          onChange={this.props.inputChangeHandler}
+          type="text"
+          value={item}
+        />
+        <br />
+        <i
+          className="fas fa-trash-alt"
+          aria-hidden="true"
+          data-group="gifts"
+          data-attribute={index}
+          onClick={this.props.removeClickHandler}
+        />
+      </li>
+    ));
 console.log("aboo and luke",this.props)
     return (
       <Container fluid>
@@ -96,27 +96,10 @@ console.log("aboo and luke",this.props)
                 name="name"
                 placeholder="Full Name"
                 data-group="names"
-                data-attribute="firstName"
+                data-attribute="fullName"
                 id="UserfirstName"
               />
-              {/* <Input
-                // value={this.props.names.middleName}
-                onChange={this.props.inputChangeHandler}
-                name="middleName"
-                placeholder="Middles Name (optional)"
-                data-group="names" 
-                data-attribute="middleName"
-                id="UsermiddleName"
-              /> */}
-              {/* <Input
-                // value={this.props.names.lastName}
-                onChange={this.props.inputChangeHandler}
-                name="lastName"
-                placeholder="Last Name (required)"
-                data-group="names"
-                data-attribute="lastName"
-                id="UserlastName"
-              /> */}
+             
               <Input
               
                 value={this.props.wallName}
@@ -127,24 +110,7 @@ console.log("aboo and luke",this.props)
                 data-attribute="wallName"
                 id="wallName"
               />
-              {/* <Input
-                // value={this.props.address.streetAddress1}
-                onChange={this.props.inputChangeHandler}
-                name="streetAddress1"
-                placeholder="Street Address (required)"
-                data-group="address" 
-                data-attribute="streetAddress1"
-                id="UserAddress"
-              />
-              <Input
-                // value={this.props.address.streetAddress2}
-                onChange={this.props.inputChangeHandler}
-                name="streetAddress2"
-                placeholder="Apt/Unit # (optional)"
-                data-group="address" 
-                data-attribute="streetAddress2"
-                id="UserAddress"
-              /> */}
+              
               <Input
                 value={this.props.city}
                 onChange={this.props.inputChangeHandler}
@@ -154,15 +120,7 @@ console.log("aboo and luke",this.props)
                 data-attribute="city"
                 id="UserAddress"
               />
-              {/* <Input
-                // value={this.props.address.state}
-                onChange={this.props.inputChangeHandler}
-                name="state"
-                placeholder="State (required)"
-                data-group="address" 
-                data-attribute="state"
-                id="UserAddress"
-              /> */}
+              
               <Input
                 value={this.props.zipCode}
                 onChange={this.props.inputChangeHandler}
@@ -225,7 +183,7 @@ console.log("aboo and luke",this.props)
                 </button>
                 <ol>
                   {/* {this.state.giftType} for testing */}
-                  {/* {categories} */}
+                  {categories}
                 </ol>
                 <br />
               </Col>
@@ -263,7 +221,7 @@ console.log("aboo and luke",this.props)
 
                 <ol>
                   {/* {this.state.giftName} for testing */}
-                  {/* {gifts} */}
+                  {gifts}
                 </ol>
               </Col>
 
@@ -283,7 +241,8 @@ console.log("aboo and luke",this.props)
                 <h5>{`Donor Name: ${this.props.donor}`}</h5>
                 <h5>{`Wall Name: ${this.props.wallName}`}</h5>
                 <h5>{`Email: ${this.props.email} `}</h5>
-                <h5>{`ZipCode: ${this.props.zipCode} `}</h5>
+                <h5>{`City: ${this.props.city} `}</h5>
+                <h5>{`Zip Code: ${this.props.zipCode} `}</h5>
               </Jumbotron>
             </Col>
           </Row>

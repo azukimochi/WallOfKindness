@@ -11,7 +11,7 @@ const
 	
 
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/WallofKindness");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/WallOfKindness");
 
 
 // Define middleware here

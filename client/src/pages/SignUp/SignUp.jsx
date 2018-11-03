@@ -45,9 +45,10 @@ class SignUp extends React.Component {
 					<div className='column column-33 column-offset-33'>
 						<h1>Sign Up</h1>
 						<form onChange={this.onInputChange.bind(this)} onSubmit={this.onFormSubmit.bind(this)} >
-							<input type="text" placeholder="Name" name="name" value={name} />
-							<input type="text" placeholder="Email" name="email" value={email} />
-							<input type="password" placeholder="Password" name="password" value={password} />
+							<input type="text" placeholder="Name" name="name" value={name} required/>
+							<input type="email" placeholder="Email" name="email" value={email} required/>
+							<input type="password" placeholder="Password" name="password" value={password} 
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" required/>
 							<button>Sign Up</button>
 						</form>
 					</div>
