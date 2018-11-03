@@ -58,7 +58,7 @@ class Search extends Component {
         console.log(this.state.errorMessage);
     }
     handleGiftsChange = event => {
-        this.setState({ gifts: event.target.value });
+        this.setState({ gifts: event.target.value.toLowerCase()});
     }
 
 
