@@ -4,6 +4,7 @@ import Wrapper from "../../components/Wrapper";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
 import API from "../../utils/API";
+import axios from 'axios'; 
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -20,6 +21,7 @@ class Search extends Component {
         results: [],
         sectionTitle: "",
         limit: null,
+        email: "", 
         hasSearched:false,
         showEmailForm:false
         
@@ -72,7 +74,46 @@ class Search extends Component {
         // this.setState({ showEmailForm: true });
         console.log("hello")
 
-    }
+    };
+
+    clearEmailForm(){
+        document.getElementById('emailFrom').value = '';
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+    
+    };
+
+    sendEmail=(e)=>{
+        e.preventDefault();
+
+
+
+        // set route to send through the email
+        axios({
+          method: 'post',
+          url: '/api/send/mail',
+          params: {
+            emailTo: this.state.results[0].email,
+            emailFrom: document.getElementById('emailFrom').value,
+            emailSubject: document.getElementById('emailSubject').value,
+            emailBody: document.getElementById('emailBody').value
+          }
+        }).then((response) => {
+          console.log(response);
+          console.log(this.state.results[0].email);
+
+        })
+        // this.clearEmailForm();
+        // this.emailSentMessage();
+      
+    };
+
+    emailSentMessage(){
+        let toast = document.getElementById('toast');
+        toast.classList.remove('invisible');
+        setTimeout(function(){toast.classList.add('invisible')}, 2000);
+      
+    };
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
@@ -161,6 +202,7 @@ class Search extends Component {
 
                         results={this.state.results}
                         handleRequestButton={this.handleRequestButton}
+                        sendEmail={this.sendEmail}
                     
                     />
                 )
