@@ -1,4 +1,4 @@
-const
+
 router = require("express").Router();
 	express = require('express'),
 	usersRouter = new express.Router(),
@@ -15,11 +15,9 @@ usersRouter.post('/authenticate', usersCtrl.authenticate)
 usersRouter.use(verifyToken)
 usersRouter.route('/:id')
 	.get(usersCtrl.show)
-	.patch(usersCtrl.update)
+	.put(usersCtrl.update)
 	.delete(usersCtrl.destroy)
 
-	
+
 
 module.exports = usersRouter
-
-

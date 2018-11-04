@@ -1,5 +1,9 @@
 import React from "react";
 import "./SearchWall.css";
+import Autocomplete from "react-autocomplete";
+import { giftTypeStock, matchGiftType } from "../../pages/Search/dataGiftType";
+import { giftNameStock, matchGiftName } from "../../pages/Search/dataGiftName";
+
 
 // Using the datalist element we can create autofill suggestions based on the props.breeds array
 const SearchWall = props => (
@@ -8,7 +12,7 @@ const SearchWall = props => (
             <h2 className="searchTitle">Search</h2>
             <p className="errorMessage">{props.errorMessage}</p>
             <div className="row">
-                <div className="col-sm-3">
+                {/* <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
                     <input
                         onChange={props.handleGiftsChange}
@@ -18,7 +22,38 @@ const SearchWall = props => (
                         placeholder="e.g.Rice, Pasta, T-shirt"
                         id="inputItem"
                     />
+                </div> */}
+
+                <div className="col-sm-3">
+                    <label htmlFor="item">Item</label><br />
+                    <Autocomplete
+                        value={props.giftType}
+                        inputProps={{ id: 'states-autocomplete', placeholder: 'Type of Gift' }}
+                        wrapperStyle={{ position: 'relative', display: 'inline-block' }}
+                        items={giftTypeStock()}
+                        getItemValue={item => item.name}
+                        shouldItemRender={matchGiftType}
+                        onChange={props.handleGiftsInputChange}
+                        onSelect={props.handleGiftsType}
+                        renderMenu={children => (
+                            <div className="menu">
+                                {children}
+                            </div>
+                        )}
+                        renderItem={(item, isHighlighted) => (
+                            <div
+                                className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
+                                key={item.abbr} >
+                                {item.name}
+                            </div>
+                        )}
+                    />
                 </div>
+
+
+
+
+
                 <div className="col-sm-3">
                     <label htmlFor="area">Area</label><br />
                     <input
