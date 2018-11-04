@@ -1,16 +1,10 @@
-
-/* nav.navbar.navbar-default {
-    margin-bottom: 0;
-  }
-
-  .nav{
-    background-color: black;
-} */
-/* .navbar-default {
-  background-color:teal;
-  background-image: none;
-  background-repeat: no-repeat;
- } */
+.wrapperNav{
+  max-width:80%;
+  margin: 0 auto
+}
+.glyphicon-log-out, .glyphicon-user, .glyphicon-log-in{
+  color: #e81e17;
+}
 
 @keyframes shine {
   from {
