@@ -92,6 +92,7 @@ class DashboardPage extends Component {
           this.setState({currentUser: this.state.currentUser})
           console.log('USER', this.state.currentUser);
         })
+        
 
     console.log('current wall info', this.state.currentUser);
 
@@ -118,6 +119,18 @@ class DashboardPage extends Component {
     this.setState({ itemGroup: currentState });
   }
 
+  itemChangeGifts(e) {
+    let itemToChange = e.target.dataset.attribute;
+    let itemGroup = e.target.dataset.group;
+    let currentState = this.state.currentUser[itemGroup];
+    console.log('itemGroup',itemGroup)
+    // console.log('currentState',currentState)
+    // console.log('currentState',currentState)
+    currentState[itemToChange] = e.target.value;
+    console.log('currentState',currentState)
+    this.setState({itemGroup: currentState});
+  };
+
   itemChange=(e) =>{
     let itemToChange = e.target.dataset.attribute;
     console.log("e.target",e.target)
@@ -135,13 +148,7 @@ class DashboardPage extends Component {
     var storageZipCode = localStorage.setItem("updatedZipcode", itemState.zipCode);
   }
 
-  // itemChange(e) {
-  //   let itemToChange = e.target.dataset.attribute;
-  //   let itemGroup = e.target.dataset.group;
-  //   let currentState = this.state[itemGroup];
-  //   currentState[itemToChange] = e.target.value;
-  //   this.setState({itemGroup: currentState});
-  // };
+ 
 
 
   render() {
@@ -167,6 +174,9 @@ class DashboardPage extends Component {
           }}
           itemChanged={e => {
             this.itemChange(e);
+          }}
+          itemChangedGifts={e => {
+            this.itemChangeGifts(e);
           }}
         />
       </div>

@@ -4,8 +4,8 @@ import WallBody from '../../components/WallBody';
 // import API from '../modules/API';
 
 
-const Dashboard = ({ city, name, zipCode,gifts, categories, wallName, email,btnClickHandler, addClick, removeClick, itemChanged }) => (
-  <WallBody donor={name} city={city} zipCode={zipCode} wallName ={wallName} gifts={gifts} categories={categories} email={email} addGiftBtnClick={addClick} addCategoryBtnClick={addClick} removeClickHandler={removeClick} submitBtnClick={btnClickHandler} inputChangeHandler={itemChanged} />
+const Dashboard = ({ city, name, zipCode,gifts, categories, wallName, email,btnClickHandler, addClick, removeClick, itemChanged, itemChangedGifts }) => (
+  <WallBody donor={name} city={city} zipCode={zipCode} wallName ={wallName} gifts={gifts} categories={categories} email={email} addGiftBtnClick={addClick} addCategoryBtnClick={addClick} removeClickHandler={removeClick} submitBtnClick={btnClickHandler} inputChangeHandler={itemChanged} inputChangeHandlerGifts={itemChangedGifts} />
 );
 
 // Dashboard.propTypes = {
