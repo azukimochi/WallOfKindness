@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import "./App.css";
 import httpClient from './httpClient'
-// import { BrowserRouter as Router, Switch } from "react-router-dom";
-
+// import { BrowserRouter as Router, Switch } from "react-router-dom"
 import NavBar from './NavBar'
 import LogIn from './pages/LogIn'
 import LogOut from './pages/LogOut'
@@ -44,7 +44,7 @@ class App extends React.Component {
 	render() {
 		const { currentUser } = this.state
 		return (
-			<div className='App container'>
+			<div className='appContainer'>
 
 				<NavBar currentUser={currentUser} />
 

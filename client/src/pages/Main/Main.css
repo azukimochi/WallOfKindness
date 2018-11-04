@@ -1,3 +1,29 @@
+.welcomeMsg{
+    font-weight: 700;
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    text-align: center
+
+}
+
+.subText{
+    text-align: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.container{
+    margin-top:50px;
+    margin-bottom:100px;
+}
+
+.searchBtn, .registerBtn{
+    background-color:#e81e17;
+    border: solid 1px #e81e17;
+}
+
+.signInBtn{
+    background-color:#a88f8d;
+    border: solid 1px #a88f8d
+}
 .registerBtn{
     margin-right:5px;
 }

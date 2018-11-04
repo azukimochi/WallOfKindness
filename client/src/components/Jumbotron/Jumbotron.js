@@ -6,6 +6,7 @@ const Jumbotron = ({ children }) => (
     <div className="container">
     {children}
     </div>
+    <div className="opaque"></div>
   </div>
 );
 
