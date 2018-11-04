@@ -45,9 +45,10 @@ class WallBody extends Component {
     let categories = this.props.categories.map((item, index) => (
       <li>
         <input
+        name="categories"
           data-group="categories"
           data-attribute={index}
-          onChange={this.props.inputChangeHandler}
+          onChange={this.props.inputChangeHandlerGifts}
           type="text"
           value={item}
         />
@@ -64,9 +65,10 @@ class WallBody extends Component {
     let gifts = this.props.gifts.map((item, index) => (
       <li>
         <input
+         name="gifts"
           data-attribute={index}
           data-group="gifts"
-          onChange={this.props.inputChangeHandler}
+          onChange={this.props.inputChangeHandlerGifts}
           type="text"
           value={item}
         />

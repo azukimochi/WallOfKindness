@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode'
 
 // instantiate axios
 const httpClient = axios.create()
+// const httpClientGifts = axios.createGifts()
 
 httpClient.getToken = function() {
 	return localStorage.getItem('token')

@@ -1,4 +1,5 @@
 const User = require('../models/User.js')
+const Gift = require('../models/Gifts.js')
 const signToken = require('../serverAuth.js').signToken
 
 module.exports = {
@@ -26,8 +27,19 @@ module.exports = {
 			const token = signToken(user)
 			res.json({success: true, message: "User created. Token attached.", token})
 		})
+
 	},
 
+	// create a gifts collection
+	createGifts: (req, res) => {
+		Gift.create(req.body, (err) => {
+			if(err) return res.json({success: false, code: err.code})
+			// once user is created, generate a token to "log in":
+			// const token = signToken(user)
+			res.json({success: true, message: "Gift added."})
+		})
+
+	},
 	// update an existing user
 	update: (req, res) => {
 		User.findById(req.params.id, (err, user) => {
