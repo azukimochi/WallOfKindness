@@ -9,15 +9,15 @@ import "./Main.css"
 const Main = () => (
     <div>
       <Jumbotron>
-        <h1>Welcome to the Wall of Kindness</h1>
-        <h2>The average Canadian consumer throws out an estimated 170kg of food a year. Shocking? Let's break that pattern...</h2>
+        <h1 className="welcomeMsg">Welcome to the Wall of Kindness</h1>
+        <h2 className="subText">The average Canadian consumer throws out an estimated 170kg of food a year. Shocking? Let's break that pattern...</h2>
       </Jumbotron>
       <Container style={{ marginTop: 30 }}>
         <Row>
           <Col size="sm-6">
            <h3>Search for donated items</h3>
            <p>Search for fresh food, or household items like furniture to complete your living room and connect with donors through email. Here at our Wall, we try to create a safe and judgement free environment to share resources and reduce wastage. </p>
-           <a href="/search"><button >Search Page</button></a>
+           <a href="/search"><button className="searchBtn" >Search Page</button></a>
           </Col>
      
           <Col size="sm-6">
