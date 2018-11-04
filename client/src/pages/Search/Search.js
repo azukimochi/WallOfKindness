@@ -8,6 +8,7 @@ import Autocomplete from "react-autocomplete";
 import { giftTypeStock, matchGiftType } from "./dataGiftType";
 import { giftNameStock, matchGiftName } from "./dataGiftName";
 import axios from 'axios'; 
+import "./Search.css";
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -222,7 +223,7 @@ class Search extends Component {
                 )
                 :
                 
-                    <h1>welcome!</h1>
+                    <h1 class="searchWelcome">Fill in the fields above to search for a gift.</h1>
                 
                 }
                     {/* <MakeRequest /> */}

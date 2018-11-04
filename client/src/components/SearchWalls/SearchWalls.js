@@ -11,7 +11,7 @@ const SearchWall = props => (
         <div className="container">
             <h2 className="searchTitle">Search</h2>
             <p className="errorMessage">{props.errorMessage}</p>
-            <div className="row">
+            <div className="row inputRows">
                 {/* <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
                     <input
@@ -24,7 +24,7 @@ const SearchWall = props => (
                     />
                 </div> */}
 
-                <div className="col-sm-3">
+                <div className="col-sm-3" >
                     <label htmlFor="item">Item</label><br />
                     <Autocomplete
                         value={props.giftType}
@@ -83,7 +83,7 @@ const SearchWall = props => (
                     <button
                         type="submit"
                         onClick={props.handleSearchBtnSubmit}
-                        className="btn btn-success"
+                        className="btn btn-success searchWallbtn"
                     >
                         Search
                      </button>

@@ -1,3 +1,64 @@
 .invisible {
     display: none;
   }
+
+.resultsBox {
+    width: 80%; 
+    margin: 0 auto; 
+  }
+
+.resultDiv {
+  text-align: center; 
+  margin: 20px; 
+  background-color: #a88f8d; 
+  color: white; 
+
+}
+
+.searchTitle { 
+font-family: 'Patua One', cursive;
+
+}
+
+.panel-body { 
+background-color: #f5f5f5; 
+}
+
+.panel-heading {
+  background-color: #38425B !important; 
+
+}
+
+#resultsHeader {
+  background-color: #38425B;
+}
+
+.requestBtn {
+  background-color: #38425B;
+  color: white; 
+  border-color: #38425B;
+
+}
+
+.requestBtn:hover { 
+  background: #38425B !important; 
+  border-color: #38425B
+}
+
+.requestBtn:visted {
+  background: #38425B !important;
+}
+
+.requestBtn:active {
+  background: #E81E17 !important;
+
+}
+
+#emailBody, #emailSubject, #emailFrom { 
+  background: white; 
+}
+
+#emailSendButton {
+  background: #38425B !important;
+  border-color: #38425B !important;
+}
