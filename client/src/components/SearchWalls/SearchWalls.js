@@ -80,12 +80,12 @@ const SearchWall = props => (
                 </div>
                 <div className="col-sm-3">
                     <span></span><br />
-                    <button
+                    <button id="effect"
                         type="submit"
                         onClick={props.handleSearchBtnSubmit}
-                        className="btn btn-success"
+                        className="btn btn-success ld-over-full-inverse"
                     >
-                        Search
+                        <div className="ld ld-ball ld-flip"></div>Search
                      </button>
 
                 </div>
