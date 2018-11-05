@@ -1,6 +1,7 @@
 .welcomeMsg{
-    font-weight: 700;
-    font-family: "Roboto Slab", "Times New Roman", serif;
+    /* font-weight: 700; */
+    font-family: 'Patua One', cursive;
+    /* font-family: "Roboto Slab", "Times New Roman", serif; */
     text-align: center
 
 }
@@ -26,4 +27,8 @@
 }
 .registerBtn{
     margin-right:5px;
+}
+
+.mainHeaders {
+    font-family: 'Patua One', cursive;
 }

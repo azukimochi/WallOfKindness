@@ -15,9 +15,9 @@ props.results.length === 0 ?
     :
     (
     <div className="row" id="resultsSection">
-        <div className="col-lg-12">
+        <div className="col-lg-12 resultsBox">
             <div className="panel panel-primary">
-                <div className="panel-heading">
+                <div className="panel-heading" id="resultsHeader">
                     <h3 className="panel-title results">
                         <strong>
                             Results
@@ -31,13 +31,13 @@ props.results.length === 0 ?
                         {console.log("props is:", props)}
                         {props.results.map(result => (
 
-                            <li key={result.id} className="list-group-item">
+                            <li key={result.id} className="list-group-item resultDiv">
                                 <h4>Full Name: {result.name}</h4>
                                 <p> Wall Name: {result.wallName.toUpperCase()}</p>
                                 <p> Email Address: {result.email}</p>
                                 <p> City: {result.city.toUpperCase()}</p>
                                 <p> Zip Code: {result.zipCode}</p>
-                                <button className="btn btn-primary" onClick={props.handleRequestButton}>Request</button>
+                                <button className="btn btn-primary requestBtn" onClick={props.handleRequestButton}>Request</button>
                                 
                                     <form id='emailForm' className="invisible">
                                         <h4>To: {result.email}</h4>

@@ -22,3 +22,56 @@
 
 }
 
+.searchWallbtn {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #E81E17;
+    border: solid 1px #E81E17; 
+}
+
+.searchWallbtn:hover {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #38425B;
+    border: solid 1px #38425B; 
+}
+
+.searchWallbtn:active {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #E81E17;
+    border: solid 1px #E81E17; 
+}
+
+.searchWallbtn:visited {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #E81E17;
+    border: solid 1px #E81E17; 
+}
+
+.searchWallbtn:link {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #E81E17;
+    border: solid 1px #E81E17; 
+}
+
+.inputRows {
+    margin: 0 auto; 
+}
+ 
+#searchItem .searchRange .searchArea { 
+    height: 3.8rem; 
+
+}
+
+.panel-title { 
+    color: white; 
+    
+}
+
+.results {
+    background: #38425B; 
+    border-radius: 1px; 
+}
