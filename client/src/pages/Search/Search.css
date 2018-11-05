@@ -1,0 +1,9 @@
+.searchWelcome { 
+    text-align: center; 
+    font-family: 'Patua One', cursive;
+}
+
+#emailBody #emailFrom #emailSubject{
+    background-color: white; 
+}
+
