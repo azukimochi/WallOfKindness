@@ -227,13 +227,14 @@ console.log("aboo and luke",this.props)
                 </ol>
               </Col>
 
-              <FormBtn
+              <button
                 id="updateWallButton"
+                className="btn btn-success ld-over-full-inverse"
                 // disabled={!(this.state.author && this.state.title)}
                 onClick={this.props.submitBtnClick}
               >
-                Update Wall
-              </FormBtn>
+                <div className="ld ld-ball ld-flip"></div>Update Wall
+              </button>
               <br />
               {/* </form> */}
             </Col>

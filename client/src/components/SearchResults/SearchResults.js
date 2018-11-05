@@ -39,6 +39,7 @@ props.results.length === 0 ?
                                 <p> Zip Code: {result.zipCode}</p>
                                 <button className="btn btn-primary requestBtn" onClick={props.handleRequestButton}>Request</button>
                                 
+                                <h4 className="invisible" id="toast">Email Sent Successfully!</h4>
                                     <form id='emailForm' className="invisible">
                                         <h4>To: {result.email}</h4>
                                         <h4>From: <input type="text" id="emailFrom" placeholder="Your Email"/></h4>
@@ -46,7 +47,13 @@ props.results.length === 0 ?
                                         <br />
                                         <textarea id="emailBody"> </textarea>
                                         <br />
-                                        <button onClick={props.sendEmail} type="submit" id="emailSendButton" className="smallButton">Send</button>
+                                        <button onClick={props.sendEmail} 
+                                        type="submit" 
+                                        id="emailSendButton" 
+                                        className="btn btn-success ld-over-full-inverse">
+                                        <div className="ld ld-ball ld-flip"></div>Send
+                                        
+                                        </button>
                                     </form>
                            
                              

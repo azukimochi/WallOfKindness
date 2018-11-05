@@ -95,7 +95,13 @@ class DashboardPage extends Component {
         
 
     console.log('current wall info', this.state.currentUser);
+    this.updateButtonEffect()
+  }
 
+  updateButtonEffect(){
+    let updateEffect = document.getElementById('updateWallButton');
+    updateEffect.classList.add('running');
+    setTimeout(function(){updateEffect.classList.remove('running')}, 2000);
   }
 
   addClicked = e => {

@@ -88,12 +88,7 @@ class Search extends Component {
 
     };
 
-    clearEmailForm(){
-        document.getElementById('emailFrom').value = '';
-        document.getElementById('emailSubject').value = '';
-        document.getElementById('emailBody').value = '';
-    
-    };
+   
 
     sendEmail=(e)=>{
         e.preventDefault();
@@ -115,15 +110,29 @@ class Search extends Component {
           console.log(this.state.results[0].email);
 
         })
-        // this.clearEmailForm();
-        // this.emailSentMessage();
-      
+        this.clearEmailForm();
+        
+        // this.emailButtonEffect()
+        this.emailSentMessage();
+    };
+    emailButtonEffect(){
+        let effect = document.getElementById('emailSendButton');
+        effect.classList.add('running');
+        setTimeout(function(){effect.classList.remove('running')}, 2000);
+      };
+
+      clearEmailForm(){
+        document.getElementById('emailFrom').value = '';
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+    
     };
 
     emailSentMessage(){
         let toast = document.getElementById('toast');
         toast.classList.remove('invisible');
         setTimeout(function(){toast.classList.add('invisible')}, 2000);
+        document.getElementById('emailForm').classList.add("invisible");
       
     };
 
@@ -131,9 +140,16 @@ class Search extends Component {
         this.setState({ range: event.target.value });
     };
 
+    searchButtonEffect(){
+        let effect = document.getElementById('effect');
+        effect.classList.add('running');
+        setTimeout(function(){effect.classList.remove('running')}, 2000);
+      }
+
     handleSearchBtnSubmit = event => {
 
         event.preventDefault();
+        this.searchButtonEffect();
         // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
         if (this.state.giftType) {
@@ -153,29 +169,7 @@ class Search extends Component {
                     });
                     console.log("result array:", resultsArray);
                     this.setState({ results: resultsArray })
-                    // if (resultsArray.length === 0){
-                    //     let resultState = this.state.results.push("Sorry. This item is not available.");
-                    //     this.setState({results:resultState})
-                    //     
-                    //     console.log(this.state.results);
-
-                    // }
-                    // else {
-                    // }
-
-
-                    // resultsArray.map(({firstName, email, zipCode}) => {
-                    // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
-                    // console.log("final array:" , finalArray);
-                    // })
-                    // res.data.map(({firstName, email, zipCode}) => {
-                    //         resultsArray.push({firstName: firstName, email:email, zipCode:zipCode})
-                    //     // });
-                    // this.setState(prevState => ({
-                    //     results: [...prevState].concat(resultsArray).splice(0, this.state.limit)
-                    // }), console.log("golabiiii",this.state.limit))
-
-                    // console.log("state is " + JSON.stringify(this.state));
+                 
                 })
                 .catch(err => console.log(err))
         }
@@ -188,7 +182,7 @@ class Search extends Component {
         this.setState({
             hasSearched: true
         })
-
+        
     };
 
 
