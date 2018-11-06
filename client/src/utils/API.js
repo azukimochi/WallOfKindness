@@ -11,6 +11,14 @@ export default {
     })
     
   },
+
+  getAllGifts: function(searchGifts){
+    return axios.get("/api/walls/getAllGifts")
+    .catch(function(error){
+      console.log(error);
+
+    })
+  },
   // Gets the book with the given id
   getBook: function(id) {
     return axios.get("/api/books/" + id);
