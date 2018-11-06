@@ -1,8 +1,9 @@
 import React from "react";
 import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
-import { giftTypeStock, matchGiftType } from "../../pages/Search/dataGiftType";
-import { giftNameStock, matchGiftName } from "../../pages/Search/dataGiftName";
+// import { giftTypeStock, matchGiftType } from "../../pages/Search/dataGiftType";
+// import { giftNameStock, matchGiftName } from "../../pages/Search/dataGiftName";
+
 
 
 // Using the datalist element we can create autofill suggestions based on the props.breeds array
@@ -27,14 +28,15 @@ const SearchWall = props => (
                 <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
                     <Autocomplete
+                        key={props.id}
                         value={props.giftType}
                         inputProps={{ id: 'states-autocomplete', placeholder: 'Type of Gift' }}
                         wrapperStyle={{ position: 'relative', display: 'inline-block' }}
-                        items={giftTypeStock()}
+                        items={props.values}
                         getItemValue={item => item.name}
-                        shouldItemRender={matchGiftType}
+                        // shouldItemRender={matchGiftType}
                         onChange={props.handleGiftsInputChange}
-                        onSelect={props.handleGiftsType}
+                        // onSelect={props.handleGiftsType}
                         renderMenu={children => (
                             <div className="menu">
                                 {children}
@@ -77,7 +79,7 @@ const SearchWall = props => (
                         id="inputRange"
                     />
 
-                </div>
+                </div><br/>
                 <div className="col-sm-3">
                     <span></span><br />
                     <button

@@ -63,7 +63,7 @@ export function giftTypeStock() {
 
   export function matchGiftType(state, value) {
     return (
-      state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-      state.abbr.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      state.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 
+      // state.abbr.toLowerCase().indexOf(value.toLowerCase()) !== -1
     );
   }

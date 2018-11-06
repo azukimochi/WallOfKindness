@@ -7,7 +7,7 @@ import API from "../../utils/API";
 import Autocomplete from "react-autocomplete";
 import { giftTypeStock, matchGiftType } from "./dataGiftType";
 import { giftNameStock, matchGiftName } from "./dataGiftName";
-import axios from 'axios'; 
+import axios from 'axios';
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -17,6 +17,7 @@ class Search extends Component {
 
     // insert state changes and methods here
     state = {
+        autoCompleteState: [],
         gifts: "",
         address: "",
         range: "",
@@ -26,11 +27,10 @@ class Search extends Component {
         limit: null,
         hasSearched: false,
         showEmailForm: false,
-        giftType: "",
-        giftName: ""
+        giftType: ""
+        // giftName: ""
 
     };
-
 
     displaySearchResults = () => {
         return this.state.results.map(result => {
@@ -48,14 +48,8 @@ class Search extends Component {
                 // showEmailForm={result.showEmailForm}
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
-
-
-
                 />
             }
-
-
-
         })
     }
 
@@ -71,9 +65,10 @@ class Search extends Component {
         this.setState({ giftType: event.target.value.toLowerCase() })
     }
 
-    handleGiftsType = giftType => {
-        this.setState({ giftType })
-    }
+    // handleGiftsType = giftType => {
+    //     this.setState({ giftType })
+    // }
+
 
     handleAreaChange = event => {
         this.setState({ address: event.target.value });
@@ -87,52 +82,101 @@ class Search extends Component {
 
     };
 
-    clearEmailForm(){
+    clearEmailForm() {
         document.getElementById('emailFrom').value = '';
         document.getElementById('emailSubject').value = '';
         document.getElementById('emailBody').value = '';
-    
+
     };
 
-    sendEmail=(e)=>{
+    sendEmail = (e) => {
         e.preventDefault();
-
-
-
         // set route to send through the email
         axios({
-          method: 'post',
-          url: '/api/send/mail',
-          params: {
-            emailTo: this.state.results[0].email,
-            emailFrom: document.getElementById('emailFrom').value,
-            emailSubject: document.getElementById('emailSubject').value,
-            emailBody: document.getElementById('emailBody').value
-          }
+            method: 'post',
+            url: '/api/send/mail',
+            params: {
+                emailTo: this.state.results[0].email,
+                emailFrom: document.getElementById('emailFrom').value,
+                emailSubject: document.getElementById('emailSubject').value,
+                emailBody: document.getElementById('emailBody').value
+            }
         }).then((response) => {
-          console.log(response);
-          console.log(this.state.results[0].email);
+            console.log(response);
+            console.log(this.state.results[0].email);
 
         })
         // this.clearEmailForm();
         // this.emailSentMessage();
-      
+
     };
 
-    emailSentMessage(){
+    emailSentMessage() {
         let toast = document.getElementById('toast');
         toast.classList.remove('invisible');
-        setTimeout(function(){toast.classList.add('invisible')}, 2000);
-      
+        setTimeout(function () { toast.classList.add('invisible') }, 2000);
+
     };
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
     };
 
-    handleSearchBtnSubmit = event => {
+    handleGiftAutocomplete = event => {
+        console.log("hello autocomplete", this.state.giftType);
+        if (this.state.giftType || this.state.autoCompleteState.length === 0) {
+            API.getAllGifts({
+                gifts: this.state.giftType,
+            })
+                .then(res => {
+                    // console.log("res received:", res);\
+                    
+                    let giftListFromDatabase = res.data
+                    let finalGiftArray = [];
+                    let uniqueArray
+                    let giftAutoCompleteArray 
+                    let autoCompleteArray = []
+                    // console.log(giftAutocomplete)
 
+                    giftListFromDatabase.forEach((element) => {
+                        let gifts = element.gifts
+                        if(gifts.length === 1){
+                            finalGiftArray.push(gifts[0])
+                        } else {
+                            gifts.forEach((element) => {
+                                finalGiftArray.push(element)
+                            })
+                        }
+                        
+                        let removeDuplicates  = (arr) => {
+                            uniqueArray = arr.filter(function(elem, index, self){
+                                return index == self.indexOf(elem)
+                            })
+                            return uniqueArray
+                        }
+                     
+                        giftAutoCompleteArray = removeDuplicates(finalGiftArray)
+                        
+                        // console.log(giftAutoCompleteArray)
+
+                        return giftAutoCompleteArray
+                    })
+                    
+                    giftAutoCompleteArray.forEach((element) => {
+                        let giftObject = {abbr: element, name: element}
+                        autoCompleteArray.push(giftObject)
+                        return autoCompleteArray 
+                    })  
+
+                    this.setState({ autoCompleteState: autoCompleteArray })
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    handleSearchBtnSubmit = event => {
         event.preventDefault();
+        // this.handleGiftAutocomplete();
         // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
         if (this.state.giftType) {
@@ -146,35 +190,13 @@ class Search extends Component {
                     let resultsArray = [];
                     console.log("results:", res);
                     res.data.forEach(function (element) {
-                        console.log(element);
+                        console.log("element:", element);
                         resultsArray.push(element);
 
                     });
                     console.log("result array:", resultsArray);
                     this.setState({ results: resultsArray })
-                    // if (resultsArray.length === 0){
-                    //     let resultState = this.state.results.push("Sorry. This item is not available.");
-                    //     this.setState({results:resultState})
-                    //     
-                    //     console.log(this.state.results);
 
-                    // }
-                    // else {
-                    // }
-
-
-                    // resultsArray.map(({firstName, email, zipCode}) => {
-                    // finalArray.push({firstName:firstName, email:email, zipCode:zipCode});
-                    // console.log("final array:" , finalArray);
-                    // })
-                    // res.data.map(({firstName, email, zipCode}) => {
-                    //         resultsArray.push({firstName: firstName, email:email, zipCode:zipCode})
-                    //     // });
-                    // this.setState(prevState => ({
-                    //     results: [...prevState].concat(resultsArray).splice(0, this.state.limit)
-                    // }), console.log("golabiiii",this.state.limit))
-
-                    // console.log("state is " + JSON.stringify(this.state));
                 })
                 .catch(err => console.log(err))
         }
@@ -190,14 +212,19 @@ class Search extends Component {
 
     };
 
+    componentDidMount(){
+        this.handleGiftAutocomplete();
+    }
 
     render() {
         return (
             <div>
                 <Wrapper>
                     <SearchWall
+                        handleGiftAutocomplete={this.handleGiftAutocomplete}
+                        values={this.state.autoCompleteState}
                         handleGiftsChange={this.handleGiftsChange}
-                        handleGiftsType={this.handleGiftsType}
+                        // handleGiftsType={this.handleGiftsType}
                         handleGiftsInputChange={this.handleGiftsInputChange}
                         handleAreaChange={this.handleAreaChange}
                         handleRangeChange={this.handleRangeChange}
@@ -206,25 +233,24 @@ class Search extends Component {
                         errorMessage={this.state.errorMessage}
                         giftTypeStock={this.giftTypeStock}
                         giftType={this.state.giftType}
-
                     />
-                    
+
 
                     {this.state.hasSearched ?
                         (
                             <SearchResults
 
-                        results={this.state.results}
-                        handleRequestButton={this.handleRequestButton}
-                        sendEmail={this.sendEmail}
-                    
-                    />
-                )
-                :
-                
-                    <h1>welcome!</h1>
-                
-                }
+                                results={this.state.results}
+                                handleRequestButton={this.handleRequestButton}
+                                sendEmail={this.sendEmail}
+
+                            />
+                        )
+                        :
+
+                        <h1>welcome!</h1>
+
+                    }
                     {/* <MakeRequest /> */}
                 </Wrapper>
 
