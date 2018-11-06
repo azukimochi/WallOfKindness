@@ -16,19 +16,45 @@
     margin-bottom:100px;
 }
 
-.searchBtn, .registerBtn{
+.searchBtn, .registerBtn, .signInBtn{
     background-color:#e81e17;
     border: solid 1px #e81e17;
 }
 
-.signInBtn{
-    background-color:#a88f8d;
-    border: solid 1px #a88f8d
+.searchBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; 
 }
+
 .registerBtn{
     margin-right:5px;
 }
 
+.registerBtn:hover, .signInBtn:hover, .searchBtn:hover { 
+    background-color:#e81e17 !important;
+    border: solid 1px #e81e17 !important;
+}
+
 .mainHeaders {
     font-family: 'Patua One', cursive;
+    text-align: center; 
 }
+
+.signIn, .register {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.groupButtons {
+    text-align: center; 
+}
+
+.pageContainers {
+    min-height: 50px; 
+
+};
+

@@ -47,7 +47,6 @@ class App extends React.Component {
 			<div className='appContainer'>
 
 				<NavBar currentUser={currentUser} />
-
 				<Switch>
 				<Route path="/search" component={Search} />
 

@@ -16,16 +16,17 @@ const Main = () => (
         <Row>
           <Col size="sm-6">
            <h3 className="mainHeaders">Search for Donated Items</h3>
-           <p>Search for fresh food, or household items like furniture to complete your living room and connect with donors through email. Here at our Wall, we try to create a safe and judgement free environment to share resources and reduce wastage. </p>
+           <p className="pageContainers">Search for fresh food, or household items like furniture to complete your living room and connect with donors through email. Here at our Wall, we try to create a safe and judgement free environment to share resources and reduce wastage. </p>
            <a href="/search"><button className="searchBtn" >Search Page</button></a>
           </Col>
      
           <Col size="sm-6">
-          <h3 className="mainHeaders">Donate</h3>
-          <p>Sign up to make your 'Wall of Kindness' and become a donor. A donee may contact you via messages for more information.</p>
-          <a href="signUp"><button className="registerBtn">Register</button></a>
-          <a href="login"><button className="signInBtn">Sign-In</button></a>
-         
+          <h3 className="mainHeaders">Donate to Someone in Need</h3>
+          <p className="pageContainers">Sign up to make your 'Wall of Kindness' and become a donor. A recipient may contact you via messages for more information. Sign up and see how you can help your fellow neighbours in a pinch! Everyone is welcome to join</p>
+          <div className="groupButtons">
+          <a href="signUp"><button className="registerBtn register">Register</button></a>
+          <a href="login"><button className="signInBtn signIn">Sign-In</button></a>
+          </div>
           </Col>
         </Row>
       </Container>

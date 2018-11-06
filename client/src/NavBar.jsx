@@ -50,13 +50,7 @@ const NavBar = (props) => {
 										{/* <NavLink to="/vip">VIP</NavLink> */}
 										{/* <NavLink to="/logout">Log Out</NavLink> */}
 
-										<li className={
-											window.location.pathname === "/messages"
-												? "active"
-												: ""
-										}>
-											<NavLink to="messages">Inbox</NavLink>
-										</li>
+
 									</ul>
 									<ul className="nav navbar-nav navbar-right">
 

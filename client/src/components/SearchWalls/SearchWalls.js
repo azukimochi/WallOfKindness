@@ -31,7 +31,7 @@ const SearchWall = props => (
                         key={props.id}
                         value={props.giftType}
                         inputProps={{ id: 'states-autocomplete', placeholder: 'Type of Gift' }}
-                        wrapperStyle={{ position: 'relative', display: 'inline-block' }}
+                        wrapperStyle={{ position: 'relative', display: 'flex' }}
                         items={props.values}
                         getItemValue={item => item.name}
                         // shouldItemRender={matchGiftType}
@@ -85,7 +85,8 @@ const SearchWall = props => (
                     <button id="effect"
                         type="submit"
                         onClick={props.handleSearchBtnSubmit}
-                        className="btn btn-success ld-over-full-inverse searchWallbtn"
+                        className="registerBtn ld-over-full-inverse searchWallBtn "
+                     
                     >
                         <div className="ld ld-ball ld-flip"></div>Search
                      </button>
