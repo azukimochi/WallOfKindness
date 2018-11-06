@@ -8,8 +8,12 @@ const SearchResults = props =>
 // console.log("props:" , props.results.length)
 props.results.length === 0 ?
     (
-        <div className="row" id="noResults">
-        <p> No results </p>
+        <div>
+        <div className="row noResults" id="noResults">
+        </div>
+        <div className="noneResults">
+        <p className="noResults"> There are no results for your search, please try again </p>
+        </div>
         </div>
     )
     :
@@ -37,8 +41,8 @@ props.results.length === 0 ?
                                 <p> Email Address: {result.email}</p>
                                 <p> City: {result.city.toUpperCase()}</p>
                                 <p> Zip Code: {result.zipCode}</p>
-                                <button className="btn btn-primary requestBtn" onClick={props.handleRequestButton}>Request</button>
-                                
+                                <button className="registerBtn " onClick={props.handleRequestButton}>Request</button>
+                                {/* btn btn-primary requestBtn  */}
                                 <h4 className="invisible" id="toast">Email Sent Successfully!</h4>
                                     <form id='emailForm' className="invisible">
                                         <h4>To: {result.email}</h4>
@@ -50,7 +54,7 @@ props.results.length === 0 ?
                                         <button onClick={props.sendEmail} 
                                         type="submit" 
                                         id="emailSendButton" 
-                                        className="btn btn-success ld-over-full-inverse">
+                                        className="btn btn-success ld-over-full-inverse registerBtn">
                                         <div className="ld ld-ball ld-flip"></div>Send
                                         
                                         </button>

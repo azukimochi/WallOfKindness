@@ -8,10 +8,11 @@
   }
 
 .resultDiv {
+  font-family: 'Montserrat', sans-serif;
   text-align: center; 
   margin: 20px; 
-  background-color: #a88f8d; 
-  color: white; 
+  background-color: #38425B; 
+  color: #FFFFFF;
 
 }
 
@@ -56,9 +57,12 @@ background-color: #f5f5f5;
 
 #emailBody, #emailSubject, #emailFrom { 
   background: white; 
+  color: #38425B; 
 }
 
-#emailSendButton {
-  background: #38425B !important;
-  border-color: #38425B !important;
+.noResults, .errorMessage {
+  text-align: center; 
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold; 
 }
+

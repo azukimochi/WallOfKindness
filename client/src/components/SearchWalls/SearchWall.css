@@ -22,35 +22,35 @@
 
 }
 
-.searchWallbtn {
+.searchWallBtn {
     margin-top: 33px; 
     color: white; 
     background-color: #E81E17;
     border: solid 1px #E81E17; 
 }
 
-.searchWallbtn:hover {
-    margin-top: 33px; 
-    color: white; 
-    background-color: #38425B;
-    border: solid 1px #38425B; 
-}
-
-.searchWallbtn:active {
+.searchWallBtn:hover {
     margin-top: 33px; 
     color: white; 
     background-color: #E81E17;
     border: solid 1px #E81E17; 
 }
 
-.searchWallbtn:visited {
+.searchWallBtn:active {
     margin-top: 33px; 
     color: white; 
     background-color: #E81E17;
     border: solid 1px #E81E17; 
 }
 
-.searchWallbtn:link {
+.searchWallBtn:visited {
+    margin-top: 33px; 
+    color: white; 
+    background-color: #E81E17;
+    border: solid 1px #E81E17; 
+}
+
+.searchWallBtn:link {
     margin-top: 33px; 
     color: white; 
     background-color: #E81E17;
@@ -68,6 +68,7 @@
 
 .panel-title { 
     color: white; 
+    font-family: 'Montserrat', sans-serif;
     
 }
 

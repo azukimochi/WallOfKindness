@@ -9,13 +9,15 @@ import { giftTypeStock, matchGiftType } from "./dataGiftType";
 import { giftNameStock, matchGiftName } from "./dataGiftName";
 import axios from 'axios'; 
 import "./Search.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // import SearchResults from "../../components/MakeRequest";
 
-
+const emailConfirmation = () => toast.success("Your e-mail has been successfully sent", { position: toast.POSITION.TOP_CENTER});
 
 class Search extends Component {
-
+    
     // insert state changes and methods here
     state = {
         gifts: "",
@@ -29,9 +31,9 @@ class Search extends Component {
         showEmailForm: false,
         giftType: "",
         giftName: ""
-
+        
     };
-
+    
 
     displaySearchResults = () => {
         return this.state.results.map(result => {
@@ -128,11 +130,15 @@ class Search extends Component {
     
     };
 
+
+
     emailSentMessage(){
         let toast = document.getElementById('toast');
         toast.classList.remove('invisible');
         setTimeout(function(){toast.classList.add('invisible')}, 2000);
         document.getElementById('emailForm').classList.add("invisible");
+        emailConfirmation(); 
+        
       
     };
 
@@ -221,6 +227,7 @@ class Search extends Component {
                 
                 }
                     {/* <MakeRequest /> */}
+                    <ToastContainer />
                 </Wrapper>
 
             </div>
