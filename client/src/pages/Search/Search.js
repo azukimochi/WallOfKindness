@@ -12,6 +12,7 @@ import "./Search.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 // import SearchResults from "../../components/MakeRequest";
 
 const emailConfirmation = () => toast.success("Your e-mail has been successfully sent", { position: toast.POSITION.TOP_CENTER});
@@ -20,6 +21,7 @@ class Search extends Component {
     
     // insert state changes and methods here
     state = {
+        autoCompleteState: [],
         gifts: "",
         address: "",
         range: "",
@@ -51,14 +53,8 @@ class Search extends Component {
                 // showEmailForm={result.showEmailForm}
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
-
-
-
                 />
             }
-
-
-
         })
     }
 
@@ -74,9 +70,10 @@ class Search extends Component {
         this.setState({ giftType: event.target.value.toLowerCase() })
     }
 
-    handleGiftsType = giftType => {
-        this.setState({ giftType })
-    }
+    // handleGiftsType = giftType => {
+    //     this.setState({ giftType })
+    // }
+
 
     handleAreaChange = event => {
         this.setState({ address: event.target.value });
@@ -90,28 +87,33 @@ class Search extends Component {
 
     };
 
-   
 
-    sendEmail=(e)=>{
+    clearEmailForm() {
+        document.getElementById('emailFrom').value = '';
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+
+    };
+
+
+    sendEmail = (e) => {
         e.preventDefault();
-
-
-
         // set route to send through the email
         axios({
-          method: 'post',
-          url: '/api/send/mail',
-          params: {
-            emailTo: this.state.results[0].email,
-            emailFrom: document.getElementById('emailFrom').value,
-            emailSubject: document.getElementById('emailSubject').value,
-            emailBody: document.getElementById('emailBody').value
-          }
+            method: 'post',
+            url: '/api/send/mail',
+            params: {
+                emailTo: this.state.results[0].email,
+                emailFrom: document.getElementById('emailFrom').value,
+                emailSubject: document.getElementById('emailSubject').value,
+                emailBody: document.getElementById('emailBody').value
+            }
         }).then((response) => {
-          console.log(response);
-          console.log(this.state.results[0].email);
+            console.log(response);
+            console.log(this.state.results[0].email);
 
         })
+
         this.clearEmailForm();
         
         // this.emailButtonEffect()
@@ -127,24 +129,77 @@ class Search extends Component {
         document.getElementById('emailFrom').value = '';
         document.getElementById('emailSubject').value = '';
         document.getElementById('emailBody').value = '';
-    
+  
     };
-
-
 
     emailSentMessage(){
         let toast = document.getElementById('toast');
         toast.classList.remove('invisible');
+
         setTimeout(function(){toast.classList.add('invisible')}, 2000);
         document.getElementById('emailForm').classList.add("invisible");
         emailConfirmation(); 
         
       
+
     };
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
     };
+
+
+    handleGiftAutocomplete = event => {
+        console.log("hello autocomplete", this.state.giftType);
+        if (this.state.giftType || this.state.autoCompleteState.length === 0) {
+            API.getAllGifts({
+                gifts: this.state.giftType,
+            })
+                .then(res => {
+                    // console.log("res received:", res);\
+                    
+                    let giftListFromDatabase = res.data
+                    let finalGiftArray = [];
+                    let uniqueArray
+                    let giftAutoCompleteArray 
+                    let autoCompleteArray = []
+                    // console.log(giftAutocomplete)
+
+                    giftListFromDatabase.forEach((element) => {
+                        let gifts = element.gifts
+                        if(gifts.length === 1){
+                            finalGiftArray.push(gifts[0])
+                        } else {
+                            gifts.forEach((element) => {
+                                finalGiftArray.push(element)
+                            })
+                        }
+                        
+                        let removeDuplicates  = (arr) => {
+                            uniqueArray = arr.filter(function(elem, index, self){
+                                return index == self.indexOf(elem)
+                            })
+                            return uniqueArray
+                        }
+                     
+                        giftAutoCompleteArray = removeDuplicates(finalGiftArray)
+                        
+                        // console.log(giftAutoCompleteArray)
+
+                        return giftAutoCompleteArray
+                    })
+                    
+                    giftAutoCompleteArray.forEach((element) => {
+                        let giftObject = {abbr: element, name: element}
+                        autoCompleteArray.push(giftObject)
+                        return autoCompleteArray 
+                    })  
+
+                    this.setState({ autoCompleteState: autoCompleteArray })
+                })
+                .catch(err => console.log(err))
+        }
+    }
 
     searchButtonEffect(){
         let effect = document.getElementById('effect');
@@ -152,10 +207,12 @@ class Search extends Component {
         setTimeout(function(){effect.classList.remove('running')}, 2000);
       }
 
-    handleSearchBtnSubmit = event => {
+    
 
+    handleSearchBtnSubmit = event => {
         event.preventDefault();
-        this.searchButtonEffect();
+     
+
         // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
         if (this.state.giftType) {
@@ -169,13 +226,13 @@ class Search extends Component {
                     let resultsArray = [];
                     console.log("results:", res);
                     res.data.forEach(function (element) {
-                        console.log(element);
+                        console.log("element:", element);
                         resultsArray.push(element);
 
                     });
                     console.log("result array:", resultsArray);
                     this.setState({ results: resultsArray })
-                 
+
                 })
                 .catch(err => console.log(err))
         }
@@ -191,14 +248,19 @@ class Search extends Component {
         
     };
 
+    componentDidMount(){
+        this.handleGiftAutocomplete();
+    }
 
     render() {
         return (
             <div>
                 <Wrapper>
                     <SearchWall
+                        handleGiftAutocomplete={this.handleGiftAutocomplete}
+                        values={this.state.autoCompleteState}
                         handleGiftsChange={this.handleGiftsChange}
-                        handleGiftsType={this.handleGiftsType}
+                        // handleGiftsType={this.handleGiftsType}
                         handleGiftsInputChange={this.handleGiftsInputChange}
                         handleAreaChange={this.handleAreaChange}
                         handleRangeChange={this.handleRangeChange}
@@ -207,25 +269,26 @@ class Search extends Component {
                         errorMessage={this.state.errorMessage}
                         giftTypeStock={this.giftTypeStock}
                         giftType={this.state.giftType}
-
                     />
-                    
+
 
                     {this.state.hasSearched ?
                         (
                             <SearchResults
 
-                        results={this.state.results}
-                        handleRequestButton={this.handleRequestButton}
-                        sendEmail={this.sendEmail}
-                    
-                    />
-                )
-                :
-                
-                    <h1 class="searchWelcome">Fill in the fields above to search for a gift.</h1>
-                
-                }
+
+                                results={this.state.results}
+                                handleRequestButton={this.handleRequestButton}
+                                sendEmail={this.sendEmail}
+
+                            />
+                        )
+                        :
+
+                        <h1>welcome!</h1>
+
+                    }
+
                     {/* <MakeRequest /> */}
                     <ToastContainer />
                 </Wrapper>

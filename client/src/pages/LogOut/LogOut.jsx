@@ -5,6 +5,7 @@ class LogOut extends React.Component {
 
 	componentDidMount() {
 		this.props.onLogOut()
+		window.localStorage.clear()
 	}
 	
 	render() {

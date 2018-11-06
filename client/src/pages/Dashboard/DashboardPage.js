@@ -20,11 +20,15 @@ class DashboardPage extends Component {
      currentUser: httpClient.getCurrentUser()
   };
 
-  componentWillMount() {
-    this.setState({
-      currentUser: httpClient.getCurrentUser()
-    });
-    console.log('on mount', this.state.currentUser);
+  // componentWillMount() {
+  //   this.setState({
+  //     currentUser: httpClient.getCurrentUser()
+  //   });
+  //   console.log('on mount', this.state.currentUser);
+  // }
+  componentDidMount() {
+    console.log('gifts', localStorage.getItem("updatedGifts"));
+    console.log('name', localStorage.getItem('updatedEmail'));
   }
 
 
@@ -92,7 +96,7 @@ class DashboardPage extends Component {
           this.setState({currentUser: this.state.currentUser})
           console.log('USER', this.state.currentUser);
         })
-        
+
 
     console.log('current wall info', this.state.currentUser);
     this.updateButtonEffect()
@@ -125,25 +129,26 @@ class DashboardPage extends Component {
     this.setState({ itemGroup: currentState });
   }
 
-  itemChangeGifts(e) {
+  itemChangeGifts = (e) => {
     let itemToChange = e.target.dataset.attribute;
-    let itemGroup = e.target.dataset.group;
-    let currentState = this.state.currentUser[itemGroup];
-    console.log('itemGroup',itemGroup)
-    // console.log('currentState',currentState)
-    // console.log('currentState',currentState)
+    const itemGroup = e.target.dataset.group;
+    const currentState = this.state.currentUser[itemGroup];
     currentState[itemToChange] = e.target.value;
-    console.log('currentState',currentState)
     this.setState({itemGroup: currentState});
+    console.log('itemGroup', itemGroup);
+    console.log('currentState', currentState);
+
+    var storageGifts = localStorage.setItem("updatedGifts", currentState);
+    console.log('input change', localStorage.getItem("updatedGifts"));
   };
 
-  itemChange=(e) =>{
+  itemChange = (e) => {
     let itemToChange = e.target.dataset.attribute;
     console.log("e.target",e.target)
     const itemState = this.state.currentUser;
     console.log("this.state.currentUser",this.state.currentUser)
-    let itemGroup = e.target.dataset.group;
-    let currentState = this.state[itemGroup];
+    const itemGroup = e.target.dataset.group;
+    const currentState = this.state[itemGroup];
     itemState[e.target.name] = e.target.value;
     this.setState({ currentUser: itemState });
 
@@ -154,21 +159,21 @@ class DashboardPage extends Component {
     var storageZipCode = localStorage.setItem("updatedZipcode", itemState.zipCode);
   }
 
- 
+
 
 
   render() {
     return (
       <div>
         <Dashboard
-         email={this.state.currentUser.email ? this.state.currentUser.email : window.localStorage.updatedEmail }
+         email={ window.localStorage.updatedEmail ? window.localStorage.updatedEmail : this.state.currentUser.email }
           user={this.state.currentUser.user}
-          name={this.state.currentUser.name ? this.state.currentUser.name : window.localStorage.updatedName}
+          name={window.localStorage.updatedName ? window.localStorage.updatedName : this.state.currentUser.name}
           categories={this.state.currentUser.categories}
           gifts={this.state.currentUser.gifts}
-          wallName={this.state.currentUser.wallName ? this.state.currentUser.wallName : window.localStorage.updatedWallName }
-          zipCode={this.state.currentUser.zipCode ? this.state.currentUser.zipCode : window.localStorage.updatedZipcode }
-          city={this.state.currentUser.city ? this.state.currentUser.city : window.localStorage.updatedCity }
+          wallName={window.localStorage.updatedWallName ? window.localStorage.updatedWallName : this.state.currentUser.wallName }
+          zipCode={window.localStorage.updatedZipcode ? window.localStorage.updatedZipcode : this.state.currentUser.zipCode }
+          city={window.localStorage.updatedCity ? window.localStorage.updatedCity : this.state.currentUser.city }
           btnClickHandler={e => {
             this.updateWall(e);
           }}
