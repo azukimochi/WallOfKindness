@@ -7,7 +7,9 @@ import API from "../../utils/API";
 import Autocomplete from "react-autocomplete";
 import { giftTypeStock, matchGiftType } from "./dataGiftType";
 import { giftNameStock, matchGiftName } from "./dataGiftName";
-import axios from 'axios';
+import axios from 'axios'; 
+import "./Search.css";
+
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -82,12 +84,14 @@ class Search extends Component {
 
     };
 
+
     clearEmailForm() {
         document.getElementById('emailFrom').value = '';
         document.getElementById('emailSubject').value = '';
         document.getElementById('emailBody').value = '';
 
     };
+
 
     sendEmail = (e) => {
         e.preventDefault();
@@ -106,21 +110,39 @@ class Search extends Component {
             console.log(this.state.results[0].email);
 
         })
-        // this.clearEmailForm();
-        // this.emailSentMessage();
 
+        this.clearEmailForm();
+        
+        // this.emailButtonEffect()
+        this.emailSentMessage();
+    };
+    emailButtonEffect(){
+        let effect = document.getElementById('emailSendButton');
+        effect.classList.add('running');
+        setTimeout(function(){effect.classList.remove('running')}, 2000);
+      };
+
+      clearEmailForm(){
+        document.getElementById('emailFrom').value = '';
+        document.getElementById('emailSubject').value = '';
+        document.getElementById('emailBody').value = '';
+  
     };
 
     emailSentMessage() {
         let toast = document.getElementById('toast');
         toast.classList.remove('invisible');
-        setTimeout(function () { toast.classList.add('invisible') }, 2000);
+
+        setTimeout(function(){toast.classList.add('invisible')}, 2000);
+        document.getElementById('emailForm').classList.add("invisible");
+      
 
     };
 
     handleRangeChange = event => {
         this.setState({ range: event.target.value });
     };
+
 
     handleGiftAutocomplete = event => {
         console.log("hello autocomplete", this.state.giftType);
@@ -174,9 +196,18 @@ class Search extends Component {
         }
     }
 
+    searchButtonEffect(){
+        let effect = document.getElementById('effect');
+        effect.classList.add('running');
+        setTimeout(function(){effect.classList.remove('running')}, 2000);
+      }
+
+    
+
     handleSearchBtnSubmit = event => {
         event.preventDefault();
-        // this.handleGiftAutocomplete();
+     
+
         // console.log(this.state.gifts);
         // if (this.state.item && this.state.area && this.state.range){
         if (this.state.giftType) {
@@ -209,7 +240,7 @@ class Search extends Component {
         this.setState({
             hasSearched: true
         })
-
+        
     };
 
     componentDidMount(){
@@ -240,6 +271,7 @@ class Search extends Component {
                         (
                             <SearchResults
 
+
                                 results={this.state.results}
                                 handleRequestButton={this.handleRequestButton}
                                 sendEmail={this.sendEmail}
@@ -251,6 +283,7 @@ class Search extends Component {
                         <h1>welcome!</h1>
 
                     }
+
                     {/* <MakeRequest /> */}
                 </Wrapper>
 

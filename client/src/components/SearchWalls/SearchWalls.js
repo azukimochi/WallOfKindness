@@ -12,7 +12,7 @@ const SearchWall = props => (
         <div className="container">
             <h2 className="searchTitle">Search</h2>
             <p className="errorMessage">{props.errorMessage}</p>
-            <div className="row">
+            <div className="row inputRows">
                 {/* <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
                     <input
@@ -25,7 +25,7 @@ const SearchWall = props => (
                     />
                 </div> */}
 
-                <div className="col-sm-3">
+                <div className="col-sm-3" >
                     <label htmlFor="item">Item</label><br />
                     <Autocomplete
                         key={props.id}
@@ -82,12 +82,12 @@ const SearchWall = props => (
                 </div><br/>
                 <div className="col-sm-3">
                     <span></span><br />
-                    <button
+                    <button id="effect"
                         type="submit"
                         onClick={props.handleSearchBtnSubmit}
-                        className="btn btn-success"
+                        className="btn btn-success ld-over-full-inverse searchWallbtn"
                     >
-                        Search
+                        <div className="ld ld-ball ld-flip"></div>Search
                      </button>
 
                 </div>

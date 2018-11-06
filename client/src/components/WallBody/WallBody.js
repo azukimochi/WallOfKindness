@@ -40,10 +40,9 @@ class WallBody extends Component {
   };
 
   render() {
-    console.log("in propse:", this.props);
 
     let categories = this.props.categories.map((item, index) => (
-      <li>
+      <li key={index}>
         <input
         name="categories"
           data-group="categories"
@@ -63,7 +62,7 @@ class WallBody extends Component {
     ));
 
     let gifts = this.props.gifts.map((item, index) => (
-      <li>
+      <li key={index}>
         <input
          name="gifts"
           data-attribute={index}
@@ -82,7 +81,7 @@ class WallBody extends Component {
         />
       </li>
     ));
-console.log("aboo and luke",this.props)
+    
     return (
       <Container fluid>
         <form>
@@ -101,9 +100,9 @@ console.log("aboo and luke",this.props)
                 data-attribute="fullName"
                 id="UserfirstName"
               />
-             
+
               <Input
-              
+
                 value={this.props.wallName}
                 onChange={this.props.inputChangeHandler}
                 name="wallName"
@@ -112,7 +111,7 @@ console.log("aboo and luke",this.props)
                 data-attribute="wallName"
                 id="wallName"
               />
-              
+
               <Input
                 value={this.props.city}
                 onChange={this.props.inputChangeHandler}
@@ -122,7 +121,7 @@ console.log("aboo and luke",this.props)
                 data-attribute="city"
                 id="UserAddress"
               />
-              
+
               <Input
                 value={this.props.zipCode}
                 onChange={this.props.inputChangeHandler}
@@ -146,7 +145,7 @@ console.log("aboo and luke",this.props)
                 onChange={this.props.inputChangeHandler}
                 name="phoneNumber"
                 placeholder="Phone Number (optional)"
-                data-group="address" 
+                data-group="address"
                 data-attribute="phoneNumber"
                 id="UserphoneNumber"
               /> */}
@@ -174,7 +173,7 @@ console.log("aboo and luke",this.props)
               { item.name }
             </div>
           )}
-          
+
         /> */}
                 <button
                   id="categories"
@@ -227,13 +226,14 @@ console.log("aboo and luke",this.props)
                 </ol>
               </Col>
 
-              <FormBtn
+              <button
                 id="updateWallButton"
+                className="btn btn-success ld-over-full-inverse"
                 // disabled={!(this.state.author && this.state.title)}
                 onClick={this.props.submitBtnClick}
               >
-                Update Wall
-              </FormBtn>
+                <div className="ld ld-ball ld-flip"></div>Update Wall
+              </button>
               <br />
               {/* </form> */}
             </Col>
