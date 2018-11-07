@@ -18,7 +18,9 @@ const wallSeed = [
  		category: 'food',
  		gifts: ['cake'],
     	city: "toronto",
-  		zipCode: "22222",
+			zipCode: "125 parkway forest drive",
+			longitude:-79.3832,
+			latitude:43.6532,
         
     dateAdded: new Date(Date.now())
   },
@@ -32,7 +34,9 @@ const wallSeed = [
  		category: 'food',
  		gifts: ['burger'],
     	city: "toronto",
-  		zipCode: "555555",
+  		zipCode: 4444,
+			longitude:-79.342424,
+			latitude:43.775336,
         
     dateAdded: new Date(Date.now())
   },
@@ -46,7 +50,9 @@ const wallSeed = [
  		category: 'clothes',
  		gifts: ['shoe'],
     	city: "toronto",
-  		zipCode: "6666",
+  		zipCode: 5555,
+			longitude:-79.5083,
+			latitude:43.8372,
         
     dateAdded: new Date(Date.now())
   },
@@ -60,7 +66,9 @@ const wallSeed = [
  		category: 'clothes',
  		gifts: ['cap'],
     	city: "toronto",
-  		zipCode: "8888",
+  		zipCode: 8888,
+			longitude:-79.3441,
+			latitude:43.7771,
         
     dateAdded: new Date(Date.now())
   }

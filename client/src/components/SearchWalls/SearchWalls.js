@@ -3,15 +3,31 @@ import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
 // import { giftTypeStock, matchGiftType } from "../../pages/Search/dataGiftType";
 // import { giftNameStock, matchGiftName } from "../../pages/Search/dataGiftName";
+import Geolocation from "react-geolocation";
+// import distanceCalc from "../../pages/Search/distanceCalc"
+// let guestLatitude;
+// let guestLongitude;
+// let lat1=43.6532;
+// let lon1=-79.3832;
+// let lat2=43.7254;
+// let lon2=-79.4521;
 
 
 
 // Using the datalist element we can create autofill suggestions based on the props.breeds array
 const SearchWall = props => (
+
+    
+
     <div className="searchBox">
         <div className="container">
             <h2 className="searchTitle">Search</h2>
             <p className="errorMessage">{props.errorMessage}</p>
+
+
+
+
+
             <div className="row inputRows">
                 {/* <div className="col-sm-3">
                     <label htmlFor="item">Item</label><br />
@@ -116,6 +132,9 @@ const SearchWall = props => (
         </div>
     </div>
 
-);
+)
+
+
+
 
 export default SearchWall;
