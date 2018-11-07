@@ -9,8 +9,11 @@ import "./Main.css"
 const Main = () => (
     <div>
       <Jumbotron>
-        <h1 className="welcomeMsg">Welcome to the Wall of Kindness</h1>
-        <h2 className="subText">The average Canadian consumer throws out an estimated 170kg of food a year. Shocking? Let's break that pattern...</h2>
+        <h1 className="welcomeMsg">Wall of Kindness</h1>
+          {/* <h2 className="subText">The average Canadian consumer throws out an estimated 170kg of food a year. </h2> */}
+          <h2 className="subText">feed your heart and your stomach</h2> 
+
+
       </Jumbotron>
       <Container style={{ marginTop: 30 }}>
         <Row>
@@ -22,7 +25,7 @@ const Main = () => (
      
           <Col size="sm-6">
           <h3 className="mainHeaders">Donate to Someone in Need</h3>
-          <p className="pageContainers">Sign up to make your 'Wall of Kindness' and become a donor. A recipient may contact you via messages for more information. Sign up and see how you can help your fellow neighbours in a pinch! Everyone is welcome to join</p>
+          <p className="pageContainers">Sign up to make your 'Wall of Kindness' and become a donor. A recipient may contact you via messages for more information. Sign up and see how you can help your fellow neighbours in a pinch! Everyone is welcome to take part in change.</p>
           <div className="groupButtons">
           <a href="signUp"><button className="registerBtn register">Register</button></a>
           <a href="login"><button className="signInBtn signIn">Sign-In</button></a>
