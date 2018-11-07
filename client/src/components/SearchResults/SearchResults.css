@@ -27,11 +27,13 @@ background-color: #f5f5f5;
 
 .panel-heading {
   background-color: #38425B !important; 
+ 
 
 }
 
 #resultsHeader {
   background-color: #38425B;
+  border-radius: 15px; 
 }
 
 .requestBtn {

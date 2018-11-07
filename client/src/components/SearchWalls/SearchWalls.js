@@ -101,9 +101,7 @@ const SearchWall = props => (
                     <button id="effect"
                         type="submit"
                         onClick={props.handleSearchBtnSubmit}
-                        className="registerBtn ld-over-full-inverse searchWallBtn "
-                     
-                    >
+                        className="registerBtn ld-over-full-inverse searchWallBtn ">
                         <div className="ld ld-ball ld-flip"></div>Search
                      </button>
 
