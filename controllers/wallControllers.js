@@ -49,7 +49,7 @@ module.exports = {
     // console.log( req.query);
 
       db.User
-      .find({gifts:req.query.gifts}, {"name":1, "wallName" : 1, "email": 1, "zipCode": 1, "city":1, "gifts": 1})
+      .find({gifts:req.query.gifts}, {"name":1, "wallName" : 1, "email": 1, "zipCode": 1, "city":1, "gifts": 1,"latitude":1,"longitude":1})
     
       // .sort({ wallName: 1 })
       .then(dbModel => 

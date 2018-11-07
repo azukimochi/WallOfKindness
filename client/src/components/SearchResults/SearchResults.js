@@ -47,6 +47,9 @@ props.results.length === 0 ?
                                 <p> Email Address: {result.email}</p>
                                 <p> City: {result.city.toUpperCase()}</p>
                                 <p> Zip Code: {result.zipCode}</p>
+                                {/* <p> latitude: {result.latitude}</p> */}
+                                {/* <p> longitude: {result.longitude}</p> */}
+                                <p>Distance in KM:{props.distanceCalc(props.userLat,props.userLong,props.guestLat,props.guestLong)}</p>
                                 <button className="registerBtn " onClick={props.handleRequestButton}>Request</button>
                                 {/* btn btn-primary requestBtn  */}
                                 <h4 className="invisible" id="toast">Email Sent Successfully!</h4>

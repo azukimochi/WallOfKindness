@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
+import Geocode from "react-geocode";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
@@ -11,7 +12,7 @@ import axios from 'axios';
 import "./Search.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Geolocation from "react-geolocation";
 
 // import SearchResults from "../../components/MakeRequest";
 
@@ -32,11 +33,16 @@ class Search extends Component {
         hasSearched: false,
         showEmailForm: false,
         giftType: "",
-        giftName: ""
+        giftName: "",
+        distance:"",
+        guestLat:"",
+        guestLong:"",
+        userLat:"",
+        userLong:""
         
     };
     
-
+    // getCurrentPosition
     displaySearchResults = () => {
         return this.state.results.map(result => {
             if (result) {
@@ -50,6 +56,9 @@ class Search extends Component {
                     email={result.email}
                     zipCode={result.zipCode}
                     city={result.city}
+                    latitude={result.latitude}
+                    longtude={result.longtude}
+                    distance={result.distance}
                 // showEmailForm={result.showEmailForm}
                 // address={result.streetAddress1}
                 // handleRequestButton={this.handleRequestButton}
@@ -232,6 +241,12 @@ class Search extends Component {
                     });
                     console.log("result array:", resultsArray);
                     this.setState({ results: resultsArray })
+                    // console.log("new state:", this.state.results[0].zipCode);
+                    let newAddress=this.state.results[0].zipCode
+                    console.log("newAddress:", newAddress);
+                    this.latLong(newAddress)
+                    
+                    console.log("new state isssssss:", this.state);
 
                 })
                 .catch(err => console.log(err))
@@ -250,12 +265,95 @@ class Search extends Component {
 
     componentDidMount(){
         this.handleGiftAutocomplete();
+        this.getLocation();
+        this.latLong();
     }
 
+
+    distanceCalc=(lat1, lon1, lat2, lon2,unit)=>{
+        let radlat1 = Math.PI * lat1/180
+        let radlat2 = Math.PI * lat2/180
+        let theta = lon1-lon2
+        let radtheta = Math.PI * theta/180
+        let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist)
+        dist = dist * 180/Math.PI
+        dist = dist * 60 * 1.1515
+        if (unit=="K") { dist = dist * 1.609344 }
+        if (unit=="N") { dist = dist * 0.8684 }
+        return dist
+        // document.getElementById("distanceTest").innerHTML = 7918 * Math.asin(Math.sqrt(a));
+    };
+
+  
+
+///////////////////////////////////////
+latLong=(address)=>{
+Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
+ 
+// Enable or disable logs. Its optional.
+Geocode.enableDebug();
+Geocode.fromAddress(address).then(
+    response => {
+      let { lat, lng } = response.results[0].geometry.location;
+      console.log("lat and long are:",lat, lng);
+     let newLat=lat;
+     let newLong=lng;
+     console.log("newlat and newlong are:",newLat, newLong);
+     
+        this.setState({
+            userLat:newLat,
+            userLong: newLong
+        
+          })
+        
+    },
+    error => {
+      console.error(error);
+    }
+    // ,
+    
+  );
+  
+
+}
+
+//////////////////////////////////////////
+
+
+getLocation=()=> {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.setPosition);
+    } 
+};
+
+setPosition=(position)=> {
+
+    this.setState({
+        guestLat:position.coords.latitude,
+        guestLong:position.coords.longitude
+
+    })
+    console.log("state jadide",this.state)
+    // document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude + 
+    // "<br>Longitude: " + position.coords.longitude;
+}
+
+
+
+
+////////////////////////////////////////
+
+
+    
     render() {
         return (
             <div>
                 <Wrapper>
+             
                     <SearchWall
                         handleGiftAutocomplete={this.handleGiftAutocomplete}
                         values={this.state.autoCompleteState}
@@ -269,6 +367,9 @@ class Search extends Component {
                         errorMessage={this.state.errorMessage}
                         giftTypeStock={this.giftTypeStock}
                         giftType={this.state.giftType}
+                        distanceCalc={this.distanceCalc}
+                        getLocation={this.getLocation}
+                         latLong={this.latLong}
                     />
 
 
@@ -278,8 +379,16 @@ class Search extends Component {
 
 
                                 results={this.state.results}
+                                guestLat={this.state.guestLat}
+                                guestLong={this.state.guestLong}
                                 handleRequestButton={this.handleRequestButton}
                                 sendEmail={this.sendEmail}
+                                distanceCalc={this.distanceCalc}
+                                getLocation={this.getLocation}
+                                userLat={this.state.userLat}
+                                userLong={this.state.userLong}
+
+                                // latLong={this.latLong}
 
                             />
                         )
