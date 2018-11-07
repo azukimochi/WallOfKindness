@@ -284,8 +284,10 @@ class Search extends Component {
                             />
                         )
                         :
-
-                        <h1>welcome!</h1>
+                        <div className="welcomeDiv">
+                        <h1 className="welcomeBanner">Welcome!</h1>
+                        <p id="welcomeNote">Feel free to search our list of gifts available to you from our donors. If you like what you see, you can request it from an angel and organize a time to pick it up!</p> 
+                        </div>
 
                     }
 
@@ -300,4 +302,4 @@ class Search extends Component {
 
 }
 
-export default Search;
+export default Search 
