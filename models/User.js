@@ -9,7 +9,7 @@ const mongoose = require("mongoose"),
     categories: [{ type: String, default: "", required: false }],
     gifts: [{ type: String, default: "", required: false }],
     city: { type: String, default: "", required: false },
-    zipCode: { type: String, default: "", required: true },
+    zipCode: { type: String, default: "", required: false },
     longitude: { type: Number, required: false },
     latitude: { type: Number, required: false }
   });
