@@ -5,16 +5,13 @@ import Geocode from "react-geocode";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
 import API from "../../utils/API";
-import Autocomplete from "react-autocomplete";
-import { giftTypeStock, matchGiftType } from "./dataGiftType";
-import { giftNameStock, matchGiftName } from "./dataGiftName";
 import axios from 'axios'; 
 import "./Search.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Geolocation from "react-geolocation";
 
-// import SearchResults from "../../components/MakeRequest";
+
+
 
 const emailConfirmation = () => toast.success("Your e-mail has been successfully sent", { position: toast.POSITION.TOP_CENTER});
 
@@ -59,9 +56,7 @@ class Search extends Component {
                     latitude={result.latitude}
                     longtude={result.longtude}
                     distance={result.distance}
-                // showEmailForm={result.showEmailForm}
-                // address={result.streetAddress1}
-                // handleRequestButton={this.handleRequestButton}
+                
                 />
             }
         })
@@ -79,9 +74,7 @@ class Search extends Component {
         this.setState({ giftType: event.target.value.toLowerCase() })
     }
 
-    // handleGiftsType = giftType => {
-    //     this.setState({ giftType })
-    // }
+    
 
 
     handleAreaChange = event => {
@@ -91,7 +84,7 @@ class Search extends Component {
     handleRequestButton = event => {
         event.preventDefault();
         document.getElementById('emailForm').classList.remove("invisible");
-        // this.setState({ showEmailForm: true });
+        
         console.log("hello")
 
     };
@@ -107,7 +100,7 @@ class Search extends Component {
 
     sendEmail = (e) => {
         e.preventDefault();
-        // set route to send through the email
+        
         axios({
             method: 'post',
             url: '/api/send/mail',
@@ -125,7 +118,7 @@ class Search extends Component {
 
         this.clearEmailForm();
         
-        // this.emailButtonEffect()
+        
         this.emailSentMessage();
     };
     emailButtonEffect(){
@@ -165,14 +158,14 @@ class Search extends Component {
                 gifts: this.state.giftType,
             })
                 .then(res => {
-                    // console.log("res received:", res);\
+                    
                     
                     let giftListFromDatabase = res.data
                     let finalGiftArray = [];
                     let uniqueArray
                     let giftAutoCompleteArray 
                     let autoCompleteArray = []
-                    // console.log(giftAutocomplete)
+                    
 
                     giftListFromDatabase.forEach((element) => {
                         let gifts = element.gifts
@@ -193,7 +186,7 @@ class Search extends Component {
                      
                         giftAutoCompleteArray = removeDuplicates(finalGiftArray)
                         
-                        // console.log(giftAutoCompleteArray)
+                     
 
                         return giftAutoCompleteArray
                     })
@@ -222,8 +215,7 @@ class Search extends Component {
         event.preventDefault();
      
 
-        // console.log(this.state.gifts);
-        // if (this.state.item && this.state.area && this.state.range){
+       
         if (this.state.giftType) {
             API.lookForGifts({
                 gifts: this.state.giftType,
@@ -285,12 +277,12 @@ class Search extends Component {
         if (unit=="K") { dist = dist * 1.609344 }
         if (unit=="N") { dist = dist * 0.8684 }
         return dist
-        // document.getElementById("distanceTest").innerHTML = 7918 * Math.asin(Math.sqrt(a));
+        
     };
 
   
 
-///////////////////////////////////////
+
 latLong=(address)=>{
 Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
  

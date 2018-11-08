@@ -1,95 +1,26 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
-import API from "../../utils/API";
-// import { Link } from "react-router-dom";
-// import { Col, Row, Container } from "../../components/Grid";
-// import { List, ListItem } from "../../components/List";
-// import { Input, TextArea, FormBtn } from "../../components/Form";
 import httpClient from '../../httpClient'
 
-import axios from "axios";
-// import Autocomplete from  'react-autocomplete';
-// import { giftTypeStock, matchGiftType } from './dataGiftType';
-// import { giftNameStock, matchGiftName } from './dataGiftName';
 
-// import './autocomplete.css';
+
 import Dashboard from "./Dashboard.js";
 class DashboardPage extends Component {
   state = {
      currentUser: httpClient.getCurrentUser()
   };
 
-  // componentWillMount() {
-  //   this.setState({
-  //     currentUser: httpClient.getCurrentUser()
-  //   });
-  //   console.log('on mount', this.state.currentUser);
-  // }
+ 
   componentDidMount() {
     console.log('gifts', localStorage.getItem("updatedGifts"));
     console.log('name', localStorage.getItem('updatedEmail'));
   }
 
-
-  // }
-
-  // loadWall = () => {
-  //   // e.preventDefault();
-  //   console.log("too load wall",this.state);
-
-  //     httpClient.getUserInfo({
-
-  //       email: this.state.email,
-
-
-  //     }).then(user => {
-
-  //        //   firstName: this.state.names.firstName,
-  //       //   // middleName:this.state.names.middleName,
-  //       //   lastName: this.state.names.lastName,
-  //       //   // streetAddress1 : this.state.address.streetAddress1,
-  //       //   // streetAddress2 : this.state.address.streetAddress2,
-  //       //   city: this.state.address.city,
-  //       //   // state : this.state.address.state,
-  //       //   zipCode: this.state.address.zipCode,
-  //       //   category: this.state.categories,
-  //       //   gifts: this.state.gifts,
-  //       //   wallName: this.state.wall.wallName
-  //       console.log("user",user);
-  //     });
-
-  // };
-
-  // loadReponseData(user) {
-  //   this.setState({
-  //     names: {
-  //       firstName: user.firstName,
-  //       // middleNmae:data.middleNmae,
-  //       lastName: user.lastName
-  //     }
-  //   });
-  //   this.setState({
-  //     address: {
-  //       // streetAddress1: data.streetAddress1,
-  //       // streetAddress2: data.streetAddress2,
-  //       // city: data.city,
-  //       // state: data.state,
-  //       zipCode: user.zipCode
-  //       // phoneNumber:data.phoneNumber
-  //     }
-  //   });
-  //   this.setState({ categories: user.category });
-  //   this.setState({ gifts: user.gifts });
-  // }
-
-
-
+ 
 
   updateWall = (e) => {
     e.preventDefault();
 
-      const { name, wallName, email, city, zipCode, categories, gifts, _id } = this.state.currentUser;
+      //const { name, wallName, email, city, zipCode, categories, gifts, _id } = this.state.currentUser;
 
       httpClient.updateUser(this.state.currentUser)
         .then(user => {

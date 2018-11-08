@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import WallBody from '../../components/WallBody';
 // import API from '../modules/API';
 

@@ -1,18 +1,9 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
-// import API from "../../utils/API";
-// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-// import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
-// import axios from 'axios';
-import Autocomplete from "react-autocomplete";
-import { giftTypeStock, matchGiftType } from "./dataGiftType";
-import { giftNameStock, matchGiftName } from "./dataGiftName";
-
+import { Input } from "../../components/Form";
 import "./autocomplete.css";
-// import Dashboard from './Dashboard.js';
+
 class WallBody extends Component {
   state = {
     giftType: "",
@@ -21,16 +12,11 @@ class WallBody extends Component {
     user: {},
     names: {
       firstName: "",
-      // middleNmae:'',
       lastName: ""
     },
     address: {
-      // streetAddress1: '',
-      // streetAddress2: '',
-      // city: '',
-      // state: '',
       zipCode: ""
-      // phoneNumber:''
+      
     },
     categories: [],
     gifts: [],
@@ -90,7 +76,7 @@ class WallBody extends Component {
               <h3 style={{ textAlign: "center" }}>
                 Welcome, {this.props.donor}
               </h3>
-              {/* <form> */}
+              
               <Input
                 value={this.props.donor}
                 onChange={this.props.inputChangeHandler}
@@ -140,41 +126,9 @@ class WallBody extends Component {
                 data-attribute="email"
                 id="UserEmail"
               />
-              {/* <Input
-                // value={this.props.address.phoneNumber}
-                onChange={this.props.inputChangeHandler}
-                name="phoneNumber"
-                placeholder="Phone Number (optional)"
-                data-group="address"
-                data-attribute="phoneNumber"
-                id="UserphoneNumber"
-              /> */}
+             
               <Col size="md-6 sm-12">
-                {/* <h5>Type of Gift:</h5> */}
-
-                {/* <Autocomplete
-          value={ this.state.giftType }
-          inputProps={{ id: 'states-autocomplete',placeholder: 'Type of Gift' }}
-          wrapperStyle={{ position: 'relative', display: 'inline-block' }}
-          items={ giftTypeStock() }
-          getItemValue={ item => item.name }
-          shouldItemRender={ matchGiftType }
-          onChange={(event, giftType) => this.setState({ giftType }) }
-          onSelect={ giftType => this.setState({ giftType }) }
-          renderMenu={ children => (
-            <div className = "menu">
-              { children }
-            </div>
-          )}
-          renderItem={ (item, isHighlighted) => (
-            <div
-              className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
-              key={ item.abbr } >
-              { item.name }
-            </div>
-          )}
-
-        /> */}
+              
                 <button
                   id="categories"
                   className="button btn btn-primary"
@@ -189,29 +143,7 @@ class WallBody extends Component {
                 <br />
               </Col>
               <Col size="md-6 sm-12">
-                {/* <h5 className="MType">Gift Name:</h5> */}
-                {/* <Autocomplete
-          value={ this.state.giftName }
-          inputProps={{ id: 'states-autocomplete',placeholder: 'Name of Gift' }}
-          wrapperStyle={{ position: 'relative', display: 'inline-block' }}
-          items={ giftNameStock() }
-          getItemValue={ item => item.name }
-          shouldItemRender={ matchGiftName }
-          onChange={(event, giftName) => this.setState({ giftName }) }
-          onSelect={ giftName => this.setState({ giftName }) }
-          renderMenu={ children => (
-            <div className = "menu">
-              { children }
-            </div>
-          )}
-          renderItem={ (item, isHighlighted) => (
-            <div
-              className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
-              key={ item.abbr } >
-              { item.name }
-            </div>
-          )}
-        /> */}
+             
                 <button
                   id="gifts"
                   className="button btn btn-primary"
@@ -221,7 +153,7 @@ class WallBody extends Component {
                 </button>
 
                 <ol>
-                  {/* {this.state.giftName} for testing */}
+          
                   {gifts}
                 </ol>
               </Col>
@@ -235,7 +167,7 @@ class WallBody extends Component {
                 <div className="ld ld-ball ld-flip"></div>Update Wall
               </button>
               <br />
-              {/* </form> */}
+           
             </Col>
             <Col size="md-6 sm-12">
               <br />
