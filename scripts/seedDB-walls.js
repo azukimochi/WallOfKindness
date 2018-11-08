@@ -18,7 +18,7 @@ const wallSeed = [
  		category: 'food',
  		gifts: ['cake'],
     	city: "toronto",
-			zipCode: "125 parkway forest drive",
+			zipCode: "9471 yonge street",
 			longitude:-79.3832,
 			latitude:43.6532,
         
@@ -34,7 +34,7 @@ const wallSeed = [
  		category: 'food',
  		gifts: ['burger'],
     	city: "toronto",
-  		zipCode: 4444,
+  		zipCode: "125 parkway forest drive",
 			longitude:-79.342424,
 			latitude:43.775336,
         
@@ -50,7 +50,7 @@ const wallSeed = [
  		category: 'clothes',
  		gifts: ['shoe'],
     	city: "toronto",
-  		zipCode: 5555,
+  		zipCode:"29 philips lake court L4E 0S8",
 			longitude:-79.5083,
 			latitude:43.8372,
         
@@ -66,7 +66,7 @@ const wallSeed = [
  		category: 'clothes',
  		gifts: ['cap'],
     	city: "toronto",
-  		zipCode: 8888,
+  		zipCode: "2 Gladstone Ave. Toronto ON M6J 0B2",
 			longitude:-79.3441,
 			latitude:43.7771,
         
