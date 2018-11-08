@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
   
 console.log(routes); 
 
-app.use(express.static(`${__dirname}/client/build`))
+// app.use(express.static(`${__dirname}/client/build`))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 
