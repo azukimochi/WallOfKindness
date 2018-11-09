@@ -5,10 +5,10 @@ import "./Navbar.css";
 
 
 class NavBar extends Component {
-  // const {isAuthenticated, user} = this.props.auth;
+  
   
   render(){
-    // const {isAuthenticated, user} = this.props.auth;
+    
      const isAuthenticated= true
     
 
@@ -46,7 +46,7 @@ class NavBar extends Component {
        
     <li>
     <a href="/" className="nav-link" >
-                    <img src=""
+                    <img src="" alt=""
                         className="rounded-circle"
                         style={{ width: '25px', marginRight: '5px'}} />
                             <span className="glyphicon glyphicon-log-out"></span> Logout
@@ -105,7 +105,7 @@ window.location.pathname === "/signIn"
 
   <div className="container-fluid">
     <div className="navbar-header customNav">
-      <a className="navbar-brand " href="#">Wall of Kindness</a>
+      <a className="navbar-brand " href="/">Wall of Kindness</a>
     </div>
     
     {isAuthenticated ? authPages : guestPages}

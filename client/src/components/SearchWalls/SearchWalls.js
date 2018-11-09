@@ -1,20 +1,8 @@
 import React from "react";
 import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
-// import { giftTypeStock, matchGiftType } from "../../pages/Search/dataGiftType";
-// import { giftNameStock, matchGiftName } from "../../pages/Search/dataGiftName";
-import Geolocation from "react-geolocation";
-// import distanceCalc from "../../pages/Search/distanceCalc"
-// let guestLatitude;
-// let guestLongitude;
-// let lat1=43.6532;
-// let lon1=-79.3832;
-// let lat2=43.7254;
-// let lon2=-79.4521;
 
 
-
-// Using the datalist element we can create autofill suggestions based on the props.breeds array
 const SearchWall = props => (
 
     
@@ -29,17 +17,7 @@ const SearchWall = props => (
 
 
             <div className="row inputRows">
-                {/* <div className="col-sm-3">
-                    <label htmlFor="item">Item</label><br />
-                    <input
-                        onChange={props.handleGiftsChange}
-                        name="gifts"
-                        type="text"
-                        className="searchItem"
-                        placeholder="e.g.Rice, Pasta, T-shirt"
-                        id="inputItem"
-                    />
-                </div> */}
+              
 
                 <div className="col-sm-3" >
                     <label htmlFor="item">Item</label><br />
@@ -50,7 +28,7 @@ const SearchWall = props => (
                         wrapperStyle={{ position: 'relative', display: 'flex' }}
                         items={props.values}
                         getItemValue={item => item.name}
-                        // shouldItemRender={matchGiftType}
+                        
                         onChange={props.handleGiftsInputChange}
                         // onSelect={props.handleGiftsType}
                         renderMenu={children => (
@@ -108,24 +86,7 @@ const SearchWall = props => (
                 </div>
             </div>
 
-            {/* {/* <div className="row" id="resultsSection">
-                <div className="col-lg-12">
-                    <div className="panel panel-primary">
-                        <div className="panel-heading">
-                            <h3 className="panel-title results">
-                                <strong>
-                                    Results
-                                </strong>
-                            </h3>
-                        </div>
-                        <div className="panel-body">
-                            {props.displaySearchResults()}
-                        </div>
-                    </div>
-                </div> 
-
-
-            </div> */}
+         
 
         </div>
     </div>
