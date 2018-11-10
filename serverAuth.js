@@ -1,7 +1,7 @@
 const
 	jwt = require('jsonwebtoken'),
 	User = require('./models/User.js')
-	{ JWT_SECRET } = process.env
+	// { JWT_SECRET } = process.env
 // const JWT_SECRET=BOOOOOOOOOOOOOM;
 // function for creating tokens
 function signToken(user) {
