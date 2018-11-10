@@ -96,7 +96,7 @@ httpClient.updateUser = function(userInfo) {
 
 // logIn and signUp functions could be combined into one since the only difference is the url we're sending a request to..
 httpClient.signUp = function(userInfo) {
-	return this({ method: 'post', url: '/api/users', data: userInfo})
+	return this({ method: 'post', url: '/api/users/create', data: userInfo})
 		.then((serverResponse) => {
 			const token = serverResponse.data.token
 			if(token) {

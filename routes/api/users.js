@@ -7,6 +7,8 @@ router = require("express").Router();
 
 usersRouter.route('/')
 	.get(usersCtrl.index)
+
+usersRouter.route('/create')
 	.post(usersCtrl.create)
 
 usersRouter.post('/authenticate', usersCtrl.authenticate)
