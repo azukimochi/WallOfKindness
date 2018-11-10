@@ -61,12 +61,17 @@ httpClient.logIn = function(credentials) {
 
 
 httpClient.updateUser = function(userInfo) {
+	
 
 	return this({ method: 'put', url: '/api/users/' + userInfo._id, data: userInfo})
-		.then((serverResponse) => {
+		.then((serverResponse, err) => {
+			if (err) {
+
+				console.log(err)
+			}
 			const token = serverResponse.data.token;
 			console.log('token', token)
-			console.log('updated user', serverResponse)
+			console.log('updated user aboozar', serverResponse)
 			console.log('user info', userInfo);
 
 			if(token) {
