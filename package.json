@@ -12,7 +12,7 @@
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "server": "npm run start"
+    "server": "node server.js"
   },
   "author": "Aboozar-Aparajita-Marshall-Like",
   "license": "ISC",
