@@ -8,7 +8,7 @@ function signToken(user) {
 	// toObject() returns a basic js object with only the info from the db
 	const userData = user.toObject()
 	delete userData.password
-	return jwt.sign(userData, 'secretkey',{expiresIn:"300s"})
+	return jwt.sign(userData, 'BOOOOOOOOOOOOOM')
 }
 
 // function for verifying tokens
