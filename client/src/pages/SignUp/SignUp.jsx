@@ -1,5 +1,5 @@
 import React from 'react'
-import httpClient from '../../httpClient'
+import httpClient from '../../utils/httpClient'
 import "./SignUp.css";
 // const wallControllers = require("../../controllers/wallControllers");
 // import routes from '../../routes/api'

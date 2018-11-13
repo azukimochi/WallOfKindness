@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import httpClient from '../../httpClient'
+import httpClient from '../../utils/httpClient'
 
 
 

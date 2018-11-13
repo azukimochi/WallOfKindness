@@ -1,5 +1,5 @@
 import React from 'react'
-import httpClient from '../../httpClient'
+import httpClient from '../../utils/httpClient'
 import "./LogIn.css";
 
 class LogIn extends React.Component {

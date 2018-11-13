@@ -42,13 +42,22 @@ module.exports = {
 	},
 	// update an existing user
 	update: (req, res) => {
-
+		console.log('im the update controller')
 		User.findById(req.params.id, (err, user) => {
-			
-			Object.assign(user, req.body)
-			user.save((err, updatedUser) => {
+			let currentGifts = [...user.gifts];
+			console.log("i am currentGifts", currentGifts)
+			currentGifts.push(req.body.gifts)
+			console.log("I am user:",user)
+			console.log("I am req.body:",req.body)
+			// Object.assign(user, req.body)
+			User.findOneAndUpdate({gifts: currentGifts})
+			.then(newData => {
+				console.log("I am newData:",newData)
 				res.json({success: true, message: "User updated.", user})
 			})
+			// user.save((err, updatedUser) => {
+			// 	res.json({success: true, message: "User updated.", user})
+			
 
 		})
 	

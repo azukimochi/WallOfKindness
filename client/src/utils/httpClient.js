@@ -63,7 +63,7 @@ httpClient.logIn = function(credentials) {
 httpClient.updateUser = function(userInfo) {
 	
 
-	return this({ method: 'put', url: '/api/users/' + userInfo._id, data: userInfo})
+	return this({ method: 'put', url: '/api/users/update/' + userInfo._id, data: userInfo})
 		.then((serverResponse, err) => {
 			if (err) {
 

@@ -13,11 +13,12 @@ usersRouter.route('/create')
 
 usersRouter.post('/authenticate', usersCtrl.authenticate)
 
-
+usersRouter.route('/update/:id')
+	.put(usersCtrl.update)
+	
 usersRouter.use(verifyToken)
 usersRouter.route('/:id')
 	.get(usersCtrl.show)
-	.put(usersCtrl.update)
 	.delete(usersCtrl.destroy)
 
 
