@@ -61,12 +61,17 @@ httpClient.logIn = function(credentials) {
 
 
 httpClient.updateUser = function(userInfo) {
+	
 
 	return this({ method: 'put', url: '/api/users/' + userInfo._id, data: userInfo})
-		.then((serverResponse) => {
+		.then((serverResponse, err) => {
+			if (err) {
+
+				console.log(err)
+			}
 			const token = serverResponse.data.token;
 			console.log('token', token)
-			console.log('updated user', serverResponse)
+			console.log('updated user aboozar', serverResponse)
 			console.log('user info', userInfo);
 
 			if(token) {
@@ -91,7 +96,7 @@ httpClient.updateUser = function(userInfo) {
 
 // logIn and signUp functions could be combined into one since the only difference is the url we're sending a request to..
 httpClient.signUp = function(userInfo) {
-	return this({ method: 'post', url: '/api/users', data: userInfo})
+	return this({ method: 'post', url: '/api/users/create', data: userInfo})
 		.then((serverResponse) => {
 			const token = serverResponse.data.token
 			if(token) {
