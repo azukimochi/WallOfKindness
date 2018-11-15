@@ -1,5 +1,7 @@
 import React from 'react'; 
 import  MessageList  from '../../components/Chat/MessageList'
+import { withRouter } from 'react-router-dom'
+import API from "../../utils/API";
 import "./Chat.css";
 
     const DUMMY_DATA = [
@@ -19,6 +21,21 @@ class Chat extends React.Component {
 
         this.state = { messages: DUMMY_DATA }; 
     } 
+
+    componentDidMount = () => {
+        const token = localStorage.getItem('session_token');
+        API.auth(token)
+            .then(res => {
+                console.log(res.data.status)
+                if (res.data.status !== "404") {
+                    console.log("Auth successful!")
+                } else {
+                    console.log("Auth failed!")
+                    this.props.history.push('/login')
+                }
+            })
+            .catch(err => console.log(err))
+    }
   
     render() {
         return (

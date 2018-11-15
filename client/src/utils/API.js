@@ -36,16 +36,26 @@ export default {
   },
 
   register: function(newUserData) {
-  return axios.post("/api/users/create", newUserData);
+  return axios.post("/users/create", newUserData);
   },
 
   logIn: function(loginData) {
-    return axios.get("api/users/logIn", {params: loginData})
+    return axios.get("/users/logIn", {params: loginData})
   },
 
-  getUserInfo: function(id) {
-    return axios.get("/api/users/find/" + id)
-  },
+  getUserInfo: function(reqObj) {
+    return axios.get("/api/walls/findUser/", 
+    { 
+      params: reqObj,
+      headers: {"Authorization" : `Bearer ${reqObj.token}`}, 
+     }
+  )},
+
+  auth: function(token) {
+    return axios.get('/api/auth', { headers: {"Authorization" : `Bearer ${token}`} }
+  )},
+
+  
   // ,
   // loadWallInfo: function(wallData) {
   //   return axios.post("/api/wallsLoad", wallData);

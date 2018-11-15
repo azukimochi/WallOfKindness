@@ -15,6 +15,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  	// find the logged in user for the dashboard
+	show: (req, res) => {
+    console.log("Hello2", req.query.id)
+		db.User
+			.findById({ _id: req.query.id})
+			.then(dbModel => res.json(dbModel))
+			.catch(err => res.status(422).json(err));
+	},
   
   createWall: function (req, res) {
     db.Walls
