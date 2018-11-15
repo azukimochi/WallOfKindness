@@ -93,17 +93,51 @@ module.exports = {
 	},
 
 	// the login route
-	authenticate: (req, res) => {
-		// check if the user exists
-		User.findOne({email: req.body.email}, (err, user) => {
-			// if there's no user or the password is invalid
-			if(!user || !user.validPassword(req.body.password)) {
-				// deny access
-				return res.json({success: false, message: "Invalid credentials."})
-			}
 
-			const token = signToken(user)
-			res.json({success: true, message: "Token attached.", token})
-		})
+	logIn: (req, res) => {
+		console.log('req.query', req.query);
+    User.findOne({email: req.query.email})
+		.then(dbUser => {
+			console.log('dbUser', dbUser)
+        bcrypt.compare(req.query.password, dbUser.password, function(err, response) {
+          if (dbUser !== null && response == true) {
+            console.log("password is correct")
+            let user = dbUser.username;
+            jwt.sign({ user },"secretkey",{ expiresIn: "300s" },
+              (err, token) => {
+                res.json({
+                  validate: true,
+                  message: "Welcome " + dbUser.name,
+                  token: token,
+                  id: dbUser._id,
+                  name: dbUser.name
+                });
+              }
+            );
+            console.log("jwt sent");
+          }
+          else {
+            console.log("password is not correct")
+            res.json({
+              validate: false,
+              status: "422"
+            });
+					}
+				})
+				})
+				.catch(err => res.status(422).json(err))
 	}
+	// authenticate: (req, res) => {
+		// check if the user exists
+		// User.findOne({email: req.body.email}, (err, user) => {
+			// if there's no user or the password is invalid
+			// if(!user || !user.validPassword(req.body.password)) {
+				// deny access
+			// 	return res.json({success: false, message: "Invalid credentials."})
+			// }
+
+		// 	const token = signToken(user)
+		// 	res.json({success: true, message: "Token attached.", token})
+		// })
+	// }
 }

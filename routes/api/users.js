@@ -11,7 +11,9 @@ usersRouter.route('/')
 usersRouter.route('/create')
 	.post(usersCtrl.create)
 
-usersRouter.post('/authenticate', usersCtrl.authenticate)
+usersRouter.route('/logIn')
+	.get(usersCtrl.logIn)
+// usersRouter.post('/authenticate', usersCtrl.authenticate)
 
 
 usersRouter.use(verifyToken)

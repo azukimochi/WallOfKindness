@@ -38,6 +38,10 @@ export default {
   register: function(newUserData) {
   return axios.post("/api/users/create", newUserData);
   },
+
+  logIn: function(loginData) {
+    return axios.get("api/users/logIn", {params: loginData})
+  }
   // ,
   // loadWallInfo: function(wallData) {
   //   return axios.post("/api/wallsLoad", wallData);
