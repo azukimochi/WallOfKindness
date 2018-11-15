@@ -33,7 +33,19 @@ export default {
   },
   createNewWall: function(newWallData) {
     return axios.post("/createWall", newWallData);
-  }
+  },
+
+  register: function(newUserData) {
+  return axios.post("/api/users/create", newUserData);
+  },
+
+  logIn: function(loginData) {
+    return axios.get("api/users/logIn", {params: loginData})
+  },
+
+  getUserInfo: function(id) {
+    return axios.get("/api/users/find/" + id)
+  },
   // ,
   // loadWallInfo: function(wallData) {
   //   return axios.post("/api/wallsLoad", wallData);

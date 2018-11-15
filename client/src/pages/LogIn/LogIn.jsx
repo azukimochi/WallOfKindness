@@ -1,46 +1,97 @@
-import React from 'react'
-import httpClient from '../../httpClient'
+import React, { Component } from 'react'
+// import httpClient from '../../httpClient'
+import API from "../../utils/API.js"
+import { withRouter } from 'react-router-dom'
 import "./LogIn.css";
 
-class LogIn extends React.Component {
+class LogIn extends Component {
 	state = {
-		fields: { email: '', password: ''}
+		email: "",
+		password: "",
+		statusMsg: ""
 	}
 
-	onInputChange(evt) {
-		this.setState({
-			fields: {
-				...this.state.fields,
-				[evt.target.name]: evt.target.value
+	onInputChange = event => {
+		this.setState({[event.target.name]: event.target.value}, 
+			() => {
+			console.log(this.state.email),
+			console.log(this.state.password)
 			}
-		})
-	}
+		)}
 
-	onFormSubmit(evt) {
-		evt.preventDefault()
-		httpClient.logIn(this.state.fields).then(user => {
-			this.setState({ fields: { email: '', password: '' } })
-			if(user) {
-				this.props.onLoginSuccess(user)
+	onFormSubmit = event => {
+		event.preventDefault();
+		const loginData = {
+			email: this.state.email,
+			password: this.state.password
+		}
+		API.logIn(loginData)
+		.then(res => {
+			console.log(res)
+			if (res.data.validate === false) {
+				console.log("Login failed")
+				this.setState({ 
+					statusMsg: "Login failed. The email/password did not match.",
+					email: "",
+					password: ""
+			 })
+			} else {
+				console.log('login response: Logged In', res)
+
+				localStorage.setItem('session_token', res.data.token);
+				localStorage.setItem('user_welcome', res.data.message);
+				localStorage.setItem('user_id', res.data.id);
+				localStorage.setItem('username', res.data.name);
 				this.props.history.push('/')
 			}
 		})
+		.catch(err => {
+			console.log('login error', err)
+		})
 	}
+
+	// onFormSubmit(event) {
+	// 	event.preventDefault()
+	// 	httpClient.logIn(this.state.fields).then(user => {
+	// 		this.setState({ fields: { email: '', password: '' } })
+	// 		if(user) {
+	// 			this.props.onLoginSuccess(user)
+	// 			this.props.history.push('/')
+	// 		}
+	// 	})
+	// }
 	
 	render() {
-		const { email, password } = this.state.fields
+		// const { email, password } = this.state.fields
 		return (
 			<div className='LogIn'>
 				<div className='row'>
 					<div className='column column-33 column-offset-33'>
 						<h1 className="logInHeader">Log In</h1>
-						<form onChange={this.onInputChange.bind(this)} onSubmit={this.onFormSubmit.bind(this)}>
-							<input type="email" placeholder="Enter a valid email address" name="email" value={email} required/>
-							<input type="password" placeholder="Password" name="password" value={password} pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" required/>
+						<form onSubmit={this.onFormSubmit}>
+							<input 
+							type="email" 
+							placeholder="Enter a valid email address" 
+							name="email" 
+							value={this.state.email} 
+							onChange={this.onInputChange}
+							required/>
+
+							<input 
+							type="password" 
+							placeholder="Password" 
+							name="password" 
+							value={this.state.password} 
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}" 
+							title="Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters" 
+							onChange={this.onInputChange}
+							required/>
+
 							<div className="signUpDiv">
 							<button className="logInBtn registerBtn">Log In</button>
 							</div>
 						</form>
+						{this.state.statusMsg}
 					</div>
 				</div>
 			</div>
