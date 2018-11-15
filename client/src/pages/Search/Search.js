@@ -255,10 +255,26 @@ class Search extends Component {
         
     };
 
-    componentDidMount(){
-        this.handleGiftAutocomplete();
-        this.getLocation();
-        this.latLong();
+    componentDidMount = () => {
+        const token = localStorage.getItem('session_token');
+        API.auth(token)
+            .then(res => {
+                console.log(res)
+                // console.log(res.data.status)
+                // if (res.data.status !== "404") {
+                //     this.browseByItem()
+                // } else {
+                //     console.log("Auth failed!")
+                //     this.props.history.push('/login')
+                // }
+            })
+            .catch(err => console.log(err))
+
+
+
+        // this.handleGiftAutocomplete();
+        // this.getLocation();
+        // this.latLong();
     }
 
 

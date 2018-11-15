@@ -1,5 +1,3 @@
-
-router = require("express").Router();
 express = require('express'),
 // usersRouter = new express.Router(),
 usersRouter = require("express").Router();

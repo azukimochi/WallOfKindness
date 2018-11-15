@@ -7,9 +7,9 @@ const jwt = require("jsonwebtoken");
 router.use("/api", verifytoken, apiRoutes);
 router.use("/users", userRoutes);
 
-// Verify Token
+// Verify Token Before Continuting with API routes 
 function verifytoken(req, res, next) {
-    console.log("hello", req.query)
+    console.log("Hello", req)
     //Get auth header value
      const bearerHeader = req.headers['authorization'];
     //Check if bearer is undefined
@@ -20,31 +20,29 @@ function verifytoken(req, res, next) {
       const bearerToken = bearer[1];
       //Set the token
       req.token = bearerToken;
-      
+      //Check you have the correct token    
       console.log("I am req.token", req.token)
-      jwt.verify(req.token, 'secretkey', (err, authData) => {
-       if (err) {
+      //Use JWT to verify that the token is active session   
+        jwt.verify(req.token, 'secretkey', (err, authData) => {
+
+        // if the token isn't active, then a 200 status call with a status property of "404" is sent. 
+        if (err) {
          res.json({
            status: '404',
          });
          console.log("token is not valid!")
-       }
-        //  res.json({
-        //    status: '200',
-        //  });
-        //next middleware
+        } else {
+            console.log("token is valid!")
+        }
+        //proceeds to next middleware/route path. 
+        // next() is only achievable if there's no err because there wouldn't be a response sent
          next();
-       
-     });
+         });
 
-  
     } else {
       //Forbidden
       res.sendStatus(403);
-  
     }
-    
-
   };
 
 // router.use(function(req, res) {

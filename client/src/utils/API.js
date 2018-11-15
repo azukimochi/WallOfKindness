@@ -51,6 +51,10 @@ export default {
      }
   )},
 
+  auth: function(token) {
+    return axios.get('/api/auth', { headers: {"Authorization" : `Bearer ${token}`} }
+  )},
+
   
   // ,
   // loadWallInfo: function(wallData) {
