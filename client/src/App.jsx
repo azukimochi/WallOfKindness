@@ -29,69 +29,91 @@ import Chat from "./pages/Chat";
 import Footer from "./components/Footer";
 // import Wrapper from "./components/Wrapper";
 
-class App extends React.Component {
-	state = { currentUser: httpClient.getCurrentUser() }
+// ________________START OF KAREN'S CODE_____________________
+const App = () => (
+	<Router>
+	  <div className="appContainer">
+		<NavBar />
+		<Switch>
+		<Route exact path="/search" component={Search} />
+		  <Route exact path="/login" component={LogIn} />
+		  <Route exact path="/logout" component={LogOut} />
+		  <Route exact path="/signup" component={SignUp} />
+		  <Route exact path="/dashboard" component={DashboardPage} />
+		  <Route exact path="/messages" component={Chat} />
+		  <Route exact path="/" component={Main} />
+		</Switch>
+	  </div>
+	</Router>
+  );
+  
+  export default App;
+// ______________END OF KAREN'S CODE___________________________ 
 
-	onLoginSuccess(user) {
-		this.setState({ currentUser: httpClient.getCurrentUser() })
-	}
 
-	logOut() {
-		httpClient.logOut()
-		this.setState({ currentUser: null })
-	}
+// class App extends React.Component {
+// 	state = { currentUser: httpClient.getCurrentUser() }
+
+// 	onLoginSuccess(user) {
+// 		this.setState({ currentUser: httpClient.getCurrentUser() })
+// 	}
+
+// 	logOut() {
+// 		httpClient.logOut()
+// 		this.setState({ currentUser: null })
+// 	}
 	
-	render() {
-		const { currentUser } = this.state
-		return (
-			<div className='appContainer'>
+// 	render() {
+// 		const { currentUser } = this.state
+// 		return (
+// 			<div className='appContainer'>
 
-				<NavBar currentUser={currentUser} />
-				<Switch>
-				<Route path="/search" component={Search} />
+// 				<NavBar currentUser={currentUser} />
+// 				<Switch>
+// 				<Route path="/search" component={Search} />
 
-					<Route path="/login" render={(props) => {
-						return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
-					}} />
+// 					<Route path="/login" render={(props) => {
+// 						return <LogIn {...props} onLoginSuccess={this.onLoginSuccess.bind(this)} />
+// 					}} />
 
-					<Route path="/logout" render={(props) => {
-						return <LogOut onLogOut={this.logOut.bind(this)} />
-					}} />
+// 					<Route path="/logout" render={(props) => {
+// 						return <LogOut onLogOut={this.logOut.bind(this)} />
+// 					}} />
 
-					{/* the sign up component takes an 'onSignUpSuccess' prop which will perform the same thing as onLoginSuccess: set the state to contain the currentUser */}
-					<Route path="/signup" render={(props) => {
-						return <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
-					}} />
+// 					{/* the sign up component takes an 'onSignUpSuccess' prop which will perform the same thing as onLoginSuccess: set the state to contain the currentUser */}
+// 					<Route path="/signup" render={(props) => {
+// 						return <SignUp {...props} onSignUpSuccess={this.onLoginSuccess.bind(this)} />
+// 					}} />
 
-					{/* <Route path="/vip" render={() => {
-						return currentUser
-							? <VIP />
-							: <Redirect to="/login" />
-					}} /> */}
+// 					{/* <Route path="/vip" render={() => {
+// 						return currentUser
+// 							? <VIP />
+// 							: <Redirect to="/login" />
+// 					}} /> */}
 
-					<Route path="/dashboard" render={() => {
-						return currentUser
-							? <DashboardPage />
-							: <Redirect to="/login" />
-					}} />
+// 					<Route path="/dashboard" render={() => {
+// 						return currentUser
+// 							? <DashboardPage />
+// 							: <Redirect to="/login" />
+// 					}} />
 
-					<Route path="/messages" render={() => {
-						return currentUser
-							? <Chat />
-							: <Redirect to="/login" />
-					}} />
-
-					
-					<Route path="/" component={Main} />
+// 					<Route path="/messages" render={() => {
+// 						return currentUser
+// 							? <Chat />
+// 							: <Redirect to="/login" />
+// 					}} />
 
 					
+// 					<Route path="/" component={Main} />
+
+					
 					
 
-				</Switch>
-				<Footer />
-			</div>
-		)
-	}
-}
+// 				</Switch>
+// 				<Footer />
+// 			</div>
+// 		)
+// 	}
+// }
 
-export default App
+// export default App
