@@ -70,28 +70,54 @@ const WallBody = props => (
                   className="button btn btn-primary"
                   onClick={props.addClick}
                 >
-                  Add Categories
+                  Add More Items
                 </button>
-                <ol>
-                  {/* {this.state.giftType} for testing */}
-                  {props.categories}
-                </ol>
+               
+                {props.gifts.map((item, index) => (
+                  <span>
+                  <div key={index}>
+                <Input 
+                value={item}
+                name="item"
+                onChange={(event) => props.handleGiftChange(index, event)} 
+                />
+                {/* <Input
+                value={props.categories[index]}
+                name="category"
+                onChange={(event) => props.handleCategoryChange(index, event)}
+                /> */}
+
+                <select name="category" value={props.categories[index]} onChange={(event) => props.handleCategoryChange(index, event)}>
+                      <option value="None">Category</option>
+                      <option value="Food">Food</option>
+                      <option value="Electronics">Electronics</option>
+                      <option value="Clothing">Clothing</option>
+                      <option value="Kitchen">Kitchen</option>
+                      <option value="Office">Office</option>
+                      <option value="Home">Home</option>
+                      <option value="Transportation">Transportation</option>
+                      <option value="Travel and Events">Travel and Events</option>
+                      <option value="Bills">Bills</option>
+                      <option value="Miscellaneous">Miscellaneous</option>
+                    </select>
+
+               </div>
+                </span>
+                ))}
+
+                
                 <br />
               </Col>
               <Col size="md-6 sm-12">
              
-                <button
+                {/* <button
                   id="gifts"
                   className="button btn btn-primary"
                   onClick={props.addClick}
                 >
                   Add Gifts
-                </button>
+                </button> */}
 
-                <ol>
-          
-                  {props.gifts}
-                </ol>
               </Col>
 
               <button

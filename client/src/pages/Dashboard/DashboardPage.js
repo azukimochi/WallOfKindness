@@ -59,8 +59,8 @@ class DashboardPage extends Component {
     console.log("Hi, I'm the addMoreItems button")
     let copyOfCategories = [...this.state.categories]
     let copyOfGifts = [...this.state.gifts]
-    copyOfCategories.push("")
-    copyOfGifts.push("")
+    copyOfCategories.push("none")
+    copyOfGifts.push("Name of the Gift")
     this.setState({
       categories: copyOfCategories,
       gifts: copyOfGifts
@@ -77,7 +77,26 @@ class DashboardPage extends Component {
 			() => {
 			console.log(this.state)
 			}
-		)}
+    )}
+    
+  handleGiftChange = (index, event) => {
+    console.log("Changing category and the index is: ", index)
+    let copyOfGifts = [...this.state.gifts]
+    copyOfGifts[index] = event.target.value
+    this.setState({
+      gifts: copyOfGifts
+    }, () => console.log("new gifts", this.state.gifts));
+  }
+
+  handleCategoryChange = (index, event) => {
+    console.log("Changing category and the index is: ", index)
+    let copyOfCategories = [...this.state.categories]
+    copyOfCategories[index] = event.target.value
+    this.setState({
+      categories: copyOfCategories
+    }, () => console.log("new categories", this.state.categories));
+  }
+
 
   // componentWillMount() {
     // console.log('gifts', localStorage.getItem("updatedGifts"));
@@ -123,18 +142,18 @@ class DashboardPage extends Component {
   //   this.setState({ itemGroup: currentState });
   // }
 
-  itemChangeGifts = (e) => {
-    let itemToChange = e.target.dataset.attribute;
-    const itemGroup = e.target.dataset.group;
-    const currentState = this.state.currentUser[itemGroup];
-    currentState[itemToChange] = e.target.value;
-    this.setState({ itemGroup: currentState });
-    console.log('itemGroup', itemGroup);
-    console.log('currentState', currentState);
+  // itemChangeGifts = (e) => {
+  //   let itemToChange = e.target.dataset.attribute;
+  //   const itemGroup = e.target.dataset.group;
+  //   const currentState = this.state.currentUser[itemGroup];
+  //   currentState[itemToChange] = e.target.value;
+  //   this.setState({ itemGroup: currentState });
+  //   console.log('itemGroup', itemGroup);
+  //   console.log('currentState', currentState);
 
-    var storageGifts = localStorage.setItem("updatedGifts", currentState);
-    console.log('input change', localStorage.getItem("updatedGifts"));
-  };
+  //   var storageGifts = localStorage.setItem("updatedGifts", currentState);
+  //   console.log('input change', localStorage.getItem("updatedGifts"));
+  // };
 
   // itemChange = (e) => {
   //   let itemToChange = e.target.dataset.attribute;
@@ -159,7 +178,6 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
-        Hi
         <WallBody
          email={this.state.email}
           // user={this.state.currentUser.user}
@@ -181,9 +199,8 @@ class DashboardPage extends Component {
           handleItemChange={event => {
             this.handleItemChange(event);
           }}
-          itemChangedGifts={event => {
-            this.itemChangeGifts(event);
-          }}
+          handleGiftChange={this.handleGiftChange}
+          handleCategoryChange={this.handleCategoryChange}
         />
 
 
