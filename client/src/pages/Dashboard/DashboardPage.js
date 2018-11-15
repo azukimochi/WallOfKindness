@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom'
 import httpClient from '../../httpClient'
 // import Dashboard from "./Dashboard.js";
 import WallBody from '../../components/WallBody/WallBody.js';
@@ -24,21 +25,30 @@ class DashboardPage extends Component {
 
   componentDidMount = () => {
     const id = localStorage.getItem("user_id")
+    const token = localStorage.getItem('session_token');
     console.log("id", id)
-    API.getUserInfo(id)
+    let reqObj = {
+      id: id,
+      token: token
+    }
+    API.getUserInfo(reqObj)
       .then(res => {
-        console.log(res.data)
-        this.setState({
-          categories: res.data.categories,
-          city: res.data.city,
-          email: res.data.email,
-          gifts: res.data.gifts,
-          isDonor: res.data.isDonor,
-          name: res.data.name,
-          wallName: res.data.wallName,
-          zipCode: res.data.zipCode,
-          id: res.data._id
-        }, ()=> console.log(this.state))
+        console.log("Res.data", res.data)
+        if (res.data.status === "404") {
+          this.props.history.push("/login")
+        } else {
+          this.setState({
+            categories: res.data.categories,
+            city: res.data.city,
+            email: res.data.email,
+            gifts: res.data.gifts,
+            isDonor: res.data.isDonor,
+            name: res.data.name,
+            wallName: res.data.wallName,
+            zipCode: res.data.zipCode,
+            id: res.data._id
+          }, ()=> console.log(this.state))
+        }
       })
       .catch(err => console.log(err))
   }

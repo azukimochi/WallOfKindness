@@ -13,13 +13,6 @@ module.exports = {
 		})
 	},
 
-	// find the logged in user for the dashboard
-	show: (req, res) => {
-		User
-			.findById({ _id: req.params.id})
-			.then(dbModel => res.json(dbModel))
-			.catch(err => res.status(422).json(err));
-	},
 	// show: (req, res) => {
 	// 	console.log("Current User:")
 	// 	console.log(req.user)

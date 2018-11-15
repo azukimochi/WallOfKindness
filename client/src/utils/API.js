@@ -43,9 +43,15 @@ export default {
     return axios.get("/users/logIn", {params: loginData})
   },
 
-  getUserInfo: function(id) {
-    return axios.get("/api/walls/findUser/" + id)
-  },
+  getUserInfo: function(reqObj) {
+    return axios.get("/api/walls/findUser/", 
+    { 
+      params: reqObj,
+      headers: {"Authorization" : `Bearer ${reqObj.token}`}, 
+     }
+  )},
+
+  
   // ,
   // loadWallInfo: function(wallData) {
   //   return axios.post("/api/wallsLoad", wallData);
