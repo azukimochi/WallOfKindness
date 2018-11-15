@@ -15,7 +15,7 @@ const WallBody = props => (
               
               <Input
                 value={props.donor}
-                // onChange={props.inputChangeHandler}
+                onChange={props.handleItemChange}
                 name="name"
                 placeholder="Full Name"
                 // data-group="names"
@@ -26,7 +26,7 @@ const WallBody = props => (
               <Input
 
                 value={props.wallName}
-                // onChange={props.inputChangeHandler}
+                onChange={props.handleItemChange}
                 name="wallName"
                 placeholder="Wall Name"
                 // data-group="wall"
@@ -36,7 +36,7 @@ const WallBody = props => (
 
               <Input
                 value={props.city}
-                // onChange={props.inputChangeHandler}
+                onChange={props.handleItemChange}
                 name="city"
                 placeholder="City (required)"
                 // data-group="address"
@@ -46,7 +46,7 @@ const WallBody = props => (
 
               <Input
                 value={props.zipCode}
-                // onChange={props.inputChangeHandler}
+                onChange={props.handleItemChange}
                 name="zipCode"
                 placeholder="Zip Code (required)"
                 // data-group="address"
@@ -55,7 +55,7 @@ const WallBody = props => (
               />
               <Input
                 value={props.email}
-                // onChange={props.inputChangeHandler}
+                onChange={props.handleItemChange}
                 name="email"
                 placeholder="Email (required)"
                 // data-group="user"
@@ -74,7 +74,7 @@ const WallBody = props => (
                 </button>
                 <ol>
                   {/* {this.state.giftType} for testing */}
-                  {/* {categories} */}
+                  {props.categories}
                 </ol>
                 <br />
               </Col>
@@ -90,7 +90,7 @@ const WallBody = props => (
 
                 <ol>
           
-                  {/* {gifts} */}
+                  {props.gifts}
                 </ol>
               </Col>
 

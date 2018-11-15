@@ -57,12 +57,27 @@ class DashboardPage extends Component {
   addMoreItems = event => {
     event.preventDefault();
     console.log("Hi, I'm the addMoreItems button")
+    let copyOfCategories = [...this.state.categories]
+    let copyOfGifts = [...this.state.gifts]
+    copyOfCategories.push("")
+    copyOfGifts.push("")
+    this.setState({
+      categories: copyOfCategories,
+      gifts: copyOfGifts
+    }, () => console.log(this.state))
   }
   
   removeItem = event => {
     event.preventDefault();
     console.log("Hi, I'm the removeItem button")
   }
+
+  handleItemChange = event => {
+    this.setState({[event.target.name]: event.target.value}, 
+			() => {
+			console.log(this.state)
+			}
+		)}
 
   // componentWillMount() {
     // console.log('gifts', localStorage.getItem("updatedGifts"));
@@ -163,7 +178,7 @@ class DashboardPage extends Component {
           removeClick={event => {
             this.removeItem(event);
           }}
-          itemChanged={event => {
+          handleItemChange={event => {
             this.handleItemChange(event);
           }}
           itemChangedGifts={event => {
