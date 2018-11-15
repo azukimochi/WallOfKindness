@@ -36,15 +36,15 @@ export default {
   },
 
   register: function(newUserData) {
-  return axios.post("/api/users/create", newUserData);
+  return axios.post("/users/create", newUserData);
   },
 
   logIn: function(loginData) {
-    return axios.get("api/users/logIn", {params: loginData})
+    return axios.get("/users/logIn", {params: loginData})
   },
 
   getUserInfo: function(id) {
-    return axios.get("/api/users/find/" + id)
+    return axios.get("/api/walls/findUser/" + id)
   },
   // ,
   // loadWallInfo: function(wallData) {

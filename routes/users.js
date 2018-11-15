@@ -1,9 +1,10 @@
 
 router = require("express").Router();
 express = require('express'),
-usersRouter = new express.Router(),
-usersCtrl = require('../../controllers/userControllers.js'),
-verifyToken = require('../../serverAuth.js').verifyToken
+// usersRouter = new express.Router(),
+usersRouter = require("express").Router();
+usersCtrl = require('../controllers/userControllers.js')
+// verifyToken = require('../../serverAuth.js').verifyToken
 
 usersRouter.route('/')
 	.get(usersCtrl.index)
@@ -15,14 +16,11 @@ usersRouter.route('/logIn')
 	.get(usersCtrl.logIn)
 // usersRouter.post('/authenticate', usersCtrl.authenticate)
 
-usersRouter.route('/find/:id')
-.get(usersCtrl.show)
-
 usersRouter.route('/:id')
 .put(usersCtrl.update)
 .delete(usersCtrl.destroy)
 
 
-usersRouter.use(verifyToken)
+// usersRouter.use(verifyToken)
 
 module.exports = usersRouter
