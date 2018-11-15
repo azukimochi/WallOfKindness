@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
 import Geocode from "react-geocode";
+import { withRouter } from 'react-router-dom'
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
@@ -39,6 +40,24 @@ class Search extends Component {
         
     };
     
+    componentDidMount = () => {
+        const token = localStorage.getItem('session_token');
+        API.auth(token)
+            .then(res => {
+                console.log(res.data.status)
+                if (res.data.status !== "404") {
+                    console.log("Auth successful!")
+                    // this.handleGiftAutocomplete();
+                    // this.getLocation();
+                    // this.latLong();
+                } else {
+                    console.log("Auth failed!")
+                    this.props.history.push('/login')
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
     // getCurrentPosition
     displaySearchResults = () => {
         return this.state.results.map(result => {
@@ -255,27 +274,6 @@ class Search extends Component {
         
     };
 
-    componentDidMount = () => {
-        const token = localStorage.getItem('session_token');
-        API.auth(token)
-            .then(res => {
-                console.log(res)
-                // console.log(res.data.status)
-                // if (res.data.status !== "404") {
-                //     this.browseByItem()
-                // } else {
-                //     console.log("Auth failed!")
-                //     this.props.history.push('/login')
-                // }
-            })
-            .catch(err => console.log(err))
-
-
-
-        // this.handleGiftAutocomplete();
-        // this.getLocation();
-        // this.latLong();
-    }
 
 
     distanceCalc=(lat1, lon1, lat2, lon2,unit)=>{
