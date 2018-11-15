@@ -1,6 +1,9 @@
 const User = require('../models/User.js')
 const Gift = require('../models/Gifts.js')
-const signToken = require('../serverAuth.js').signToken
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+// const signToken = require('../serverAuth.js').signToken
 
 module.exports = {
 	// list all users
@@ -21,14 +24,47 @@ module.exports = {
 
 	// create a new user
 	create: (req, res) => {
-		User.create(req.body, (err, user) => {
-			if(err) return res.json({success: false, code: err.code})
-			// once user is created, generate a token to "log in":
-			const token = signToken(user)
-			res.json({success: true, message: "User created. Token attached.", token})
-		})
+		User.findOne({ email: req.body.email })
+		  .then(dbUser => {
+			console.log("email found");
+			console.log(dbUser);
+			if (dbUser == null) {
+			  console.log("req.body", req.body);
+			  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+				// Store hash in your password DB.
+				console.log(hash);
+				req.body.password = hash;
+				User.create(req.body)
+				  .then(dbModel => res.json(dbModel))
+				  .catch(err => res.status(422).json(err));
+			  });
+			} else {
+			  console.log("email already exists");
+			  res.json({
+				validate: false,
+				status: "422"
+			  });
+			}
+		  })
+		  .catch(err => {
+			res.json({
+			  validate: false,
+			  status: "422"
+			});
+		  });
+	  },
 
-	},
+	// create: (req, res) => {
+	// 	User.create(req.body, (err, user) => {
+	// 		if(err) return res.json({success: false, code: err.code})
+	// 		// once user is created, generate a token to "log in":
+	// 		const token = signToken(user)
+	// 		res.json({success: true, message: "User created. Token attached.", token})
+	// 	})
+
+	// },
+
+	
 
 	// create a gifts collection
 	createGifts: (req, res) => {
