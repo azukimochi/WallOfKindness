@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const token = localStorage.getItem("session_token")
 
 export default {
   // Gets all books
@@ -43,16 +43,14 @@ export default {
     return axios.get("/users/logIn", {params: loginData})
   },
 
-  getUserInfo: function(reqObj) {
-    return axios.get("/api/walls/findUser/", 
-    { 
-      params: reqObj,
-      headers: {"Authorization" : `Bearer ${reqObj.token}`}, 
-     }
+  getUserInfo: function(id) {
+    return axios.get("/api/walls/findUser/" + id, 
+    {headers: {"Authorization" : `Bearer ${token}`}}
   )},
 
-  auth: function(token) {
-    return axios.get('/api/auth', { headers: {"Authorization" : `Bearer ${token}`} }
+  auth: function() {
+    return axios.get('/api/auth', 
+    {headers: {"Authorization" : `Bearer ${token}`}}
   )},
 
   

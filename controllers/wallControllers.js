@@ -17,9 +17,8 @@ module.exports = {
 
   	// find the logged in user for the dashboard
 	show: (req, res) => {
-    console.log("Hello2", req.query.id)
 		db.User
-			.findById({ _id: req.query.id})
+			.findById({_id: req.params.id})
 			.then(dbModel => res.json(dbModel))
 			.catch(err => res.status(422).json(err));
 	},
