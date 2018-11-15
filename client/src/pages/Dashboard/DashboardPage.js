@@ -25,13 +25,8 @@ class DashboardPage extends Component {
 
   componentDidMount = () => {
     const id = localStorage.getItem("user_id")
-    const token = localStorage.getItem('session_token');
     console.log("id", id)
-    let reqObj = {
-      id: id,
-      token: token
-    }
-    API.getUserInfo(reqObj)
+    API.getUserInfo(id)
       .then(res => {
         console.log("Res.data", res.data)
         if (res.data.status === "404") {

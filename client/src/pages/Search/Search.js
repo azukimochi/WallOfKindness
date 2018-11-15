@@ -37,12 +37,10 @@ class Search extends Component {
         guestLong:"",
         userLat:"",
         userLong:""
-        
     };
     
     componentDidMount = () => {
-        const token = localStorage.getItem('session_token');
-        API.auth(token)
+        API.auth()
             .then(res => {
                 console.log(res.data.status)
                 if (res.data.status !== "404") {
