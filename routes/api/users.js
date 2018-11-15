@@ -1,9 +1,9 @@
 
 router = require("express").Router();
-	express = require('express'),
-	usersRouter = new express.Router(),
-	usersCtrl = require('../../controllers/users.js'),
-	verifyToken = require('../../serverAuth.js').verifyToken
+express = require('express'),
+usersRouter = new express.Router(),
+usersCtrl = require('../../controllers/userControllers.js'),
+verifyToken = require('../../serverAuth.js').verifyToken
 
 usersRouter.route('/')
 	.get(usersCtrl.index)

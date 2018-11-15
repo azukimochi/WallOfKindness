@@ -44,7 +44,7 @@ class SignUp extends Component {
 				})
 			} else {
 				console.log("Successful sign-up!")
-				// this.props.history.push("/login")
+				this.props.history.push("/login")
 			}
 			
 		}).catch(error => {

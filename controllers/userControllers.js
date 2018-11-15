@@ -22,7 +22,7 @@ module.exports = {
 		})
 	},
 
-	// create a new user
+	// creates a new user
 	create: (req, res) => {
 		User.findOne({ email: req.body.email })
 		  .then(dbUser => {
@@ -46,12 +46,7 @@ module.exports = {
 			  });
 			}
 		  })
-		  .catch(err => {
-			res.json({
-			  validate: false,
-			  status: "422"
-			});
-		  });
+			.catch(err => res.status(422).json(err))
 	  },
 
 	// create: (req, res) => {
