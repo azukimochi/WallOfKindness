@@ -43,13 +43,37 @@ class SignUp extends Component {
 				})
 			} else {
 				console.log("Successful sign-up!")
-				this.props.history.push("/login")
+				this.signIn(newUserData)
 			}
-			
 		}).catch(error => {
 			console.log('signup error: ')
 			console.log(error)
 
+		})
+	}
+
+	signIn = newUserData => {
+		let userData = {
+			email: newUserData.email,
+			password: newUserData.password
+		}
+		API.logIn(userData)
+		.then(res => {
+			console.log(res)
+			if (res.data.validate === false) {
+				console.log("Login failed")
+			} else {
+				console.log('login response: Logged In', res)
+
+				localStorage.setItem('session_token', res.data.token);
+				localStorage.setItem('user_welcome', res.data.message);
+				localStorage.setItem('user_id', res.data.id);
+				localStorage.setItem('username', res.data.name);
+				this.props.history.push('/')
+			}
+		})
+		.catch(err => {
+			console.log('login error', err)
 		})
 	}
 	// onFormSubmit(event) {
