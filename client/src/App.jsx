@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import "./App.css";
-import httpClient from './httpClient'
+// import httpClient from './httpClient'
 // import { BrowserRouter as Router, Switch } from "react-router-dom"
 import NavBar from './NavBar'
 import LogIn from './pages/LogIn'

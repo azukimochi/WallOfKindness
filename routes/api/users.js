@@ -15,13 +15,14 @@ usersRouter.route('/logIn')
 	.get(usersCtrl.logIn)
 // usersRouter.post('/authenticate', usersCtrl.authenticate)
 
+usersRouter.route('/find/:id')
+.get(usersCtrl.show)
+
+usersRouter.route('/:id')
+.put(usersCtrl.update)
+.delete(usersCtrl.destroy)
+
 
 usersRouter.use(verifyToken)
-usersRouter.route('/:id')
-	.get(usersCtrl.show)
-	.put(usersCtrl.update)
-	.delete(usersCtrl.destroy)
-
-
 
 module.exports = usersRouter

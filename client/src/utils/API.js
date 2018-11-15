@@ -41,7 +41,11 @@ export default {
 
   logIn: function(loginData) {
     return axios.get("api/users/logIn", {params: loginData})
-  }
+  },
+
+  getUserInfo: function(id) {
+    return axios.get("/api/users/find/" + id)
+  },
   // ,
   // loadWallInfo: function(wallData) {
   //   return axios.post("/api/wallsLoad", wallData);

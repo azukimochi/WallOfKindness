@@ -1,42 +1,62 @@
 import React, { Component } from "react";
 import httpClient from '../../httpClient'
-
-
-
 import Dashboard from "./Dashboard.js";
-class DashboardPage extends Component {
-  state = {
-     currentUser: httpClient.getCurrentUser()
-  };
+import API from "../../utils/API.js"
 
- 
-  componentDidMount() {
-    console.log('gifts', localStorage.getItem("updatedGifts"));
-    console.log('name', localStorage.getItem('updatedEmail'));
+class DashboardPage extends Component {
+  // state = {
+  //    currentUser: httpClient.getCurrentUser()
+  // };
+  
+  state = {
+    categories: [],
+    city: "",
+    email: "karen@gmail.com",
+    gifts: [],
+    isDonor: false,
+    name: "Karen",
+    wallName: "",
+    zipCode: ""
   }
 
- 
+
+  componentDidMount = () => {
+    const id = localStorage.getItem("user_id")
+    console.log("id", id)
+    API.getUserInfo(id)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log(err))
+  }
+
+  // componentWillMount() {
+    // console.log('gifts', localStorage.getItem("updatedGifts"));
+    // console.log('name', localStorage.getItem('updatedEmail'));
+
+  // }
+
 
   updateWall = (e) => {
     e.preventDefault();
 
-      //const { name, wallName, email, city, zipCode, categories, gifts, _id } = this.state.currentUser;
+    //const { name, wallName, email, city, zipCode, categories, gifts, _id } = this.state.currentUser;
 
-      httpClient.updateUser(this.state.currentUser)
-        .then(user => {
-          this.setState({currentUser: this.state.currentUser})
-          console.log('USER', this.state.currentUser);
-        })
+    httpClient.updateUser(this.state.currentUser)
+      .then(user => {
+        this.setState({ currentUser: this.state.currentUser })
+        console.log('USER', this.state.currentUser);
+      })
 
 
     console.log('current wall info', this.state.currentUser);
     this.updateButtonEffect()
   }
 
-  updateButtonEffect(){
+  updateButtonEffect() {
     let updateEffect = document.getElementById('updateWallButton');
     updateEffect.classList.add('running');
-    setTimeout(function(){updateEffect.classList.remove('running')}, 2000);
+    setTimeout(function () { updateEffect.classList.remove('running') }, 2000);
   }
 
   addClicked = e => {
@@ -45,7 +65,7 @@ class DashboardPage extends Component {
     // console.log("kalle kiri", this.state);
     let itemClicked = e.target.id;
     let currentState = this.state.currentUser[itemClicked];
-   // console.log("current state", currentState);
+    // console.log("current state", currentState);
     currentState.push("");
     this.setState({ itemClicked: currentState });
   };
@@ -53,7 +73,7 @@ class DashboardPage extends Component {
   removeClicked(e) {
     e.preventDefault();
     let itemClicked = e.target.dataset.attribute;
-    console.log("e.target.dataset",e.target.dataset)
+    console.log("e.target.dataset", e.target.dataset)
     let itemGroup = e.target.dataset.group;
     let currentState = this.state.currentUser[itemGroup];
     currentState.splice(itemClicked, 1);
@@ -65,7 +85,7 @@ class DashboardPage extends Component {
     const itemGroup = e.target.dataset.group;
     const currentState = this.state.currentUser[itemGroup];
     currentState[itemToChange] = e.target.value;
-    this.setState({itemGroup: currentState});
+    this.setState({ itemGroup: currentState });
     console.log('itemGroup', itemGroup);
     console.log('currentState', currentState);
 
@@ -75,9 +95,9 @@ class DashboardPage extends Component {
 
   itemChange = (e) => {
     let itemToChange = e.target.dataset.attribute;
-    console.log("e.target",e.target)
+    console.log("e.target", e.target)
     const itemState = this.state.currentUser;
-    console.log("this.state.currentUser",this.state.currentUser)
+    console.log("this.state.currentUser", this.state.currentUser)
     const itemGroup = e.target.dataset.group;
     const currentState = this.state[itemGroup];
     itemState[e.target.name] = e.target.value;
@@ -96,7 +116,35 @@ class DashboardPage extends Component {
   render() {
     return (
       <div>
+        Hi
         <Dashboard
+         email={this.state.email}
+          // user={this.state.currentUser.user}
+          name={this.state.name}
+          categories={this.state.categories}
+          gifts={this.state.gifts}
+          wallName={this.state.wallName }
+          zipCode={this.state.zipCode }
+          city={this.state.city }
+          btnClickHandler={e => {
+            this.updateWall(e);
+          }}
+          addClick={e => {
+            this.addClicked(e);
+          }}
+          removeClick={e => {
+            this.removeClicked(e);
+          }}
+          itemChanged={e => {
+            this.itemChange(e);
+          }}
+          itemChangedGifts={e => {
+            this.itemChangeGifts(e);
+          }}
+        />
+
+
+        {/* <Dashboard
          email={ window.localStorage.updatedEmail ? window.localStorage.updatedEmail : this.state.currentUser.email }
           user={this.state.currentUser.user}
           name={window.localStorage.updatedName ? window.localStorage.updatedName : this.state.currentUser.name}
@@ -120,7 +168,7 @@ class DashboardPage extends Component {
           itemChangedGifts={e => {
             this.itemChangeGifts(e);
           }}
-        />
+        /> */}
       </div>
     );
   }
