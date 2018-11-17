@@ -2,10 +2,12 @@ const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
 const userRoutes = require("./users.js");
+const securedRoutes = require("./auth.js");
 const jwt = require("jsonwebtoken");
 
-router.use("/api", verifytoken, apiRoutes);
+router.use("/api", apiRoutes);
 router.use("/users", userRoutes);
+router.use("/auth", verifytoken, securedRoutes);
 
 // Verify Token Before Continuting with API routes 
 function verifytoken(req, res, next) {

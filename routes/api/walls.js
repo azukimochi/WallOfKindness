@@ -16,8 +16,6 @@ router.route("/searchGifts").get(wallControllers.findAllGifts);
 router.route("/getAllGifts").get(wallControllers.findAllSearchedGifts);
 router.route("/saveWallInfo").post(wallControllers.updateWall);
 
-router.route('/findUser/:id')
-.get(wallControllers.show)
 // router.route("/loadWallInfo").get(wallControllers.loadWall);
 
 

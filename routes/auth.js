@@ -1,7 +1,8 @@
 const express = require('express');
 const router = require("express").Router();
+usersCtrl = require('../controllers/userControllers.js')
 
-// this is for api/auth"
+// this is for /auth"
 router.get('/', (req, res) => {
     // No need for validation here because verifytoken already did that. 
     // Once it reaches to this function, we just need to send a json to tell user that their token is valid
@@ -9,5 +10,10 @@ router.get('/', (req, res) => {
         status: "200"
     })
 });
+
+// this is for auth/findUser
+router.route('/findUser/:id')
+.get(usersCtrl.show)
+
 
 module.exports = router;
