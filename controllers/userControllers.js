@@ -41,8 +41,7 @@ module.exports = {
 			} else {
 			  console.log("email already exists");
 			  res.json({
-				validate: false,
-				status: "422"
+				validate: false
 			  });
 			}
 		  })
