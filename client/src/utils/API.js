@@ -44,12 +44,12 @@ export default {
   },
 
   getUserInfo: function(id) {
-    return axios.get("/api/walls/findUser/" + id, 
+    return axios.get("/auth/findUser/" + id, 
     {headers: {"Authorization" : `Bearer ${token}`}}
   )},
 
   auth: function() {
-    return axios.get('/api/auth', 
+    return axios.get('/auth', 
     {headers: {"Authorization" : `Bearer ${token}`}}
   )},
 
