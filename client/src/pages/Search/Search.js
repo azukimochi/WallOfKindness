@@ -40,20 +40,20 @@ class Search extends Component {
     };
     
     componentDidMount = () => {
-        API.auth()
-            .then(res => {
-                console.log(res.data.status)
-                if (res.data.status !== "404") {
-                    console.log("Auth successful!")
-                    // this.handleGiftAutocomplete();
-                    // this.getLocation();
-                    // this.latLong();
-                } else {
-                    console.log("Auth failed!")
-                    this.props.history.push('/login')
-                }
-            })
-            .catch(err => console.log(err))
+        // API.auth()
+        //     .then(res => {
+        //         console.log(res.data.status)
+        //         if (res.data.status !== "404") {
+        //             console.log("Auth successful!")
+                    this.handleGiftAutocomplete();
+                    this.getLocation();
+                    this.latLong();
+            //     } else {
+            //         console.log("Auth failed!")
+            //         this.props.history.push('/login')
+            //     }
+            // })
+            // .catch(err => console.log(err))
     }
 
     // getCurrentPosition
