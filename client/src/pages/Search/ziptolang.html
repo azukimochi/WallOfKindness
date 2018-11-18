@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -16,16 +16,36 @@
     
     <input type="text" placeholder="Enter a zip code" id="zip" onkeydown="lonlat()" autocomplete="off"/>
     <p id="lonlat"></p>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
     <script type="text/javascript" src="./ziptoLatLong.js"></script>
   </body>
+</html> -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    Latitude:
+    <input type="text" id="txtLatitude" value="18.92488028662047" />
+    Latitude:
+    <!-- <input type="text" id="txtLongitude" value="72.8232192993164" />
+    <input type="button" value="Get Address" onclick="GetAddress()" /> -->
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        function GetAddress() {
+            var lat = 43.6532 //parseFloat(document.getElementById("txtLatitude").value);
+            var lng = -79.3832 //parseFloat(document.getElementById("txtLongitude").value);
+            var latlng = new google.maps.LatLng(lat, lng);
+            var geocoder = geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        alert("Location: " + results[1].formatted_address);
+                    }
+                }
+            });
+        }
+        GetAddress();
+    </script>
+</body>
 </html>

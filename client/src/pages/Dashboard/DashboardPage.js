@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom'
-import httpClient from '../../httpClient'
+// import httpClient from '../../httpClient'
 // import Dashboard from "./Dashboard.js";
 import WallBody from '../../components/WallBody/WallBody.js';
 import API from "../../utils/API.js"
