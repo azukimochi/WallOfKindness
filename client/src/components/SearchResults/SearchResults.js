@@ -1,5 +1,6 @@
 import React from "react";
 import "./SearchResults.css";
+import {Col } from 'react-grid-system';
 
 
 const SearchResults = props => 
@@ -18,42 +19,35 @@ props.results.length === 0 ?
     )
     :
     (
-    <div className="row" id="resultsSection">
-        <div className="col-lg-12 resultsBox">
-            <div className="panel panel-primary">
-                <div className="panel-heading" id="resultsHeader">
-                    <h3 className="panel-title results">
-                        <strong>
-                            Results
-                                </strong>
-                    </h3>
-                </div>
-                <div className="panel-body">
+    
+    <Col sm={4}>
+    <div className="card-deck">
+            <div className="card text-center">
+                <div className="card-header" id="resultsHeader">
                 
-                    <ul className="list-group search-results">
+                </div>
+                <div className="card-body" id="resultsDiv">
+                
+                    {/* <ul className="list-group search-results"> */}
                         {/* <h2> Results</h2> */}
                         {console.log("props is:", props)}
-                        {props.results.map(result => (
+                        {/* {props.results.map(result => ( */}
 
+                            {/* <li key={props.id} className="list-group-item resultDiv"> */}
 
-                           
-
-
-                            <li key={result.id} className="list-group-item resultDiv">
-
-                                <h4>Full Name: {result.name}</h4>
-                                <p> Wall Name: {result.wallName.toUpperCase()}</p>
-                                <p> Gift Name: {result.gifts}</p>
-                                <p> Email Address: {result.email}</p>
-                                <p> City: {result.city.toUpperCase()}</p>
-                                <p> Address: {result.zipCode}</p>
+                                <p className="card-text">Full Name: {props.name}</p>
+                                <p className="card-text"> Wall Name: {props.wallName.toUpperCase()}</p>
+                                <p className="card-text"> Gift Name: {props.gifts}</p>
+                                <p className="card-text"> Email Address: {props.email}</p>
+                                <p className="card-text"> City: {props.city.toUpperCase()}</p>
+                                <p className="card-text"> Address: {props.zipCode}</p>
                                 {/* <p> latitude: {result.latitude}</p> */}
                                 {/* <p> longitude: {result.longitude}</p> */}
-                                <p>Distance: {props.distanceCalc(props.userLat,props.userLong,props.guestLat,props.guestLong).toFixed(0)}km</p>
-                                <button className="registerBtn " onClick={props.handleRequestButton}>Request</button>
+                                <p className="card-text">Distance: {props.distanceCalc(props.userLat,props.userLong,props.guestLat,props.guestLong).toFixed(0)}km</p>
+                                <button className="registerBtn " onClick={props.openModal}>Request</button>
                                 {/* btn btn-primary requestBtn  */}
                                 <h4 className="invisible" id="toast">Email Sent Successfully!</h4>
-                                    <form id='emailForm' className="invisible">
+                                    {/* <form id='emailForm' className="invisible">
                                         <h4>To: {result.email}</h4>
                                         <h4>From: <input type="text" id="emailFrom" placeholder="Your Email"/></h4>
                                         <h4><input type="text" id="emailSubject" placeholder="Subject Line" /></h4>
@@ -67,20 +61,20 @@ props.results.length === 0 ?
                                         <div className="ld ld-ball ld-flip"></div>Send
                                         
                                         </button>
-                                    </form>
+                                    </form> */}
                            
                              
 
-                                {/* <button className="btn btn-primary" onClick={() => props.handleRequestButton(props._id)}>Request</button> */}
-                            </li>
-                        ))}
-                    </ul>
+                               
+                            {/* </li> */}
+                        {/* ))} */}
+                    {/* </ul> */}
                 </div>
             </div>
-        </div>
     </div>
+    
 
-
+</Col>
 )
 
 export default SearchResults;
