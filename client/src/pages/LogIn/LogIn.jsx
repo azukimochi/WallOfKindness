@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import httpClient from '../../httpClient'
 import API from "../../utils/API.js"
 import { withRouter } from 'react-router-dom'
 import "./LogIn.css";
