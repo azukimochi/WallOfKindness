@@ -42,6 +42,7 @@ class LogIn extends Component {
 				localStorage.setItem('user_welcome', res.data.message);
 				localStorage.setItem('user_id', res.data.id);
 				localStorage.setItem('username', res.data.name);
+				localStorage.setItem('auth', true);
 				this.props.history.push('/')
 			}
 		})

@@ -6,10 +6,13 @@ import "./Navbar.css";
 
 class NavBar extends Component {
   
-  
+  componentDidMount = () => {
+    console.log("Nav bar mounted")
+  }
   render(){
+    const isAuthenticated = localStorage.getItem("auth")
     
-     const isAuthenticated= true
+    //  const isAuthenticated= true
     
 
     const authPages = (
@@ -108,7 +111,7 @@ window.location.pathname === "/signIn"
       <a className="navbar-brand " href="/">Wall of Kindness</a>
     </div>
     
-    {isAuthenticated ? authPages : guestPages}
+    {isAuthenticated === "true" ? authPages : guestPages}
     
   </div>
 </nav>

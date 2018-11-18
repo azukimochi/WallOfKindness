@@ -30,6 +30,7 @@ class Chat extends React.Component {
                     console.log("Auth successful!")
                 } else {
                     console.log("Auth failed!")
+                    localStorage.clear()
                     this.props.history.push('/login')
                 }
             })

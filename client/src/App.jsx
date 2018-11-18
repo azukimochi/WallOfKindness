@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import "./App.css";
 // import httpClient from './httpClient'
 // import { BrowserRouter as Router, Switch } from "react-router-dom"
-import NavBar from './NavBar'
+import NavBar from './components/Navbar'
 import LogIn from './pages/LogIn'
 import LogOut from './pages/LogOut'
 import SignUp from './pages/SignUp'
