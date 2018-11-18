@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
 import Geocode from "react-geocode";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults";
@@ -36,19 +36,7 @@ const customStyles = {
 };
 
 class Search extends Component {
-    //modal functions and states
-    // constructor() {
-    //     super();
-
-    //     this.state = {
-    //         modalIsOpen: false
-    //     };
-
-    //     this.openModal = this.openModal.bind(this);
-    //     this.afterOpenModal = this.afterOpenModal.bind(this);
-    //     this.closeModal = this.closeModal.bind(this);
-    // }
-    // insert state changes and methods here
+    
     state = {
         autoCompleteState: [],
         modalIsOpen:false,
@@ -74,15 +62,11 @@ class Search extends Component {
      
                 
                      this.handleGiftAutocomplete();
-                // this.openModal();
                      this.getLocation();
                      this.latLong();
             
                 }
-                
-                
-                
-                
+                        
                 // getCurrentPosition
                 displaySearchResults = () => {
                     return this.state.results.map(result => {
@@ -119,10 +103,12 @@ class Search extends Component {
                 closeModal = () => {
                     this.setState({ modalIsOpen: false });
                 }
-                handleErrorMessage = () => {
+
+    handleErrorMessage = () => {
         this.setState({ errorMessage: "Please fill in all fields before searching." })
         console.log(this.state.errorMessage);
     }
+    
     handleGiftsChange = event => {
         this.setState({ gifts: event.target.value.toLowerCase() });
     }
@@ -139,120 +125,113 @@ class Search extends Component {
     };
 
 
+  handleRequestButton = event => {
+    event.preventDefault();
+    document.getElementById("emailForm").classList.remove("invisible");
 
+    console.log("hello");
+  };
 
-    clearEmailForm() {
-        document.getElementById('emailFrom').value = '';
-        document.getElementById('emailSubject').value = '';
-        document.getElementById('emailBody').value = '';
+  clearEmailForm() {
+    document.getElementById("emailFrom").value = "";
+    document.getElementById("emailSubject").value = "";
+    document.getElementById("emailBody").value = "";
+  }
 
-    };
+  sendEmail = e => {
+    e.preventDefault();
 
+    axios({
+      method: "post",
+      url: "/api/send/mail",
+      params: {
+        emailTo: this.state.results[0].email,
+        emailFrom: document.getElementById("emailFrom").value,
+        emailSubject: document.getElementById("emailSubject").value,
+        emailBody: document.getElementById("emailBody").value
+      }
+    }).then(response => {
+      console.log(response);
+      console.log(this.state.results[0].email);
+    });
 
-    sendEmail = (e) => {
-        e.preventDefault();
+    this.clearEmailForm();
 
-        axios({
-            method: 'post',
-            url: '/api/send/mail',
-            params: {
-                // emailTo: this.state.results[0].email,
-                emailTo: document.getElementById('emailTo').value,
-                emailFrom: document.getElementById('emailFrom').value,
-                emailSubject: document.getElementById('emailSubject').value,
-                emailBody: document.getElementById('emailBody').value
+    this.emailSentMessage();
+  };
+  emailButtonEffect() {
+    let effect = document.getElementById("emailSendButton");
+    effect.classList.add("running");
+    setTimeout(function() {
+      effect.classList.remove("running");
+    }, 2000);
+  }
+
+  clearEmailForm() {
+    document.getElementById("emailFrom").value = "";
+    document.getElementById("emailSubject").value = "";
+    document.getElementById("emailBody").value = "";
+  }
+
+  emailSentMessage() {
+    let toast = document.getElementById("toast");
+    toast.classList.remove("invisible");
+
+    setTimeout(function() {
+      toast.classList.add("invisible");
+    }, 2000);
+    document.getElementById("emailForm").classList.add("invisible");
+    emailConfirmation();
+  }
+
+  handleRangeChange = event => {
+    this.setState({ range: event.target.value });
+  };
+
+  handleGiftAutocomplete = event => {
+    console.log("hello autocomplete", this.state.giftType);
+    if (this.state.giftType || this.state.autoCompleteState.length === 0) {
+      API.getAllGifts({
+        gifts: this.state.giftType
+      })
+        .then(res => {
+          let giftListFromDatabase = res.data;
+          let finalGiftArray = [];
+          let uniqueArray;
+          let giftAutoCompleteArray;
+          let autoCompleteArray = [];
+
+          giftListFromDatabase.forEach(element => {
+            let gifts = element.gifts;
+            if (gifts.length === 1) {
+              finalGiftArray.push(gifts[0]);
+            } else {
+              gifts.forEach(element => {
+                finalGiftArray.push(element);
+              });
             }
-        }).then((response) => {
-            this.closeModal();
-            console.log(response);
-            // console.log("email:", this.state.results[0].email);
 
+            let removeDuplicates = arr => {
+              uniqueArray = arr.filter(function(elem, index, self) {
+                return index == self.indexOf(elem);
+              });
+              return uniqueArray;
+            };
+
+            giftAutoCompleteArray = removeDuplicates(finalGiftArray);
+
+            return giftAutoCompleteArray;
+          });
+
+          giftAutoCompleteArray.forEach(element => {
+            let giftObject = { abbr: element, name: element };
+            autoCompleteArray.push(giftObject);
+            return autoCompleteArray;
+          });
+
+          this.setState({ autoCompleteState: autoCompleteArray });
         })
 
-        this.clearEmailForm();
-
-
-        this.emailSentMessage();
-    };
-    emailButtonEffect() {
-        let effect = document.getElementById('emailSendButton');
-        effect.classList.add('running');
-        setTimeout(function () { effect.classList.remove('running') }, 1000);
-    };
-
-    clearEmailForm() {
-        document.getElementById('emailTo').value = '';
-        document.getElementById('emailFrom').value = '';
-        document.getElementById('emailSubject').value = '';
-        document.getElementById('emailBody').value = '';
-
-    };
-
-    emailSentMessage() {
-        let toast = document.getElementById('toast');
-        toast.classList.remove('invisible');
-
-        setTimeout(function () { toast.classList.add('invisible') }, 1000);
-        document.getElementById('emailForm').classList.add("invisible");
-        emailConfirmation();
-
-
-
-    };
-
-    handleRangeChange = event => {
-        this.setState({ range: event.target.value });
-    };
-
-
-    handleGiftAutocomplete = event => {
-        console.log("hello autocomplete", this.state.giftType);
-        if (this.state.giftType || this.state.autoCompleteState.length === 0) {
-            API.getAllGifts({
-                gifts: this.state.giftType,
-            })
-                .then(res => {
-
-
-                    let giftListFromDatabase = res.data
-                    let finalGiftArray = [];
-                    let uniqueArray
-                    let giftAutoCompleteArray
-                    let autoCompleteArray = []
-
-
-                    giftListFromDatabase.forEach((element) => {
-                        let gifts = element.gifts
-                        if (gifts.length === 1) {
-                            finalGiftArray.push(gifts[0])
-                        } else {
-                            gifts.forEach((element) => {
-                                finalGiftArray.push(element)
-                            })
-                        }
-
-                        let removeDuplicates = (arr) => {
-                            uniqueArray = arr.filter(function (elem, index, self) {
-                                return index == self.indexOf(elem)
-                            })
-                            return uniqueArray
-                        }
-
-                        giftAutoCompleteArray = removeDuplicates(finalGiftArray)
-
-
-
-                        return giftAutoCompleteArray
-                    })
-
-                    giftAutoCompleteArray.forEach((element) => {
-                        let giftObject = { abbr: element, name: element }
-                        autoCompleteArray.push(giftObject)
-                        return autoCompleteArray
-                    })
-
-                    this.setState({ autoCompleteState: autoCompleteArray })
-                })
                 .catch(err => console.log(err))
         }
     }
@@ -490,10 +469,14 @@ class Search extends Component {
                 </Wrapper>
 
             </div>
+          )}
 
-        );
-    }
-
+          {/* <MakeRequest /> */}
+          <ToastContainer />
+        </Wrapper>
+      </div>
+    );
+  }
 }
 
-export default Search 
+export default Search;
