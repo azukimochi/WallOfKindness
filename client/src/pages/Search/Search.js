@@ -357,10 +357,41 @@ class Search extends Component {
             guestLong: position.coords.longitude
 
         })
-        console.log("state jadide", this.state)
+        console.log("state jadide", this.state);
+        this.GetAddress(this.state.guestLat, this.state.guestLong);
+
         // document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude + 
         // "<br>Longitude: " + position.coords.longitude;
     }
+
+    /////////////////////Address from lat and long//////////
+
+  GetAddress = (lat, lng) => {
+    const script = document.createElement("script");
+    script.src = `http://maps.googleapis.com/maps/api/js?sensor=false`;
+    script.async = true;
+    document.body.appendChild(script);
+    console.log("alan state chie:", this.state);
+    // let lat = this.state.guestLat; //43.6532; //parseFloat(document.getElementById("txtLatitude").value);
+    // let lng = this.state.guestLong; //-79.3832; //parseFloat(document.getElementById("txtLongitude").value);
+    const google = window.google;
+    let latlng = new google.maps.LatLng(lat, lng);
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ latLng: latlng }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[1]) {
+          this.setState({
+            guestAddress: results[1].formatted_address
+          });
+          console.log("State after grabbing Address", this.state);
+          console.log("////////////////////////");
+          console.log("here address", results[1].formatted_address);
+          console.log("////////////////////////");
+        }
+      }
+    });
+  };
+
 
 
 
@@ -393,8 +424,8 @@ class Search extends Component {
                     />
 
 
-                    {this.state.hasSearched ?
-                        (
+                    {this.state.hasSearched ? (
+                        
                             <div>
                                 <h3 className="resultTitle">Results</h3>
                                 <Container>
@@ -456,22 +487,15 @@ class Search extends Component {
                             
                             </div>
                         )
-                        :
+                        : (
                         <div className="welcomeDiv">
                             <h1 className="welcomeBanner">Welcome!</h1>
                             <p id="welcomeNote">Feel free to search our list of gifts available to you from our donors. If you like what you see, you can request it from an angel and organize a time to pick it up!</p>
                         </div>
+                        )
 
                     }
-
-                    {/* <MakeRequest /> */}
-                    <ToastContainer />
-                </Wrapper>
-
-            </div>
-          )}
-
-          {/* <MakeRequest /> */}
+         
           <ToastContainer />
         </Wrapper>
       </div>
