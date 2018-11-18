@@ -32,12 +32,11 @@ class NavBar extends Component {
     <NavLink to="/search" >Search</NavLink>
     </li>
 
-  <li className={
+    <li className={
     window.location.pathname === "/dashboard"
       ? "active"
       : ""
   }>
-
     <NavLink to="/dashboard" >Dashboard</NavLink>
     </li>
     
