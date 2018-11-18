@@ -1,5 +1,5 @@
-const User = require('../models/User.js')
-const Gift = require('../models/Gifts.js')
+const db = require('../models')
+// const Gift = require('../models/Gifts.js')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -8,23 +8,24 @@ const saltRounds = 10;
 module.exports = {
 	// list all users
 	index: (req, res) => {
-		User.find({}, (err, users) => {
+		db.User.find({}, (err, users) => {
 			res.json(users)
 		})
 	},
 
-	// show: (req, res) => {
-	// 	console.log("Current User:")
-	// 	console.log(req.user)
-	// 	User.findById(req.params.id, (err, user) => {
-	// 		res.json(user)
-	// 	})
-	// },
+	// find the logged in user for the dashboard
+	show: (req, res) => {
+		db.User
+			.findById({ _id: req.params.id })
+			.then(dbModel => res.json(dbModel))
+			.catch(err => res.status(422).json(err));
+	},
 
 
 	// creates a new user
 	create: (req, res) => {
-		User.findOne({ email: req.body.email })
+		db.User
+		.findOne({ email: req.body.email })
 		  .then(dbUser => {
 			console.log("email found");
 			console.log(dbUser);
@@ -34,7 +35,7 @@ module.exports = {
 				// Store hash in your password DB.
 				console.log(hash);
 				req.body.password = hash;
-				User.create(req.body)
+				db.User.create(req.body)
 				  .then(dbModel => res.json(dbModel))
 				  .catch(err => res.status(422).json(err));
 			  });
@@ -62,7 +63,7 @@ module.exports = {
 
 	// create a gifts collection
 	createGifts: (req, res) => {
-		Gift.create(req.body, (err) => {
+		db.Gift.create(req.body, (err) => {
 			if(err) return res.json({success: false, code: err.code})
 			// once user is created, generate a token to "log in":
 			// const token = signToken(user)
@@ -73,7 +74,7 @@ module.exports = {
 	// update an existing user
 	update: (req, res) => {
 
-		User.findById(req.params.id, (err, user) => {
+		db.User.findById(req.params.id, (err, user) => {
 			
 			Object.assign(user, req.body)
 			user.save((err, updatedUser) => {
@@ -86,7 +87,7 @@ module.exports = {
 
 	// delete an existing user
 	destroy: (req, res) => {
-		User.findByIdAndRemove(req.params.id, (err, user) => {
+		db. User.findByIdAndRemove(req.params.id, (err, user) => {
 			res.json({success: true, message: "User deleted.", user})
 		})
 	},
@@ -95,7 +96,8 @@ module.exports = {
 
 	logIn: (req, res) => {
 		console.log('req.query', req.query);
-    User.findOne({email: req.query.email})
+		db.User
+		.findOne({email: req.query.email})
 		.then(dbUser => {
 			console.log('dbUser', dbUser)
         bcrypt.compare(req.query.password, dbUser.password, function(err, response) {
