@@ -12,9 +12,6 @@ class NavBar extends Component {
   render(){
     const isAuthenticated = localStorage.getItem("auth")
     
-    //  const isAuthenticated= true
-    
-
     const authPages = (
      <div>
       <ul className="nav navbar-nav">
@@ -48,7 +45,7 @@ class NavBar extends Component {
     <ul className="nav navbar-nav navbar-right">
        
     <li>
-    <a href="/" className="nav-link" >
+    <a href="/logout" className="nav-link" >
                     <img src="" alt=""
                         className="rounded-circle"
                         style={{ width: '25px', marginRight: '5px'}} />
@@ -87,15 +84,15 @@ window.location.pathname === "/signUp"
   ? "active"
   : ""
 }>
-<NavLink to="/signUp" ><span className="glyphicon glyphicon-user"></span> Sign Up</NavLink>
+<NavLink to="/signup" ><span className="glyphicon glyphicon-user"></span> Sign Up</NavLink>
 </li>
 
 <li className={
-window.location.pathname === "/signIn" 
+window.location.pathname === "/login" 
   ? "active"
   : ""
 }>
-<NavLink to="/signIn" ><span className="glyphicon glyphicon-log-in"></span> Sign In</NavLink>
+<NavLink to="/login" ><span className="glyphicon glyphicon-log-in"></span> Sign In</NavLink>
 </li>
 </ul>
     </div>
