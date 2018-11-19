@@ -35,10 +35,33 @@ class DashboardPage extends Component {
         if (res.data.status === "404") {
           this.props.history.push("/login")
         } else {
+
+          let copyOfGifts = [...res.data.gifts]
+          console.log("copyOfGifts", copyOfGifts)
+          let giftsArr = [];
+          let categoriesArr = [];
+          let datesArr = [];
+          copyOfGifts.forEach(gift => {
+            for (let key in gift) {
+              if (key === "item") {
+                giftsArr.push(gift[key])
+              } else if (key === "category") {
+                categoriesArr.push(gift[key])
+              } else if (key === "date") {
+                datesArr.push(gift[key])
+              }
+            }
+          });
+          console.log("giftsArr", giftsArr)
+          console.log("categoriesArr", categoriesArr)
+          console.log("datesArr", datesArr)
           this.setState({
             city: res.data.city,
             email: res.data.email,
             allGiftsObj: res.data.gifts,
+            categories: categoriesArr,
+            gifts: giftsArr,
+            dates: datesArr,
             name: res.data.name,
             wallName: res.data.wallName,
             zipCode: res.data.zipCode,
