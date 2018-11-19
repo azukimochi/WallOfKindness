@@ -73,17 +73,27 @@ module.exports = {
 	},
 	// update an existing user
 	update: (req, res) => {
+		console.log("req.body", req.body)
+		console.log("Hi, I'm updating back end")
+    db.User
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+	// 	db.User.findOneAndUpdate({_id: req.body.id}, copyOfreq)
+	// 	.then(userInfo => res.json(userInfo))
+	// 	.catch(err => res.status(422).json(err))
+	// },
+	// update: (req, res) => {
+	// 	db.User.findById(req.params.id, (err, user) => {
+	// 		Object.assign(user, req.body)
+	// 		user.save((err, updatedUser) => {
+	// 			res.json({success: true, message: "User updated.", user})
+	// 		})
 
-		db.User.findById(req.params.id, (err, user) => {
-			
-			Object.assign(user, req.body)
-			user.save((err, updatedUser) => {
-				res.json({success: true, message: "User updated.", user})
-			})
-
-		})
+	// 	})
 	
-	},
+	// },
 
 	// delete an existing user
 	destroy: (req, res) => {

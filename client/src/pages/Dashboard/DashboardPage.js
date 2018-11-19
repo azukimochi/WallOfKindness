@@ -15,8 +15,7 @@ class DashboardPage extends Component {
     dates: [],
     city: "",
     email: "",
-    isDonor: "",
-    name: "Karen",
+    name: "",
     wallName: "",
     zipCode: "",
     id: ""
@@ -40,7 +39,6 @@ class DashboardPage extends Component {
             city: res.data.city,
             email: res.data.email,
             allGiftsObj: res.data.gifts,
-            isDonor: res.data.isDonor,
             name: res.data.name,
             wallName: res.data.wallName,
             zipCode: res.data.zipCode,
@@ -51,7 +49,7 @@ class DashboardPage extends Component {
       .catch(err => console.log(err))
   }
 
-  updateWall = event => {
+  makeGiftsObj = event => {
     event.preventDefault();
     console.log("Hi, I'm the update button")
     let copyOfGifts = [...this.state.gifts]
@@ -73,6 +71,34 @@ class DashboardPage extends Component {
       updatedGiftsArr.push(giftObj)
     })
     console.log("The new gifts array is this: ", updatedGiftsArr)
+    this.setState({allGiftsObj: updatedGiftsArr}, 
+      () => {
+        console.log("The new allGiftsObj state: ", this.state.allGiftsObj);
+        this.submitData();
+    })
+  }
+
+  submitData = () => {
+    const id = localStorage.getItem("user_id")
+    const token = localStorage.getItem("session_token")
+    const reqObj = {
+      name: this.state.name,
+      email: this.state.email,
+      wallName: this.state.wallName,
+      gifts: this.state.allGiftsObj,
+      city: this.state.city,
+      zipCode: this.state.zipCode,
+    }
+    console.log("reqObj for submitting data", reqObj)
+    API.updateUserInfo(id, token, reqObj)
+    .then(res => {
+      if (res.data.status === "404") {
+        this.props.history.push("/login")
+      } else {
+        console.log("User updated!")
+      }
+    })
+    .catch(err => console.log(err))
   }
   
   updateButtonEffect() {
@@ -218,7 +244,7 @@ class DashboardPage extends Component {
           zipCode={this.state.zipCode }
           city={this.state.city }
           updateWall={event => {
-            this.updateWall(event);
+            this.makeGiftsObj(event);
           }}
           addClick={event => {
             this.addMoreItems(event);

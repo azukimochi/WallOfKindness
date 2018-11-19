@@ -48,6 +48,11 @@ export default {
     {headers: {"Authorization" : `Bearer ${reqObj.token}`}}
   )},
 
+  updateUserInfo: function(id, token, reqObj) {
+    return axios.put("/auth/update/" + id, reqObj,
+    {headers: {"Authorization" : `Bearer ${token}`}}
+  )},
+
   auth: function(token) {
     return axios.get('/auth', 
     {headers: {"Authorization" : `Bearer ${token}`}}
