@@ -421,6 +421,7 @@ class Search extends Component {
                         distanceCalc={this.distanceCalc}
                         getLocation={this.getLocation}
                         latLong={this.latLong}
+                        guestAddress={this.state.guestAddress}
                     />
 
 
