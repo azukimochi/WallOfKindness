@@ -73,17 +73,22 @@ module.exports = {
 	},
 	// update an existing user
 	update: (req, res) => {
+    db.User
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
 
-		db.User.findById(req.params.id, (err, user) => {
-			
-			Object.assign(user, req.body)
-			user.save((err, updatedUser) => {
-				res.json({success: true, message: "User updated.", user})
-			})
+	// update: (req, res) => {
+	// 	db.User.findById(req.params.id, (err, user) => {
+	// 		Object.assign(user, req.body)
+	// 		user.save((err, updatedUser) => {
+	// 			res.json({success: true, message: "User updated.", user})
+	// 		})
 
-		})
+	// 	})
 	
-	},
+	// },
 
 	// delete an existing user
 	destroy: (req, res) => {
@@ -100,31 +105,36 @@ module.exports = {
 		.findOne({email: req.query.email})
 		.then(dbUser => {
 			console.log('dbUser', dbUser)
-        bcrypt.compare(req.query.password, dbUser.password, function(err, response) {
-          if (dbUser !== null && response == true) {
-            console.log("password is correct")
-            let user = dbUser.username;
-            jwt.sign({ user },"secretkey",{ expiresIn: "300s" },
-              (err, token) => {
-                res.json({
-                  validate: true,
-                  message: "Welcome " + dbUser.name,
-                  token: token,
-                  id: dbUser._id,
-                  name: dbUser.name
-                });
-              }
-            );
-            console.log("jwt sent");
-          }
-          else {
-            console.log("password is not correct")
-            res.json({
-              validate: false,
-              status: "422"
-            });
+			if (dbUser === null) {
+				res.json({
+					validate: false
+				})
+			} else {
+				bcrypt.compare(req.query.password, dbUser.password, function(err, response) {
+					if (dbUser !== null && response == true) {
+						console.log("password is correct")
+						let user = dbUser.username;
+						jwt.sign({ user },"secretkey",{ expiresIn: "300s" },
+							(err, token) => {
+								res.json({
+									validate: true,
+									message: "Welcome " + dbUser.name,
+									token: token,
+									id: dbUser._id,
+									name: dbUser.name
+								});
+							}
+						);
+						console.log("jwt sent");
+					}
+					else {
+						console.log("password is not correct")
+						res.json({
+							validate: false
+						});
 					}
 				})
+			}
 				})
 				.catch(err => res.status(422).json(err))
 	}

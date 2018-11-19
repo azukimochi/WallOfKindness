@@ -17,7 +17,7 @@ const WallBody = props => (
                 value={props.donor}
                 onChange={props.handleItemChange}
                 name="name"
-                placeholder="Full Name"
+                placeholder="Full Name (required)"
                 // data-group="names"
                 // data-attribute="fullName"
                 id="UserfirstName"
@@ -28,7 +28,7 @@ const WallBody = props => (
                 value={props.wallName}
                 onChange={props.handleItemChange}
                 name="wallName"
-                placeholder="Wall Name"
+                placeholder="Wall Name (required)"
                 // data-group="wall"
                 // data-attribute="wallName"
                 id="wallName"
@@ -79,28 +79,26 @@ const WallBody = props => (
                 <Input 
                 value={item}
                 name="item"
+                placeholder="Item Name (required)"
                 onChange={(event) => props.handleGiftChange(index, event)} 
                 />
+
+                <select name="category" value={props.categories[index]} onChange={(event) => props.handleCategoryChange(index, event)}>
+                      <option value="None">Category</option>
+                      <option value="Food">Food</option>
+                      <option value="Clothing">Clothing</option>
+                    </select>
                 {/* <Input
                 value={props.categories[index]}
                 name="category"
                 onChange={(event) => props.handleCategoryChange(index, event)}
                 /> */}
 
-                <select name="category" value={props.categories[index]} onChange={(event) => props.handleCategoryChange(index, event)}>
-                      <option value="None">Category</option>
-                      <option value="Food">Food</option>
-                      <option value="Electronics">Electronics</option>
-                      <option value="Clothing">Clothing</option>
-                      <option value="Kitchen">Kitchen</option>
-                      <option value="Office">Office</option>
-                      <option value="Home">Home</option>
-                      <option value="Transportation">Transportation</option>
-                      <option value="Travel and Events">Travel and Events</option>
-                      <option value="Bills">Bills</option>
-                      <option value="Miscellaneous">Miscellaneous</option>
-                    </select>
-
+                  <i
+                    className="fas fa-trash-alt"
+                    aria-hidden="true"
+                    onClick={(event) => props.removeClick(index, event)}
+                  />
                </div>
                 </span>
                 ))}
@@ -117,8 +115,8 @@ const WallBody = props => (
                 >
                   Add Gifts
                 </button> */}
-
               </Col>
+                {props.updateStatus}
 
               <button
                 id="updateWallButton"
