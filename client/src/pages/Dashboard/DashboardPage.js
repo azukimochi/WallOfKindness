@@ -320,21 +320,12 @@ class DashboardPage extends Component {
           zipCode={this.state.zipCode }
           city={this.state.city }
           updateStatus={this.state.updateStatus}
-          updateWall={event => {
-            this.validateInfo(event);
-          }}
-          addClick={event => {
-            this.addMoreItems(event);
-          }}
-          // removeClick={event => {
-          //   this.removeItem(index, event);
-          // }}
-          handleItemChange={event => {
-            this.handleItemChange(event);
-          }}
           handleGiftChange={this.handleGiftChange}
           handleCategoryChange={this.handleCategoryChange}
           removeClick={this.removeItem}
+          updateWall={this.validateInfo}
+          addClick={this.addMoreItems}
+          handleItemChange={this.handleItemChange}
         />
 
 
