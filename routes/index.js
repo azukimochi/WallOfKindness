@@ -11,7 +11,7 @@ router.use("/auth", verifytoken, securedRoutes);
 
 // Verify Token Before Continuting with API routes 
 function verifytoken(req, res, next) {
-    console.log("Hello", req)
+    // console.log("Hello", req)
     //Get auth header value
      const bearerHeader = req.headers['authorization'];
     //Check if bearer is undefined
@@ -42,8 +42,10 @@ function verifytoken(req, res, next) {
          });
 
     } else {
-      //Forbidden
+      // Forbidden
+      console.log("Forbidden")
       res.sendStatus(403);
+      
     }
   };
 

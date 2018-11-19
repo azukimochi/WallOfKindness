@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import httpClient from '../../httpClient'
 import API from "../../utils/API.js"
 import { withRouter } from 'react-router-dom'
 import "./LogIn.css";
@@ -29,6 +28,7 @@ class LogIn extends Component {
 		.then(res => {
 			console.log(res)
 			if (res.data.validate === false) {
+				localStorage.clear()
 				console.log("Login failed")
 				this.setState({ 
 					statusMsg: "Login failed. The email/password did not match.",
@@ -37,12 +37,12 @@ class LogIn extends Component {
 			 })
 			} else {
 				console.log('login response: Logged In', res)
-
 				localStorage.setItem('session_token', res.data.token);
 				localStorage.setItem('user_welcome', res.data.message);
 				localStorage.setItem('user_id', res.data.id);
 				localStorage.setItem('username', res.data.name);
-				this.props.history.push('/')
+				localStorage.setItem('auth', true);
+				this.props.history.push('/dashboard')
 			}
 		})
 		.catch(err => {

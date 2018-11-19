@@ -23,13 +23,15 @@ class Chat extends React.Component {
     } 
 
     componentDidMount = () => {
-        API.auth()
+        const token = localStorage.getItem("session_token")
+        API.auth(token)
             .then(res => {
                 console.log(res.data.status)
                 if (res.data.status !== "404") {
                     console.log("Auth successful!")
                 } else {
                     console.log("Auth failed!")
+                    localStorage.clear()
                     this.props.history.push('/login')
                 }
             })

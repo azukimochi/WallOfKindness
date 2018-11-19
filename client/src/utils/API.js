@@ -1,5 +1,5 @@
 import axios from "axios";
-const token = localStorage.getItem("session_token")
+// const token = localStorage.getItem("session_token")
 
 export default {
   // Gets all books
@@ -43,12 +43,17 @@ export default {
     return axios.get("/users/logIn", {params: loginData})
   },
 
-  getUserInfo: function(id) {
-    return axios.get("/auth/findUser/" + id, 
+  getUserInfo: function(reqObj) {
+    return axios.get("/auth/findUser/" + reqObj.id, 
+    {headers: {"Authorization" : `Bearer ${reqObj.token}`}}
+  )},
+
+  updateUserInfo: function(id, token, reqObj) {
+    return axios.put("/auth/update/" + id, reqObj,
     {headers: {"Authorization" : `Bearer ${token}`}}
   )},
 
-  auth: function() {
+  auth: function(token) {
     return axios.get('/auth', 
     {headers: {"Authorization" : `Bearer ${token}`}}
   )},
