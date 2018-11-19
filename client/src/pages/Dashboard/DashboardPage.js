@@ -9,10 +9,12 @@ class DashboardPage extends Component {
   // };
 
   state = {
-    categories:[],
+    allGiftsObj: [],
+    categories: [],
+    gifts: [],
+    dates: [],
     city: "",
     email: "",
-    gifts: [],
     isDonor: "",
     name: "Karen",
     wallName: "",
@@ -33,7 +35,7 @@ class DashboardPage extends Component {
           this.setState({
             city: res.data.city,
             email: res.data.email,
-            gifts: res.data.gifts,
+            allGiftsObj: res.data.gifts,
             isDonor: res.data.isDonor,
             name: res.data.name,
             wallName: res.data.wallName,
@@ -48,6 +50,23 @@ class DashboardPage extends Component {
   updateWall = event => {
     event.preventDefault();
     console.log("Hi, I'm the update button")
+    let copyOfGifts = [...this.state.gifts]
+    let copyOfCategories = [...this.state.categories]
+    let copyOfDates = [...this.state.dates]
+    let date;
+    copyOfGifts.forEach((gift, index) => {
+      if (copyOfDates[index] == "") {
+        date = new Date();
+      } else {
+        date = copyOfDates[index]
+      }
+      let giftObj = {
+        item: gift,
+        category: copyOfCategories[index],
+        date: date
+      }
+      console.log("giftObj is this: ", giftObj)
+    })
   }
   
   updateButtonEffect() {
@@ -61,11 +80,14 @@ class DashboardPage extends Component {
     console.log("Hi, I'm the addMoreItems button")
     let copyOfCategories = [...this.state.categories]
     let copyOfGifts = [...this.state.gifts]
+    let copyOfDates = [...this.state.dates]
     copyOfCategories.push("none")
     copyOfGifts.push("")
+    copyOfDates.push("")
     this.setState({
       categories: copyOfCategories,
-      gifts: copyOfGifts
+      gifts: copyOfGifts,
+      dates: copyOfDates
     }, () => console.log(this.state))
   }
   
