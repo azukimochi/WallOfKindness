@@ -110,9 +110,8 @@ const WallBody = props => (
                 >
                   Add Gifts
                 </button> */}
-                {props.updateStatus}
-
               </Col>
+                {props.updateStatus}
 
               <button
                 id="updateWallButton"

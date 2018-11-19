@@ -80,11 +80,45 @@ class DashboardPage extends Component {
       }, ()=> console.log(this.state))
 }
 
-  makeGiftsObj = event => {
+  validateInfo = event => {
     event.preventDefault();
     console.log("Hi, I'm the update button")
+
+    if (
+      this.state.city === "" ||
+      this.state.email === "" ||
+      this.state.name === "" ||
+      this.state.wallName === "" ||
+      this.state.zipCode === ""
+    ) {
+      console.log("Not all info has been filled.")
+      this.setState({updateStatus: "Update aborted. Please fill out all the fields in your profile."})
+    } else {
+      this.validateGifts()
+    }
+  }
+
+
+  validateGifts = () => {
     let copyOfGifts = [...this.state.gifts]
     let copyOfCategories = [...this.state.categories]
+    let errNum = 0
+    copyOfGifts.forEach((gift, index) => {
+      if (gift[index] === "" || gift[index] === undefined || copyOfCategories[index] === "None") {
+        errNum++
+        console.log("Num of err", errNum)
+      } 
+    })
+    console.log("Final number of errors", errNum)
+    if (errNum === 0 ) {
+      this.makeGiftsObj(copyOfCategories, copyOfGifts)
+    } else {
+      this.setState({updateStatus: "Update aborted. Please fill out all item names and categories."})
+    }
+  }
+
+    makeGiftsObj = (copyOfCategories, copyOfGifts) => {
+    console.log("ValidateGifts activated")
     let copyOfDates = [...this.state.dates]
     let date;
     let updatedGiftsArr = [];
@@ -145,7 +179,7 @@ class DashboardPage extends Component {
     let copyOfCategories = [...this.state.categories]
     let copyOfGifts = [...this.state.gifts]
     let copyOfDates = [...this.state.dates]
-    copyOfCategories.push("none")
+    copyOfCategories.push("None")
     copyOfGifts.push("")
     copyOfDates.push("")
     this.setState({
@@ -277,7 +311,7 @@ class DashboardPage extends Component {
           city={this.state.city }
           updateStatus={this.state.updateStatus}
           updateWall={event => {
-            this.makeGiftsObj(event);
+            this.validateInfo(event);
           }}
           addClick={event => {
             this.addMoreItems(event);
