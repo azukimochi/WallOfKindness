@@ -9,7 +9,7 @@ class DashboardPage extends Component {
   // };
 
   state = {
-    categories: [],
+    categories:[],
     city: "",
     email: "",
     gifts: [],
@@ -31,7 +31,6 @@ class DashboardPage extends Component {
           this.props.history.push("/login")
         } else {
           this.setState({
-            categories: res.data.categories,
             city: res.data.city,
             email: res.data.email,
             gifts: res.data.gifts,
@@ -63,7 +62,7 @@ class DashboardPage extends Component {
     let copyOfCategories = [...this.state.categories]
     let copyOfGifts = [...this.state.gifts]
     copyOfCategories.push("none")
-    copyOfGifts.push("Name of the Gift")
+    copyOfGifts.push("")
     this.setState({
       categories: copyOfCategories,
       gifts: copyOfGifts
