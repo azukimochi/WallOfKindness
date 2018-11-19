@@ -82,6 +82,8 @@ class Search extends Component {
   };
 
   handleAreaChange = event => {
+
+
     this.setState({ address: event.target.value });
   };
 
@@ -194,6 +196,21 @@ class Search extends Component {
         .catch(err => console.log(err));
     }
   };
+
+onFocusArea=(e)=>{
+console.log("mano click kard:",e.target)
+//   alert('hi hi')
+document.getElementById(e.target.id).value="";
+  }
+
+
+  
+
+  onBlurArea=(e)=>{
+    // console.log("mano click kard:",e.target)
+    //   alert('hi hi')
+    document.getElementById(e.target.id).value=this.state.guestAddress;
+      }
 
   searchButtonEffect() {
     let effect = document.getElementById("effect");
@@ -363,6 +380,8 @@ class Search extends Component {
             getLocation={this.getLocation}
             latLong={this.latLong}
             guestAddress={this.state.guestAddress}
+            onFocusArea={this.onFocusArea}
+            onBlurArea={this.onBlurArea}
           />
 
           {this.state.hasSearched ? (
