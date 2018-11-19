@@ -17,7 +17,7 @@ const WallBody = props => (
                 value={props.donor}
                 onChange={props.handleItemChange}
                 name="name"
-                placeholder="Full Name"
+                placeholder="Full Name (required)"
                 // data-group="names"
                 // data-attribute="fullName"
                 id="UserfirstName"
@@ -28,7 +28,7 @@ const WallBody = props => (
                 value={props.wallName}
                 onChange={props.handleItemChange}
                 name="wallName"
-                placeholder="Wall Name"
+                placeholder="Wall Name (required)"
                 // data-group="wall"
                 // data-attribute="wallName"
                 id="wallName"
@@ -79,21 +79,26 @@ const WallBody = props => (
                 <Input 
                 value={item}
                 name="item"
-                placeholder="Item Name"
+                placeholder="Item Name (required)"
                 onChange={(event) => props.handleGiftChange(index, event)} 
                 />
-                {/* <Input
-                value={props.categories[index]}
-                name="category"
-                onChange={(event) => props.handleCategoryChange(index, event)}
-                /> */}
 
                 <select name="category" value={props.categories[index]} onChange={(event) => props.handleCategoryChange(index, event)}>
                       <option value="None">Category</option>
                       <option value="Food">Food</option>
                       <option value="Clothing">Clothing</option>
                     </select>
+                {/* <Input
+                value={props.categories[index]}
+                name="category"
+                onChange={(event) => props.handleCategoryChange(index, event)}
+                /> */}
 
+                  <i
+                    className="fas fa-trash-alt"
+                    aria-hidden="true"
+                    onClick={(event) => props.removeClick(index, event)}
+                  />
                </div>
                 </span>
                 ))}

@@ -118,7 +118,6 @@ class DashboardPage extends Component {
   }
 
     makeGiftsObj = (copyOfCategories, copyOfGifts) => {
-    console.log("ValidateGifts activated")
     let copyOfDates = [...this.state.dates]
     let date;
     let updatedGiftsArr = [];
@@ -189,9 +188,20 @@ class DashboardPage extends Component {
     }, () => console.log(this.state))
   }
   
-  removeItem = event => {
+  removeItem = (index, event) => {
     event.preventDefault();
     console.log("Hi, I'm the removeItem button")
+    let copyOfCategories = [...this.state.categories]
+    let copyOfGifts = [...this.state.gifts]
+    let copyOfDates = [...this.state.dates]
+    copyOfCategories.splice(index, 1)
+    copyOfGifts.splice(index, 1)
+    copyOfDates.splice(index, 1)
+    this.setState({
+      categories: copyOfCategories,
+      gifts: copyOfGifts,
+      dates: copyOfDates
+    })
   }
 
   handleItemChange = event => {
@@ -316,14 +326,15 @@ class DashboardPage extends Component {
           addClick={event => {
             this.addMoreItems(event);
           }}
-          removeClick={event => {
-            this.removeItem(event);
-          }}
+          // removeClick={event => {
+          //   this.removeItem(index, event);
+          // }}
           handleItemChange={event => {
             this.handleItemChange(event);
           }}
           handleGiftChange={this.handleGiftChange}
           handleCategoryChange={this.handleCategoryChange}
+          removeClick={this.removeItem}
         />
 
 
