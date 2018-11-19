@@ -1,15 +1,23 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
-class LogOut extends React.Component {
+class LogOut extends Component {
 
-	componentDidMount() {
-		this.props.onLogOut()
-		window.localStorage.clear()
+	componentDidMount = () => {
+		localStorage.clear()
+		this.props.history.push("/")
 	}
+
+	// componentWillMount(){
+	// 	this.props.LogOut
+	// 	windows.localStorage.clear()
+	// }
 	
 	render() {
-		return <Redirect to="/login" />
+		// return <Redirect to="/login" />
+		return(
+			<div>nothing</div>
+		)
 	}
 }
 

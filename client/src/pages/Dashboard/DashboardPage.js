@@ -9,46 +9,163 @@ class DashboardPage extends Component {
   // };
 
   state = {
+    allGiftsObj: [],
     categories: [],
+    gifts: [],
+    dates: [],
     city: "",
     email: "",
-    gifts: [],
-    isDonor: "",
-    name: "Karen",
+    name: "",
     wallName: "",
     zipCode: "",
-    id: ""
+    id: "",
+    updateStatus: ""
   }
 
 
   componentDidMount = () => {
     const id = localStorage.getItem("user_id")
-    console.log("id", id)
-    API.getUserInfo(id)
+    const token = localStorage.getItem("session_token")
+    const reqObj = {
+      id: id,
+      token: token
+    }
+    API.getUserInfo(reqObj)
       .then(res => {
         console.log("Res.data", res.data)
         if (res.data.status === "404") {
+          localStorage.clear()
           this.props.history.push("/login")
         } else {
-          this.setState({
-            categories: res.data.categories,
-            city: res.data.city,
-            email: res.data.email,
-            gifts: res.data.gifts,
-            isDonor: res.data.isDonor,
-            name: res.data.name,
-            wallName: res.data.wallName,
-            zipCode: res.data.zipCode,
-            id: res.data._id
-          }, ()=> console.log(this.state))
+          this.parseGifts(res)
         }
       })
       .catch(err => console.log(err))
-  }
+    }
+    
+    parseGifts = (res) => {
+      let copyOfGifts = [...res.data.gifts]
+      console.log("copyOfGifts", copyOfGifts)
+      let giftsArr = [];
+      let categoriesArr = [];
+      let datesArr = [];
+      copyOfGifts.forEach(gift => {
+        for (let key in gift) {
+          if (key === "item") {
+            giftsArr.push(gift[key])
+          } else if (key === "category") {
+            categoriesArr.push(gift[key])
+          } else if (key === "date") {
+            datesArr.push(gift[key])
+          }
+        }
+      });
+      console.log("giftsArr", giftsArr)
+      console.log("categoriesArr", categoriesArr)
+      console.log("datesArr", datesArr)
+      this.showUserInfo(res, giftsArr, categoriesArr, datesArr)
+    }
+    
+    showUserInfo = (res, giftsArr, categoriesArr, datesArr) => {
+      this.setState({
+        city: res.data.city,
+        email: res.data.email,
+        allGiftsObj: res.data.gifts,
+        categories: categoriesArr,
+        gifts: giftsArr,
+        dates: datesArr,
+        name: res.data.name,
+        wallName: res.data.wallName,
+        zipCode: res.data.zipCode,
+        id: res.data._id
+      }, ()=> console.log(this.state))
+}
 
-  updateWall = event => {
+  validateInfo = event => {
     event.preventDefault();
     console.log("Hi, I'm the update button")
+
+    if (
+      this.state.city === "" ||
+      this.state.email === "" ||
+      this.state.name === "" ||
+      this.state.wallName === "" ||
+      this.state.zipCode === ""
+    ) {
+      console.log("Not all info has been filled.")
+      this.setState({updateStatus: "Update aborted. Please fill out all the fields in your profile."})
+    } else {
+      this.validateGifts()
+    }
+  }
+
+
+  validateGifts = () => {
+    let copyOfGifts = [...this.state.gifts]
+    let copyOfCategories = [...this.state.categories]
+    let errNum = 0
+    copyOfGifts.forEach((gift, index) => {
+      if (gift[index] === "" || gift[index] === undefined || copyOfCategories[index] === "None") {
+        errNum++
+        console.log("Num of err", errNum)
+      } 
+    })
+    console.log("Final number of errors", errNum)
+    if (errNum === 0 ) {
+      this.makeGiftsObj(copyOfCategories, copyOfGifts)
+    } else {
+      this.setState({updateStatus: "Update aborted. Please fill out all item names and categories."})
+    }
+  }
+
+    makeGiftsObj = (copyOfCategories, copyOfGifts) => {
+    let copyOfDates = [...this.state.dates]
+    let date;
+    let updatedGiftsArr = [];
+    copyOfGifts.forEach((gift, index) => {
+      if (copyOfDates[index] == "") {
+        date = new Date();
+      } else {
+        date = copyOfDates[index]
+      }
+      let giftObj = {
+        item: gift,
+        category: copyOfCategories[index],
+        date: date
+      }
+      updatedGiftsArr.push(giftObj)
+    })
+    console.log("The new gifts array is this: ", updatedGiftsArr)
+    this.setState({allGiftsObj: updatedGiftsArr}, 
+      () => {
+        console.log("The new allGiftsObj state: ", this.state.allGiftsObj);
+        this.submitData();
+    })
+  }
+
+  submitData = () => {
+    const id = localStorage.getItem("user_id")
+    const token = localStorage.getItem("session_token")
+    const reqObj = {
+      name: this.state.name,
+      email: this.state.email,
+      wallName: this.state.wallName,
+      gifts: this.state.allGiftsObj,
+      city: this.state.city,
+      zipCode: this.state.zipCode,
+    }
+    console.log("reqObj for submitting data", reqObj)
+    API.updateUserInfo(id, token, reqObj)
+    .then(res => {
+      if (res.data.status === "404") {
+        localStorage.clear()
+        this.props.history.push("/login")
+      } else {
+        this.setState({updateStatus: "Updated successfully!"})
+        console.log("User updated!")
+      }
+    })
+    .catch(err => console.log(err))
   }
   
   updateButtonEffect() {
@@ -62,17 +179,31 @@ class DashboardPage extends Component {
     console.log("Hi, I'm the addMoreItems button")
     let copyOfCategories = [...this.state.categories]
     let copyOfGifts = [...this.state.gifts]
-    copyOfCategories.push("none")
-    copyOfGifts.push("Name of the Gift")
+    let copyOfDates = [...this.state.dates]
+    copyOfCategories.push("None")
+    copyOfGifts.push("")
+    copyOfDates.push("")
     this.setState({
       categories: copyOfCategories,
-      gifts: copyOfGifts
+      gifts: copyOfGifts,
+      dates: copyOfDates
     }, () => console.log(this.state))
   }
   
-  removeItem = event => {
+  removeItem = (index, event) => {
     event.preventDefault();
     console.log("Hi, I'm the removeItem button")
+    let copyOfCategories = [...this.state.categories]
+    let copyOfGifts = [...this.state.gifts]
+    let copyOfDates = [...this.state.dates]
+    copyOfCategories.splice(index, 1)
+    copyOfGifts.splice(index, 1)
+    copyOfDates.splice(index, 1)
+    this.setState({
+      categories: copyOfCategories,
+      gifts: copyOfGifts,
+      dates: copyOfDates
+    })
   }
 
   handleItemChange = event => {
@@ -190,20 +321,13 @@ class DashboardPage extends Component {
           wallName={this.state.wallName }
           zipCode={this.state.zipCode }
           city={this.state.city }
-          updateWall={event => {
-            this.updateWall(event);
-          }}
-          addClick={event => {
-            this.addMoreItems(event);
-          }}
-          removeClick={event => {
-            this.removeItem(event);
-          }}
-          handleItemChange={event => {
-            this.handleItemChange(event);
-          }}
+          updateStatus={this.state.updateStatus}
           handleGiftChange={this.handleGiftChange}
           handleCategoryChange={this.handleCategoryChange}
+          removeClick={this.removeItem}
+          updateWall={this.validateInfo}
+          addClick={this.addMoreItems}
+          handleItemChange={this.handleItemChange}
         />
 
 

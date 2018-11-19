@@ -11,9 +11,13 @@ router.get('/', (req, res) => {
     })
 });
 
-// this is for auth/findUser
+// this is for auth/findUser/id
 router.route('/findUser/:id')
 .get(usersCtrl.show)
+
+// this is for auth/update/id
+router.route('/update/:id')
+.put(usersCtrl.update)
 
 
 module.exports = router;

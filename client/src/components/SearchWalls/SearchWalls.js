@@ -1,6 +1,13 @@
 import React from "react";
 import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+    geocodeByAddress,
+    geocodeByPlaceId,
+    getLatLng,
+  } from 'react-places-autocomplete';
+
 
 const SearchWall = props => (
   <div className="searchBox">
@@ -40,6 +47,8 @@ const SearchWall = props => (
           <label htmlFor="area">Area</label>
           <br />
           <input
+            onFocus={props.onFocusArea}
+            // onBlur={props.onBlurArea}
             onChange={props.handleAreaChange}
             name="address"
             type="text"
@@ -49,6 +58,9 @@ const SearchWall = props => (
             defaultValue={props.guestAddress}
           />
         </div>
+
+
+
         <div className="col-sm-3">
           <label htmlFor="item">Select Your Range</label>
           <br />
