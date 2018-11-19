@@ -25,8 +25,12 @@ class DashboardPage extends Component {
 
   componentDidMount = () => {
     const id = localStorage.getItem("user_id")
-    console.log("id", id)
-    API.getUserInfo(id)
+    const token = localStorage.getItem("session_token")
+    const reqObj = {
+      id: id,
+      token: token
+    }
+    API.getUserInfo(reqObj)
       .then(res => {
         console.log("Res.data", res.data)
         if (res.data.status === "404") {
@@ -54,6 +58,7 @@ class DashboardPage extends Component {
     let copyOfCategories = [...this.state.categories]
     let copyOfDates = [...this.state.dates]
     let date;
+    let updatedGiftsArr = [];
     copyOfGifts.forEach((gift, index) => {
       if (copyOfDates[index] == "") {
         date = new Date();
@@ -65,8 +70,9 @@ class DashboardPage extends Component {
         category: copyOfCategories[index],
         date: date
       }
-      console.log("giftObj is this: ", giftObj)
+      updatedGiftsArr.push(giftObj)
     })
+    console.log("The new gifts array is this: ", updatedGiftsArr)
   }
   
   updateButtonEffect() {

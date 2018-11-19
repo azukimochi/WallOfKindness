@@ -37,7 +37,6 @@ class LogIn extends Component {
 			 })
 			} else {
 				console.log('login response: Logged In', res)
-
 				localStorage.setItem('session_token', res.data.token);
 				localStorage.setItem('user_welcome', res.data.message);
 				localStorage.setItem('user_id', res.data.id);
