@@ -64,14 +64,16 @@ const SearchWall = props => (
         <div className="col-sm-3">
           <label htmlFor="item">Select Your Range</label>
           <br />
-          <input
+          <select
             onChange={props.handleRangeChange}
-            name="range"
-            type="text"
+            name="distance"
             className="searchRange"
-            placeholder="eg. 5 km"
             id="inputRange"
-          />
+            >
+            <option value="five">5 km</option>
+            <option value="ten">10 km</option>
+            <option value="fifteen" className="fifteen">15 km</option>
+          </select>
         </div>
         <br />
         <div className="col-sm-3">

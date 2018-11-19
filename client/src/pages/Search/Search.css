@@ -3,7 +3,7 @@
     font-family: 'Patua One', cursive;
 }
 
-#emailBody #emailFrom #emailSubject{
+#emailTo, #emailBody, #emailFrom, #emailSubject{
     background-color: white; 
 }
 
@@ -20,4 +20,53 @@
 
 .welcomeDiv { 
     text-align: center; 
+    
+}
+
+.resultTitle{
+    text-align: center;
+    font-family: 'Patua One', cursive;
+    font-size: 3.6rem;
+    line-height: 1.25;
+}
+
+
+
+#emailSendButton, .closeModal{
+width:100px;
+text-align: center;
+font-family:'Patua One', cursive;
+font-size: 15px;
+font-weight:none;
+border:none;
+}
+
+.closeModal{
+    font-weight:none !important;
+}
+
+#emailSendButton{
+    background-color: #e81e17;
+}
+
+.closeModal{
+    background-color: #ea9390;
+}
+
+#emailTo{
+    color:#38425B;
+}
+
+#emailTo, #emailFrom, #emailSubject{
+    margin-top:10px;
+    
+}
+
+#emailBody{
+margin-top:-5px;
+
+}
+
+textarea{
+    min-height:10.5rem;
 }
