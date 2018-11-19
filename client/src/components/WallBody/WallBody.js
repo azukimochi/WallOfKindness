@@ -110,6 +110,7 @@ const WallBody = props => (
                 >
                   Add Gifts
                 </button> */}
+                {props.updateStatus}
 
               </Col>
 

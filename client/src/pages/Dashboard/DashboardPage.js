@@ -18,7 +18,8 @@ class DashboardPage extends Component {
     name: "",
     wallName: "",
     zipCode: "",
-    id: ""
+    id: "",
+    updateStatus: ""
   }
 
 
@@ -125,6 +126,7 @@ class DashboardPage extends Component {
       if (res.data.status === "404") {
         this.props.history.push("/login")
       } else {
+        this.setState({updateStatus: "Updated successfully!"})
         console.log("User updated!")
       }
     })
@@ -273,6 +275,7 @@ class DashboardPage extends Component {
           wallName={this.state.wallName }
           zipCode={this.state.zipCode }
           city={this.state.city }
+          updateStatus={this.state.updateStatus}
           updateWall={event => {
             this.makeGiftsObj(event);
           }}
