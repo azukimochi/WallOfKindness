@@ -10,17 +10,7 @@ const NavBar = (props) => {
 					<div className="navbar-header customNav">
 						<a className="navbar-brand " href="#">Wall of Kindness</a>
 					</div>
-					{/* <div className='NavBar'> */}
-
-					{/* <ul className="nav navbar-nav"> */}
-
-						{/* <li className={
-    			window.location.pathname === "/" || window.location.pathname === "/home"
-     			 ? "active"
-     			 : ""
-  			}>
-    			<NavLink to="/" >Home</NavLink>
-    		</li> */}
+			
 						{props.currentUser
 							? (
 								<div>
