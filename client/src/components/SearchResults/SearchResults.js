@@ -28,12 +28,12 @@ props.results.length === 0 ?
                 </div>
                 <div className="card-body" id="resultsDiv">
                 
-                    {/* <ul className="list-group search-results"> */}
+                 
                         {/* <h2> Results</h2> */}
                         {console.log("props is:", props)}
                         {/* {props.results.map(result => ( */}
 
-                            {/* <li key={props.id} className="list-group-item resultDiv"> */}
+                           
 
                                 <p className="card-text">Full Name: {props.name}</p>
                                 <p className="card-text"> Wall Name: {props.wallName.toUpperCase()}</p>
@@ -66,9 +66,9 @@ props.results.length === 0 ?
                              
 
                                
-                            {/* </li> */}
+                           
                         {/* ))} */}
-                    {/* </ul> */}
+                  
                 </div>
             </div>
     </div>
