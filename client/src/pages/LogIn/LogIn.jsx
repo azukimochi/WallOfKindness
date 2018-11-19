@@ -28,6 +28,7 @@ class LogIn extends Component {
 		.then(res => {
 			console.log(res)
 			if (res.data.validate === false) {
+				localStorage.clear()
 				console.log("Login failed")
 				this.setState({ 
 					statusMsg: "Login failed. The email/password did not match.",

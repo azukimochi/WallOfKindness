@@ -79,6 +79,7 @@ const WallBody = props => (
                 <Input 
                 value={item}
                 name="item"
+                placeholder="Item Name"
                 onChange={(event) => props.handleGiftChange(index, event)} 
                 />
                 {/* <Input
@@ -90,15 +91,7 @@ const WallBody = props => (
                 <select name="category" value={props.categories[index]} onChange={(event) => props.handleCategoryChange(index, event)}>
                       <option value="None">Category</option>
                       <option value="Food">Food</option>
-                      <option value="Electronics">Electronics</option>
                       <option value="Clothing">Clothing</option>
-                      <option value="Kitchen">Kitchen</option>
-                      <option value="Office">Office</option>
-                      <option value="Home">Home</option>
-                      <option value="Transportation">Transportation</option>
-                      <option value="Travel and Events">Travel and Events</option>
-                      <option value="Bills">Bills</option>
-                      <option value="Miscellaneous">Miscellaneous</option>
                     </select>
 
                </div>

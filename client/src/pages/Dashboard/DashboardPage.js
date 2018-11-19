@@ -28,7 +28,6 @@ class DashboardPage extends Component {
       .then(res => {
         console.log("Res.data", res.data)
         if (res.data.status === "404") {
-          localStorage.clear();
           this.props.history.push("/login")
         } else {
           this.setState({
