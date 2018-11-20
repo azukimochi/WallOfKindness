@@ -198,6 +198,12 @@ class Search extends Component {
         gifts: this.state.giftType
       })
         .then(res => {
+          console.log("new res:", res.data);
+          let resDataObj= res.data;
+          console.log("rDO:", resDataObj);
+          // resDataObj.map(uniqueObj => {
+          //   console.log("uniqueObj:", uniqueObj)
+          // });
           let giftListFromDatabase = res.data;
           let finalGiftArray = [];
           let uniqueArray;

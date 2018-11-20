@@ -12,8 +12,15 @@ export default {
     
   },
 
-  getAllGifts: function(searchGifts){
-    return axios.get("/api/walls/getAllGifts")
+  // getAllGifts: function(searchGifts){
+  //   return axios.get("/api/walls/getAllGifts")
+  //   .catch(function(error){
+  //     console.log(error);
+
+  //   })
+  // },
+   getAllGifts: function(searchGifts){
+    return axios.get("/api/walls/getAllGifts?gifts=" + searchGifts.gifts)
     .catch(function(error){
       console.log(error);
 
