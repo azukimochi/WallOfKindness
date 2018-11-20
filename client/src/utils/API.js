@@ -5,7 +5,7 @@ export default {
   // Gets all books
   lookForGifts: function(searchParams) {
     // return axios.get("/api/searchGifts");
-    return axios.get("/api/walls/searchGifts?gifts=" + searchParams.gifts + "&area=" + searchParams.address + "&range=" + searchParams.range)
+    return axios.get("/api/walls/searchGifts?gifts=" + searchParams.gifts.item + "&area=" + searchParams.address + "&range=" + searchParams.range)
     .catch(function(error){
       console.log(error);
     })
