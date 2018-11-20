@@ -6,7 +6,7 @@ import "./autocomplete.css";
 
 const WallBody = props => (
       <Container fluid>
-        <form>
+        <form onSubmit={props.updateWall}>
           <Row>
             <Col size="md-6">
               <h3 style={{ textAlign: "center" }}>
@@ -122,7 +122,6 @@ const WallBody = props => (
                 id="updateWallButton"
                 className="btn btn-success ld-over-full-inverse"
                 // disabled={!(this.state.author && this.state.title)}
-                onClick={props.updateWall}
               >
                 <div className="ld ld-ball ld-flip"></div>Update Wall
               </button>
