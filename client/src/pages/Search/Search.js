@@ -55,7 +55,8 @@ class Search extends Component {
     guestLong: "",
     guestAddress: "",
     userLat: "",
-    userLong: ""
+    userLong: "",
+    reqButton:""
   };
 
   componentDidMount = () => {
@@ -86,8 +87,14 @@ class Search extends Component {
     });
   };
 
-  openModal = () => {
-    this.setState({ modalIsOpen: true }, () => console.log(this.state.results));
+  openModal = (event) => {
+    event.persist()
+    this.setState({ 
+      modalIsOpen: true,
+      reqButton:event.target.name
+      
+    
+    }, () => console.log("taaaarget",event.target.name));
   };
 
   afterOpenModal = () => {
@@ -95,7 +102,9 @@ class Search extends Component {
   };
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false });
+    this.setState({ modalIsOpen: false,
+    reqButton:""
+    });
   };
 
   handleErrorMessage = () => {
@@ -278,7 +287,7 @@ class Search extends Component {
 
         .then(res => {
           let resultsArray = [];
-          console.log("results:", res);
+          console.log("results kiri:", res);
           res.data.forEach(function(element) {
             console.log("element:", element);
             resultsArray.push(element);
@@ -461,6 +470,7 @@ class Search extends Component {
               </Container>
 
               <Modal
+                openModal={this.openModal}
                 isOpen={this.state.modalIsOpen}
                 onAfterOpen={this.afterOpenModal}
                 onRequestClose={this.closeModal}
@@ -474,13 +484,14 @@ class Search extends Component {
                       type="text"
                       id="emailTo"
                       placeholder="Donor's Email"
+                      value={this.state.reqButton}
                     />{" "}
                   </h4>
                   {/* <h4>To: <input type="text" id="emailTo" placeholder="Donor's Email" />{this.state.results.email} </h4> */}
                   <h4>
                     From:{" "}
                     <input
-                      type="text"
+                      type="email"
                       id="emailFrom"
                       placeholder="Your Email"
                     />

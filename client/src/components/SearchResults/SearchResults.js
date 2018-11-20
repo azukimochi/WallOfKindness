@@ -37,14 +37,14 @@ props.results.length === 0 ?
 
                                 <p className="card-text">Full Name: {props.name}</p>
                                 <p className="card-text"> Wall Name: {props.wallName.toUpperCase()}</p>
-                                <p className="card-text"> Gift Name: {props.gifts}</p>
+                                <p className="card-text"> Gift Name: {props.gifts[0].item}</p>
                                 <p className="card-text"> Email Address: {props.email}</p>
                                 <p className="card-text"> City: {props.city.toUpperCase()}</p>
                                 <p className="card-text"> Address: {props.zipCode}</p>
                                 {/* <p> latitude: {result.latitude}</p> */}
                                 {/* <p> longitude: {result.longitude}</p> */}
                                 <p className="card-text">Distance: {props.distanceCalc(props.userLat,props.userLong,props.guestLat,props.guestLong).toFixed(0)}km</p>
-                                <button className="registerBtn " onClick={props.openModal}>Request</button>
+                                <button className="registerBtn " name={props.email} onClick={props.openModal}>Request</button>
                                 {/* btn btn-primary requestBtn  */}
                                 <h4 className="invisible" id="toast">Email Sent Successfully!</h4>
                                     {/* <form id='emailForm' className="invisible">
