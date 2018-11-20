@@ -45,10 +45,10 @@ module.exports = {
   },
 
   findAllGifts: function (req, res) {
-    // console.log( req.query);
+    console.log( 'req.query',req.query);
 
       db.User
-      .find({gifts:req.query.gifts.item}, {"name":1, "wallName" : 1, "email": 1, "zipCode": 1, "city":1, "gifts": 1,"latitude":1,"longitude":1})
+      .find({"gifts": {$elemMatch: {"item": {$regex: req.query.gifts, $options: "i"}}}}, {"name":1, "wallName" : 1, "email": 1, "zipCode": 1, "city":1, "latitude":1,"longitude":1,"gifts":1})
     
       // .sort({ wallName: 1 })
       .then(dbModel => 
