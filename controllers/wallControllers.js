@@ -59,9 +59,16 @@ module.exports = {
 
     
   },
+  // findAllSearchedGifts: function (req,res){
+  //   db.User
+  //   .find({})
+  //   .then(dbModel =>
+  //   res.json(dbModel))
+  //   .catch(err => res.status(422).json(err));
+  // }
   findAllSearchedGifts: function (req,res){
     db.User
-    .find({})
+    .find({"gifts": {$elemMatch: {"item": {$regex: req.query.gifts, $options: "i"}}}})
     .then(dbModel =>
     res.json(dbModel))
     .catch(err => res.status(422).json(err));
