@@ -1,9 +1,4 @@
-
-
-
 /////////////////////////////////////////////NEW CODE ////////////////////////////
-
-
 
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
@@ -17,10 +12,9 @@ import axios from "axios";
 import "./Search.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
-import { Container, Row, Col } from 'react-grid-system';
-
+import { Container, Row, Col } from "react-grid-system";
 
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
@@ -28,17 +22,15 @@ const emailConfirmation = () =>
   });
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    width: '60%',
-    backgroundColor: '#38425B',
-    color: 'white'
-
-
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    width: "60%",
+    backgroundColor: "#38425B",
+    color: "white"
   }
 };
 
@@ -95,19 +87,16 @@ class Search extends Component {
   };
 
   openModal = () => {
-    this.setState({ modalIsOpen: true },
-      () => console.log(this.state.results));
-  }
+    this.setState({ modalIsOpen: true }, () => console.log(this.state.results));
+  };
 
   afterOpenModal = () => {
-
-    console.log("Open Modal")
-  }
+    console.log("Open Modal");
+  };
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-  }
-
+  };
 
   handleErrorMessage = () => {
     this.setState({
@@ -142,7 +131,9 @@ class Search extends Component {
 
   sendEmail = e => {
     e.preventDefault();
-    { this.closeModal() };
+    {
+      this.closeModal();
+    }
 
     axios({
       method: "post",
@@ -165,7 +156,7 @@ class Search extends Component {
   emailButtonEffect() {
     let effect = document.getElementById("emailSendButton");
     effect.classList.add("running");
-    setTimeout(function () {
+    setTimeout(function() {
       effect.classList.remove("running");
     }, 2000);
   }
@@ -180,7 +171,7 @@ class Search extends Component {
     let toast = document.getElementById("toast");
     toast.classList.remove("invisible");
 
-    setTimeout(function () {
+    setTimeout(function() {
       toast.classList.add("invisible");
     }, 2000);
     document.getElementById("emailForm").classList.add("invisible");
@@ -192,6 +183,7 @@ class Search extends Component {
   };
 
   handleGiftAutocomplete = event => {
+    let giftListFromDatabaseRaw = [];
     console.log("hello autocomplete", this.state.giftType);
     if (this.state.giftType || this.state.autoCompleteState.length === 0) {
       API.getAllGifts({
@@ -199,39 +191,61 @@ class Search extends Component {
       })
         .then(res => {
           console.log("new res:", res.data);
-          let resDataObj= res.data;
-          console.log("rDO:", resDataObj);
-          // resDataObj.map(uniqueObj => {
-          //   console.log("uniqueObj:", uniqueObj)
-          // });
-          let giftListFromDatabase = res.data;
+          let resDataObj = res.data;
+          resDataObj.map(item => {
+            item.gifts.map(insideItem => {
+              giftListFromDatabaseRaw.push(insideItem.item);
+            });
+          });
+
+          console.log(
+            "giftListFromDatabase before filter for duplicate",
+            giftListFromDatabaseRaw
+          );
+          let giftListFromDatabase = giftListFromDatabaseRaw;
           let finalGiftArray = [];
           let uniqueArray;
           let giftAutoCompleteArray;
           let autoCompleteArray = [];
+          //////////Autocomplete old function/////////////////////////
+          //           giftListFromDatabase.forEach(element => {
+          //             let gifts = element.gifts;
+          //             if (gifts.length === 1) {
+          //               finalGiftArray.push(gifts[0]);
+          //             } else {
+          //               gifts.forEach(element => {
+          //                 finalGiftArray.push(element);
+          //               });
+          //             }
+          // console.log('finalGiftArray',finalGiftArray)
+          //             let removeDuplicates = arr => {
+          //               uniqueArray = arr.filter(function (elem, index, self) {
+          //                 return index == self.indexOf(elem);
+          //               });
+          //               return uniqueArray;
+          //             };
 
-          giftListFromDatabase.forEach(element => {
-            let gifts = element.gifts;
-            if (gifts.length === 1) {
-              finalGiftArray.push(gifts[0]);
-            } else {
-              gifts.forEach(element => {
-                finalGiftArray.push(element);
-              });
-            }
+          //             giftAutoCompleteArray = removeDuplicates(finalGiftArray);
 
-            let removeDuplicates = arr => {
-              uniqueArray = arr.filter(function (elem, index, self) {
-                return index == self.indexOf(elem);
-              });
-              return uniqueArray;
-            };
+          //             return giftAutoCompleteArray;
+          //           });
+          //////////End of autocomplete old function/////////////////////////
 
-            giftAutoCompleteArray = removeDuplicates(finalGiftArray);
+          ///////////New Codes for autocomplete ////////////////
+          let removeDuplicates = arr => {
+            uniqueArray = arr.filter(function(elem, index, self) {
+              return index == self.indexOf(elem);
+            });
+            return uniqueArray;
+          };
 
-            return giftAutoCompleteArray;
-          });
+          giftAutoCompleteArray = removeDuplicates(giftListFromDatabase);
+          console.log(
+            "giftListFromDatabase after filter for duplicate",
+            giftAutoCompleteArray
+          );
 
+          /////////// End of New Codes for autocomplete ////////////////
           giftAutoCompleteArray.forEach(element => {
             let giftObject = { abbr: element, name: element };
             autoCompleteArray.push(giftObject);
@@ -247,7 +261,7 @@ class Search extends Component {
   searchButtonEffect() {
     let effect = document.getElementById("effect");
     effect.classList.add("running");
-    setTimeout(function () {
+    setTimeout(function() {
       effect.classList.remove("running");
     }, 2000);
   }
@@ -265,7 +279,7 @@ class Search extends Component {
         .then(res => {
           let resultsArray = [];
           console.log("results:", res);
-          res.data.forEach(function (element) {
+          res.data.forEach(function(element) {
             console.log("element:", element);
             resultsArray.push(element);
           });
@@ -394,7 +408,6 @@ class Search extends Component {
     return (
       <div>
         <Wrapper>
-
           <SearchWall
             handleGiftAutocomplete={this.handleGiftAutocomplete}
             values={this.state.autoCompleteState}
@@ -414,17 +427,13 @@ class Search extends Component {
             guestAddress={this.state.guestAddress}
             onFocusArea={this.onFocusArea}
             onBlurArea={this.onBlurArea}
-
           />
 
-
           {this.state.hasSearched ? (
-
             <div>
               <h3 className="resultTitle">Results</h3>
               <Container>
                 <Row>
-
                   {this.state.results.map(result => (
                     <SearchResults
                       key={result.id}
@@ -445,61 +454,78 @@ class Search extends Component {
                       userLat={this.state.userLat}
                       userLong={this.state.userLong}
 
-
-                    // latLong={this.latLong}
-
+                      // latLong={this.latLong}
                     />
-
                   ))}
                 </Row>
               </Container>
 
-
               <Modal
-
                 isOpen={this.state.modalIsOpen}
                 onAfterOpen={this.afterOpenModal}
                 onRequestClose={this.closeModal}
                 style={customStyles}
                 contentLabel="Example Modal"
               >
-
-                <form id='emailForm'>
-                  <h4>To: <input type="text" id="emailTo" placeholder="Donor's Email" /> </h4>
+                <form id="emailForm">
+                  <h4>
+                    To:{" "}
+                    <input
+                      type="text"
+                      id="emailTo"
+                      placeholder="Donor's Email"
+                    />{" "}
+                  </h4>
                   {/* <h4>To: <input type="text" id="emailTo" placeholder="Donor's Email" />{this.state.results.email} </h4> */}
-                  <h4>From: <input type="text" id="emailFrom" placeholder="Your Email" /></h4>
-                  <h4>Subject:<input type="text" id="emailSubject" placeholder="Message Title" /></h4>
+                  <h4>
+                    From:{" "}
+                    <input
+                      type="text"
+                      id="emailFrom"
+                      placeholder="Your Email"
+                    />
+                  </h4>
+                  <h4>
+                    Subject:
+                    <input
+                      type="text"
+                      id="emailSubject"
+                      placeholder="Message Title"
+                    />
+                  </h4>
                   <h4>Message:</h4>
-                  <textarea id="emailBody"></textarea>
-                  <button onClick={this.sendEmail}
+                  <textarea id="emailBody" />
+                  <button
+                    onClick={this.sendEmail}
                     type="submit"
                     id="emailSendButton"
-                    className="btn btn-success ld-over-full-inverse registerBtn">
-                    <div className="ld ld-ball ld-flip"></div>Send
-
-                     </button>
-                  <button className="closeModal" onClick={this.closeModal}>Close</button>
+                    className="btn btn-success ld-over-full-inverse registerBtn"
+                  >
+                    <div className="ld ld-ball ld-flip" />
+                    Send
+                  </button>
+                  <button className="closeModal" onClick={this.closeModal}>
+                    Close
+                  </button>
                 </form>
               </Modal>
-
-
             </div>
-          )
-            : (
-              <div className="welcomeDiv">
-                <h1 className="welcomeBanner">Welcome!</h1>
-                <p id="welcomeNote">Feel free to search our list of gifts available to you from our donors. If you like what you see, you can request it from an angel and organize a time to pick it up!</p>
-              </div>
-            )
-
-          }
+          ) : (
+            <div className="welcomeDiv">
+              <h1 className="welcomeBanner">Welcome!</h1>
+              <p id="welcomeNote">
+                Feel free to search our list of gifts available to you from our
+                donors. If you like what you see, you can request it from an
+                angel and organize a time to pick it up!
+              </p>
+            </div>
+          )}
 
           <ToastContainer />
         </Wrapper>
       </div>
     );
   }
-
 }
 
 export default Search;
