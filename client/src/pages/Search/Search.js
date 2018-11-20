@@ -462,6 +462,7 @@ class Search extends Component {
                       getLocation={this.getLocation}
                       userLat={this.state.userLat}
                       userLong={this.state.userLong}
+                      giftType={this.state.giftType}
 
                       // latLong={this.latLong}
                     />

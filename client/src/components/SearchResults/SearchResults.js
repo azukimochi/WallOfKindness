@@ -30,14 +30,21 @@ props.results.length === 0 ?
                 
                  
                         {/* <h2> Results</h2> */}
-                        {console.log("props is:", props)}
+                        {console.log("props is:", props.gifts)
+
+
+    
+                    }
                         {/* {props.results.map(result => ( */}
 
                            
 
                                 <p className="card-text">Full Name: {props.name}</p>
                                 <p className="card-text"> Wall Name: {props.wallName.toUpperCase()}</p>
-                                <p className="card-text"> Gift Name: {props.gifts[0].item}</p>
+                                <p className="card-text"> Gift Name: {props.giftType}
+                            
+                            </p>
+                            
                                 <p className="card-text"> Email Address: {props.email}</p>
                                 <p className="card-text"> City: {props.city.toUpperCase()}</p>
                                 <p className="card-text"> Address: {props.zipCode}</p>
