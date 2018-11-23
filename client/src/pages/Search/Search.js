@@ -16,6 +16,19 @@ import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
 import { Container, Row, Col } from "react-grid-system";
 
+// let finishedLat;
+// let finishedLong;
+
+
+let addressArray =[];
+let latLongArray=[];
+let longArray=[];
+let distanceArray=[];
+
+
+
+
+
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
     position: toast.POSITION.TOP_CENTER
@@ -54,17 +67,27 @@ class Search extends Component {
     guestLat: "",
     guestLong: "",
     guestAddress: "",
-    userLat: "",
-    userLong: "",
-    reqButton:""
+    userLat: [],
+    userLong: [],
+    eachLat:"",
+    eachLong:"",
+    reqButton:"",
+    latArray:[],
+    longArray:[],
+    distances:[]
   };
 
   componentDidMount = () => {
     this.handleGiftAutocomplete();
     this.getLocation();
-    this.latLong();
+    // this.latLong();
     // this.GetAddress();
   };
+
+
+  
+
+
 
   // getCurrentPosition
   displaySearchResults = () => {
@@ -94,11 +117,11 @@ class Search extends Component {
       reqButton:event.target.name
       
     
-    }, () => console.log("taaaarget",event.target.name));
+    }, () => console.log("target",event.target.name));
   };
 
   afterOpenModal = () => {
-    console.log("Open Modal");
+    // console.log("Open Modal");
   };
 
   closeModal = () => {
@@ -111,7 +134,7 @@ class Search extends Component {
     this.setState({
       errorMessage: "Please fill in all fields before searching."
     });
-    console.log(this.state.errorMessage);
+    // console.log(this.state.errorMessage);
   };
   handleGiftsChange = event => {
     this.setState({ gifts: event.target.value.toLowerCase() });
@@ -129,7 +152,7 @@ class Search extends Component {
     event.preventDefault();
     document.getElementById("emailForm").classList.remove("invisible");
 
-    console.log("hello");
+    // console.log("hello");
   };
 
   clearEmailForm() {
@@ -154,8 +177,8 @@ class Search extends Component {
         emailBody: document.getElementById("emailBody").value
       }
     }).then(response => {
-      console.log(response);
-      console.log(this.state.results[0].email);
+      // console.log(response);
+      // console.log(this.state.results[0].email);
     });
 
     this.clearEmailForm();
@@ -193,13 +216,13 @@ class Search extends Component {
 
   handleGiftAutocomplete = event => {
     let giftListFromDatabaseRaw = [];
-    console.log("hello autocomplete", this.state.giftType);
+    // console.log("hello autocomplete", this.state.giftType);
     if (this.state.giftType || this.state.autoCompleteState.length === 0) {
       API.getAllGifts({
         gifts: this.state.giftType
       })
         .then(res => {
-          console.log("new res:", res.data);
+          // console.log("new res:", res.data);
           let resDataObj = res.data;
           resDataObj.map(item => {
             item.gifts.map(insideItem => {
@@ -207,40 +230,14 @@ class Search extends Component {
             });
           });
 
-          console.log(
-            "giftListFromDatabase before filter for duplicate",
-            giftListFromDatabaseRaw
-          );
+         
           let giftListFromDatabase = giftListFromDatabaseRaw;
           let finalGiftArray = [];
           let uniqueArray;
           let giftAutoCompleteArray;
           let autoCompleteArray = [];
-          //////////Autocomplete old function/////////////////////////
-          //           giftListFromDatabase.forEach(element => {
-          //             let gifts = element.gifts;
-          //             if (gifts.length === 1) {
-          //               finalGiftArray.push(gifts[0]);
-          //             } else {
-          //               gifts.forEach(element => {
-          //                 finalGiftArray.push(element);
-          //               });
-          //             }
-          // console.log('finalGiftArray',finalGiftArray)
-          //             let removeDuplicates = arr => {
-          //               uniqueArray = arr.filter(function (elem, index, self) {
-          //                 return index == self.indexOf(elem);
-          //               });
-          //               return uniqueArray;
-          //             };
+         
 
-          //             giftAutoCompleteArray = removeDuplicates(finalGiftArray);
-
-          //             return giftAutoCompleteArray;
-          //           });
-          //////////End of autocomplete old function/////////////////////////
-
-          ///////////New Codes for autocomplete ////////////////
           let removeDuplicates = arr => {
             uniqueArray = arr.filter(function(elem, index, self) {
               return index == self.indexOf(elem);
@@ -249,12 +246,11 @@ class Search extends Component {
           };
 
           giftAutoCompleteArray = removeDuplicates(giftListFromDatabase);
-          console.log(
-            "giftListFromDatabase after filter for duplicate",
-            giftAutoCompleteArray
-          );
+          // console.log(
+          //   "giftListFromDatabase after filter for duplicate",
+          //   giftAutoCompleteArray
+          // );
 
-          /////////// End of New Codes for autocomplete ////////////////
           giftAutoCompleteArray.forEach(element => {
             let giftObject = { abbr: element, name: element };
             autoCompleteArray.push(giftObject);
@@ -275,9 +271,47 @@ class Search extends Component {
     }, 2000);
   }
 
+
+
+
+  latLong = address => {
+    
+      Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
+      Geocode.enableDebug();
+      
+      Geocode.fromAddress(address).then(
+        response => {
+           let { lat, lng } = response.results[0].geometry.location;
+          latLongArray.push(
+            {lat:lat,
+              lng:lng
+            }
+            )
+          // longArray.push(lng)
+          // console.log("guest lat",guestLat)
+          // this.distanceCalc(lat,lng,guestLat,guestLong)
+          // newLat=lat;
+          // newLong=lng;
+          //  console.log('latArray',latArray)
+          //  console.log('longArray',longArray)
+           
+        // latLongShow(lat,lng)
+        },
+        error => {
+          console.error(error);
+        }
+        );
+        // return {
+        //   longArray:longArray, 
+        //   latArray:latArray
+        // }
+        
+        };
+
   handleSearchBtnSubmit = event => {
     event.preventDefault();
-
+// latArray=[];
+// longArray=[];
     if (this.state.giftType) {
       API.lookForGifts({
         gifts: this.state.giftType,
@@ -286,20 +320,48 @@ class Search extends Component {
       })
 
         .then(res => {
+          console.log("karen res",res.data)
           let resultsArray = [];
-          console.log("results kiri:", res);
           res.data.forEach(function(element) {
-            console.log("element:", element);
+            // console.log("element:", element);
+            // console.log("address element:",element.zipCode)
+            // this.latLong(element.zipCode);
             resultsArray.push(element);
           });
           console.log("result array:", resultsArray);
+          
           this.setState({ results: resultsArray });
-          // console.log("new state:", this.state.results[0].zipCode);
-          let newAddress = this.state.results[0].zipCode;
-          console.log("newAddress:", newAddress);
-          this.latLong(newAddress);
+          console.log("results isssssssssssssssssssssssssss:", this.state.results);
+          let newAddress = this.state.results
+         
+          newAddress.map(userAddress=>{
+            addressArray.push(userAddress.zipCode)
+            
 
-          console.log("new state isssssss:", this.state);
+
+
+          })
+
+          addressArray.map((eachAddress)=>{
+              this.latLong(eachAddress)
+                        })
+
+          latLongArray.map((eachLatLong,index)=>{
+          
+            this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
+// console.log("jakesh", eachLatLong.lat)
+           })
+
+
+// latArray.map()
+
+console.log("gueslat",this.state.guestLat)
+          console.log('addressArray2',addressArray)
+          console.log('lat Long Array',latLongArray)
+          console.log('long Array',longArray)
+          console.log('distance Array',distanceArray)
+
+         
         })
         .catch(err => console.log(err));
     }
@@ -309,13 +371,14 @@ class Search extends Component {
       this.state.range === ""
     ) {
       this.handleErrorMessage();
-      console.log("working");
+      // console.log("working");
     }
 
-    this.setState({
-      hasSearched: true
-    });
+console.log("final state before sending",this.state)
+   
   };
+
+
 
   distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
     let radlat1 = (Math.PI * lat1) / 180;
@@ -337,33 +400,19 @@ class Search extends Component {
     if (unit == "N") {
       dist = dist * 0.8684;
     }
-    return dist;
+    distanceArray.push(dist)
+    
+    this.setState({
+      hasSearched: true
+      
+
+      
+    });
+    // console.log('distanceArray too function',distanceArray)
+    // return dist;
   };
 
-  latLong = address => {
-    Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
 
-    // Enable or disable logs. Its optional.
-    Geocode.enableDebug();
-    Geocode.fromAddress(address).then(
-      response => {
-        let { lat, lng } = response.results[0].geometry.location;
-        console.log("lat and long are:", lat, lng);
-        let newLat = lat;
-        let newLong = lng;
-        console.log("newlat and newlong are:", newLat, newLong);
-
-        this.setState({
-          userLat: newLat,
-          userLong: newLong
-        });
-      },
-      error => {
-        console.error(error);
-      }
-      // ,
-    );
-  };
 
   //////////////////////////////////////////
 
@@ -378,7 +427,7 @@ class Search extends Component {
       guestLat: position.coords.latitude,
       guestLong: position.coords.longitude
     });
-    console.log("state jadide", this.state);
+    // console.log("state jadide", this.state);
     this.GetAddress(this.state.guestLat, this.state.guestLong);
     // document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude +
     // "<br>Longitude: " + position.coords.longitude;
@@ -391,7 +440,7 @@ class Search extends Component {
     script.src = `http://maps.googleapis.com/maps/api/js?sensor=false`;
     script.async = true;
     document.body.appendChild(script);
-    console.log("alan state chie:", this.state);
+    // console.log("alan state chie:", this.state);
     // let lat = this.state.guestLat; //43.6532; //parseFloat(document.getElementById("txtLatitude").value);
     // let lng = this.state.guestLong; //-79.3832; //parseFloat(document.getElementById("txtLongitude").value);
     const google = window.google;
@@ -443,15 +492,18 @@ class Search extends Component {
               <h3 className="resultTitle">Results</h3>
               <Container>
                 <Row>
-                  {this.state.results.map(result => (
+                  {this.state.results.map((result,index) => (
                     <SearchResults
-                      key={result.id}
+                      index={index}
+                      id={result._id}
                       name={result.name}
                       wallName={result.wallName}
                       gifts={result.gifts}
                       email={result.email}
                       city={result.city}
                       zipCode={result.zipCode}
+                      // lat={result.lat}
+                      // long={result.long}
                       // distance= {result.distanceCalc(result.userLat,result.userLong,result.guestLat,result.guestLong)}
                       results={this.state.results}
                       guestLat={this.state.guestLat}
@@ -463,7 +515,10 @@ class Search extends Component {
                       userLat={this.state.userLat}
                       userLong={this.state.userLong}
                       giftType={this.state.giftType}
-
+                      latLong={this.latLong}
+                      latArray={this.state.latArray}
+                      longArray={this.state.longArray}
+                      distance={this.distanceArray[index]}
                       // latLong={this.latLong}
                     />
                   ))}
