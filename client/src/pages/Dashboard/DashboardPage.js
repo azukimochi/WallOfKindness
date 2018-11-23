@@ -258,7 +258,6 @@ class DashboardPage extends Component {
   // addClicked = e => {
   //   e.preventDefault();
   //   // console.log("e.target", e.target);
-  //   // console.log("kalle kiri", this.state);
   //   let itemClicked = e.target.id;
   //   let currentState = this.state.currentUser[itemClicked];
   //   // console.log("current state", currentState);

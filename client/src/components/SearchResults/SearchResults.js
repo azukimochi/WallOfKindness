@@ -6,7 +6,7 @@ import {Col } from 'react-grid-system';
 const SearchResults = props => 
 
 
-// console.log("props:" , props.results.length)
+
 props.results.length === 0 ?
     (
         <div>
@@ -27,30 +27,26 @@ props.results.length === 0 ?
                 
                 </div>
                 <div className="card-body" id="resultsDiv">
-                
-                 
-                        {/* <h2> Results</h2> */}
-                        {console.log("props is:", props.gifts)
-
-
-    
-                    }
-                        {/* {props.results.map(result => ( */}
-
-                           
-
+                                 
+                        {console.log("props kiri is:", props)}
+                        <p className="card-text">key: {props.index}</p>
+                                {/* <p className="card-text">latArray: {props.latArray}</p> */}
                                 <p className="card-text">Full Name: {props.name}</p>
                                 <p className="card-text"> Wall Name: {props.wallName.toUpperCase()}</p>
-                                <p className="card-text"> Gift Name: {props.giftType}
-                            
-                            </p>
-                            
+                                <p className="card-text"> Gift Name: {props.giftType}</p>
                                 <p className="card-text"> Email Address: {props.email}</p>
                                 <p className="card-text"> City: {props.city.toUpperCase()}</p>
                                 <p className="card-text"> Address: {props.zipCode}</p>
-                                {/* <p> latitude: {result.latitude}</p> */}
-                                {/* <p> longitude: {result.longitude}</p> */}
-                                <p className="card-text">Distance: {props.distanceCalc(props.userLat,props.userLong,props.guestLat,props.guestLong).toFixed(0)}km</p>
+                                {/* {console.log("props.LatArray",props.latArray)} */}
+                                {/* {console.log("props.longArray",props.longArray)} */}
+                                {/* {console.log("props.zicode",props.zipCode)} */}
+                                {/* {console.log("props.latlong",props.latLong(props.zipCode).latArray[props.index])} */}
+
+                                {/* <p className="card-text"> Lat and Long: {props.latLong(props.zipCode).latArray[1]}</p> */}
+                                {/* <p className="card-text">Distance: {props.distanceCalc(props.lat,props.long,props.guestLat,props.guestLong).toFixed(0)}km</p> */}
+                               
+                               {/* {console.log("propseeee userlat *********",props.userLat)} */}
+                               {/* {console.log("propseeee userlong *********",props.userLong)} */}
                                 <button className="registerBtn " name={props.email} onClick={props.openModal}>Request</button>
                                 {/* btn btn-primary requestBtn  */}
                                 <h4 className="invisible" id="toast">Email Sent Successfully!</h4>
