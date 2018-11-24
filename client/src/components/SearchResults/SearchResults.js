@@ -37,6 +37,7 @@ props.results.length === 0 ?
                                 <p className="card-text"> Email Address: {props.email}</p>
                                 <p className="card-text"> City: {props.city.toUpperCase()}</p>
                                 <p className="card-text"> Address: {props.zipCode}</p>
+                                <p className="card-text"> Distance: {props.distance}</p>
                                 {/* {console.log("props.LatArray",props.latArray)} */}
                                 {/* {console.log("props.longArray",props.longArray)} */}
                                 {/* {console.log("props.zicode",props.zipCode)} */}

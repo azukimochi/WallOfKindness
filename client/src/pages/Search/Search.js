@@ -16,10 +16,6 @@ import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
 import { Container, Row, Col } from "react-grid-system";
 
-// let finishedLat;
-// let finishedLong;
-
-
 let addressArray =[];
 let latLongArray=[];
 let longArray=[];
@@ -48,6 +44,7 @@ const customStyles = {
 };
 
 class Search extends Component {
+
   // insert state changes and methods here
   state = {
     autoCompleteState: [],
@@ -74,7 +71,8 @@ class Search extends Component {
     reqButton:"",
     latArray:[],
     longArray:[],
-    distances:[]
+    distances:[],
+    latLongArray: []
   };
 
   componentDidMount = () => {
@@ -275,18 +273,29 @@ class Search extends Component {
 
 
   latLong = address => {
-    
       Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
       Geocode.enableDebug();
       
       Geocode.fromAddress(address).then(
         response => {
            let { lat, lng } = response.results[0].geometry.location;
-          latLongArray.push(
-            {lat:lat,
-              lng:lng
-            }
-            )
+           let obj = {
+             lat: lat,
+             lng: lng
+           }
+           latLongArray.push(obj)
+           console.log("testing latLong function", latLongArray)
+           console.log(addressArray.length)
+           
+           if (latLongArray.length === addressArray.length) {
+             this.goToDistance()
+           }
+          // latLongArray.push(
+          //   {lat:lat,
+          //     lng:lng
+          //   }
+          //   )
+
           // longArray.push(lng)
           // console.log("guest lat",guestLat)
           // this.distanceCalc(lat,lng,guestLat,guestLong)
@@ -305,7 +314,6 @@ class Search extends Component {
         //   longArray:longArray, 
         //   latArray:latArray
         // }
-        
         };
 
   handleSearchBtnSubmit = event => {
@@ -342,26 +350,33 @@ class Search extends Component {
 
           })
 
-          addressArray.map((eachAddress)=>{
-              this.latLong(eachAddress)
-                        })
+          addressArray.forEach(eachAddress => {
+            this.latLong(eachAddress)
+          })
+        
 
-          latLongArray.map((eachLatLong,index)=>{
-          
-            this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
-// console.log("jakesh", eachLatLong.lat)
-           })
+          //           latLongArray.map((eachLatLong,index)=>{
+            
+            //             this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
+            // console.log("jakesh", eachLatLong.lat)
+            //            })
+            
+            
+            // latArray.map()
+            
+            console.log("gueslat",this.state.guestLat)
+            console.log('addressArray2',addressArray)
+            // console.log('lat Long Array',latLongArray)
+            console.log('long Array',longArray)
+            console.log('distance Array',distanceArray)
+            
+            
+           
 
+              // this.goToDistance()
+            
 
-// latArray.map()
-
-console.log("gueslat",this.state.guestLat)
-          console.log('addressArray2',addressArray)
-          console.log('lat Long Array',latLongArray)
-          console.log('long Array',longArray)
-          console.log('distance Array',distanceArray)
-
-         
+            
         })
         .catch(err => console.log(err));
     }
@@ -378,9 +393,21 @@ console.log("final state before sending",this.state)
    
   };
 
-
+goToDistance = () => {
+console.log("Length of latLongArray", latLongArray.length)
+console.log("Type of LatLongArray", typeof latLongArray)
+let isArr = Object.prototype.toString.call(latLongArray) == '[object Array]';
+console.log(isArr)
+latLongArray.forEach(eachLatLong => {
+  console.log("Hi")
+  this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
+})
+    // console.log("jakesh", eachLatLong.lat)
+              
+}
 
   distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
+    console.log("Hi")
     let radlat1 = (Math.PI * lat1) / 180;
     let radlat2 = (Math.PI * lat2) / 180;
     let theta = lon1 - lon2;
@@ -401,13 +428,16 @@ console.log("final state before sending",this.state)
       dist = dist * 0.8684;
     }
     distanceArray.push(dist)
+    console.log("distanceArray", distanceArray)
     
-    this.setState({
-      hasSearched: true
+    if (distanceArray.length === latLongArray.length) {
+      this.setState({
+        hasSearched: true
+      });
+      console.log("Length is good for distance and latLongArray")
+    }
       
 
-      
-    });
     // console.log('distanceArray too function',distanceArray)
     // return dist;
   };
@@ -452,10 +482,10 @@ console.log("final state before sending",this.state)
           this.setState({
             guestAddress: results[1].formatted_address
           });
-          console.log("State after grabbing Address", this.state);
-          console.log("////////////////////////");
-          console.log("here address", results[1].formatted_address);
-          console.log("////////////////////////");
+          // console.log("State after grabbing Address", this.state);
+          // console.log("////////////////////////");
+          // console.log("here address", results[1].formatted_address);
+          // console.log("////////////////////////");
         }
       }
     });
@@ -518,7 +548,7 @@ console.log("final state before sending",this.state)
                       latLong={this.latLong}
                       latArray={this.state.latArray}
                       longArray={this.state.longArray}
-                      distance={this.distanceArray[index]}
+                      distance={distanceArray[index]}
                       // latLong={this.latLong}
                     />
                   ))}
