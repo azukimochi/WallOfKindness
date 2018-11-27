@@ -15,7 +15,7 @@ const wallSchema = new Schema({
   // streetAddress2: { type: String, required: false },
   city: { type: String, required: false },
   // stateOrProvince: { type: String, required: false },
-  zipCode: { type: String, required: false }
+  address: { type: String, required: false }
   // country: { type: String, required: false },
   // longitude: { type: Number, required: false },
   // latitude: { type: Number, required: false },

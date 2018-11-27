@@ -7,11 +7,11 @@ function lonlat() {
 	
 	if (event.keyCode === 13 && input.value.length === 6) {
 
-		var zipCode = input.value;
+		var address = input.value;
 
         axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
             params:{
-                address:zipCode,
+                address:address,
                 key:'AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo'
 
             }
