@@ -18,8 +18,8 @@ class SignUp extends Component {
 		this.setState({[event.target.name]: event.target.value}, 
 			() => {
 			console.log(this.state.name),
-			console.log(this.state.email),
-			console.log(this.state.password)
+			console.log(this.state.email)
+			// console.log(this.state.password)
 			}
 		)}
 

@@ -16,14 +16,11 @@ import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
 import { Container, Row, Col } from "react-grid-system";
 
-let addressArray =[];
-let latLongArray=[];
-let longArray=[];
-let distanceArray=[];
-
-
-
-
+let addressArray = [];
+let latLongArray = [];
+let longArray = [];
+let distanceArray = [];
+let originalResults=[];
 
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
@@ -44,7 +41,6 @@ const customStyles = {
 };
 
 class Search extends Component {
-
   // insert state changes and methods here
   state = {
     autoCompleteState: [],
@@ -66,12 +62,12 @@ class Search extends Component {
     guestAddress: "",
     userLat: [],
     userLong: [],
-    eachLat:"",
-    eachLong:"",
-    reqButton:"",
-    latArray:[],
-    longArray:[],
-    distances:[],
+    eachLat: "",
+    eachLong: "",
+    reqButton: "",
+    latArray: [],
+    longArray: [],
+    distances: [],
     latLongArray: []
   };
 
@@ -81,11 +77,6 @@ class Search extends Component {
     // this.latLong();
     // this.GetAddress();
   };
-
-
-  
-
-
 
   // getCurrentPosition
   displaySearchResults = () => {
@@ -98,7 +89,7 @@ class Search extends Component {
           wallName={result.wallName}
           name={result.name}
           email={result.email}
-          zipCode={result.zipCode}
+          address={result.address}
           city={result.city}
           latitude={result.latitude}
           longtude={result.longtude}
@@ -108,14 +99,15 @@ class Search extends Component {
     });
   };
 
-  openModal = (event) => {
-    event.persist()
-    this.setState({ 
-      modalIsOpen: true,
-      reqButton:event.target.name
-      
-    
-    }, () => console.log("target",event.target.name));
+  openModal = event => {
+    event.persist();
+    this.setState(
+      {
+        modalIsOpen: true,
+        reqButton: event.target.name
+      },
+      () => console.log("target", event.target.name)
+    );
   };
 
   afterOpenModal = () => {
@@ -123,9 +115,7 @@ class Search extends Component {
   };
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false,
-    reqButton:""
-    });
+    this.setState({ modalIsOpen: false, reqButton: "" });
   };
 
   handleErrorMessage = () => {
@@ -228,13 +218,11 @@ class Search extends Component {
             });
           });
 
-         
           let giftListFromDatabase = giftListFromDatabaseRaw;
           let finalGiftArray = [];
           let uniqueArray;
           let giftAutoCompleteArray;
           let autoCompleteArray = [];
-         
 
           let removeDuplicates = arr => {
             uniqueArray = arr.filter(function(elem, index, self) {
@@ -269,145 +257,136 @@ class Search extends Component {
     }, 2000);
   }
 
-
-
-
   latLong = address => {
-      Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
-      Geocode.enableDebug();
-      
-      Geocode.fromAddress(address).then(
-        response => {
-           let { lat, lng } = response.results[0].geometry.location;
-           let obj = {
-             lat: lat,
-             lng: lng
-           }
-           latLongArray.push(obj)
-           console.log("testing latLong function", latLongArray)
-           console.log(addressArray.length)
-           
-           if (latLongArray.length === addressArray.length) {
-             this.goToDistance()
-           }
-          // latLongArray.push(
-          //   {lat:lat,
-          //     lng:lng
-          //   }
-          //   )
+    Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
+    Geocode.enableDebug();
 
-          // longArray.push(lng)
-          // console.log("guest lat",guestLat)
-          // this.distanceCalc(lat,lng,guestLat,guestLong)
-          // newLat=lat;
-          // newLong=lng;
-          //  console.log('latArray',latArray)
-          //  console.log('longArray',longArray)
-           
-        // latLongShow(lat,lng)
-        },
-        error => {
-          console.error(error);
-        }
-        );
-        // return {
-        //   longArray:longArray, 
-        //   latArray:latArray
-        // }
+    Geocode.fromAddress(address).then(
+      response => {
+        let { lat, lng } = response.results[0].geometry.location;
+        let obj = {
+          lat: lat,
+          lng: lng
         };
+        latLongArray.push(obj);
+        console.log("testing latLong function", latLongArray);
+        console.log(addressArray.length);
+
+        if (latLongArray.length === addressArray.length) {
+          this.goToDistance();
+        }
+        // latLongArray.push(
+        //   {lat:lat,
+        //     lng:lng
+        //   }
+        //   )
+
+        // longArray.push(lng)
+        // console.log("guest lat",guestLat)
+        // this.distanceCalc(lat,lng,guestLat,guestLong)
+        // newLat=lat;
+        // newLong=lng;
+        //  console.log('latArray',latArray)
+        //  console.log('longArray',longArray)
+
+        // latLongShow(lat,lng)
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    // return {
+    //   longArray:longArray,
+    //   latArray:latArray
+    // }
+  };
 
   handleSearchBtnSubmit = event => {
     event.preventDefault();
-// latArray=[];
-// longArray=[];
+    // latArray=[];
+    // longArray=[];
     if (this.state.giftType) {
       API.lookForGifts({
         gifts: this.state.giftType,
-        address: this.state.address,
-        range: this.state.range
+        address: this.state.address
+        
       })
 
         .then(res => {
-          console.log("karen res",res.data)
+          console.log("karen res", res.data);
           let resultsArray = [];
           res.data.forEach(function(element) {
-            // console.log("element:", element);
-            // console.log("address element:",element.zipCode)
-            // this.latLong(element.zipCode);
             resultsArray.push(element);
           });
           console.log("result array:", resultsArray);
-          
+
           this.setState({ results: resultsArray });
-          console.log("results isssssssssssssssssssssssssss:", this.state.results);
-          let newAddress = this.state.results
-         
-          newAddress.map(userAddress=>{
-            addressArray.push(userAddress.zipCode)
-            
+          console.log(
+            "results isssssssssssssssssssssssssss:",
+            this.state.results
+          );
+          let newAddress = this.state.results;
 
-
-
-          })
+          newAddress.map(userAddress => {
+            addressArray.push(userAddress.address);
+          });
 
           addressArray.forEach(eachAddress => {
-            this.latLong(eachAddress)
-          })
-        
+            this.latLong(eachAddress);
+          });
 
           //           latLongArray.map((eachLatLong,index)=>{
-            
-            //             this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
-            // console.log("jakesh", eachLatLong.lat)
-            //            })
-            
-            
-            // latArray.map()
-            
-            console.log("gueslat",this.state.guestLat)
-            console.log('addressArray2',addressArray)
-            // console.log('lat Long Array',latLongArray)
-            console.log('long Array',longArray)
-            console.log('distance Array',distanceArray)
-            
-            
-           
 
-              // this.goToDistance()
-            
+          //             this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
+          // console.log("jakesh", eachLatLong.lat)
+          //            })
 
-            
+          // latArray.map()
+
+          console.log("gueslat", this.state.guestLat);
+          console.log("addressArray2", addressArray);
+          // console.log('lat Long Array',latLongArray)
+          console.log("long Array", longArray);
+          console.log("distance Array", distanceArray);
+
+          // this.goToDistance()
         })
         .catch(err => console.log(err));
     }
     if (
-      this.state.giftType === "" ||
-      this.state.address === "" ||
-      this.state.range === ""
+      this.state.giftType === ""
+      
+      
     ) {
       this.handleErrorMessage();
       // console.log("working");
     }
 
-console.log("final state before sending",this.state)
-   
+    console.log("final state before sending", this.state);
+    
   };
 
-goToDistance = () => {
-console.log("Length of latLongArray", latLongArray.length)
-console.log("Type of LatLongArray", typeof latLongArray)
-let isArr = Object.prototype.toString.call(latLongArray) == '[object Array]';
-console.log(isArr)
-latLongArray.forEach(eachLatLong => {
-  console.log("Hi")
-  this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
-})
+  goToDistance = () => {
+    console.log("Length of latLongArray", latLongArray.length);
+    console.log("Type of LatLongArray", typeof latLongArray);
+    let isArr =
+      Object.prototype.toString.call(latLongArray) == "[object Array]";
+    console.log(isArr);
+    latLongArray.forEach(eachLatLong => {
+      console.log("Hi");
+      this.distanceCalc(
+        eachLatLong.lat,
+        eachLatLong.lng,
+        this.state.guestLat,
+        this.state.guestLong,
+        'K'
+      );
+    });
     // console.log("jakesh", eachLatLong.lat)
-              
-}
+  };
 
   distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
-    console.log("Hi")
+    console.log("Hi");
     let radlat1 = (Math.PI * lat1) / 180;
     let radlat2 = (Math.PI * lat2) / 180;
     let theta = lon1 - lon2;
@@ -422,27 +401,39 @@ latLongArray.forEach(eachLatLong => {
     dist = (dist * 180) / Math.PI;
     dist = dist * 60 * 1.1515;
     if (unit == "K") {
-      dist = dist * 1.609344;
+      dist = dist * 1.609344 * 1000;
     }
     if (unit == "N") {
       dist = dist * 0.8684;
     }
-    distanceArray.push(dist)
-    console.log("distanceArray", distanceArray)
-    
+    // this.setState({
+    //   results.dist:dist
+    // })
+    distanceArray.push(dist);
+    console.log("distanceArray", distanceArray);
+    let sortedDistance = distanceArray.sort((a, b) => a - b);
+    console.log("sortedDistance", sortedDistance);
+    let results = [];
+    this.state.results.map((result, index) => {
+      result.distance = distanceArray[index];
+
+      results.push(result);
+    });
+    this.setState({
+      results: results
+    });
     if (distanceArray.length === latLongArray.length) {
       this.setState({
         hasSearched: true
       });
-      console.log("Length is good for distance and latLongArray")
+      originalResults = this.state.results;
+      console.log("originalResults",originalResults);
+      console.log("Length is good for distance and latLongArray");
     }
-      
 
     // console.log('distanceArray too function',distanceArray)
     // return dist;
   };
-
-
 
   //////////////////////////////////////////
 
@@ -458,7 +449,14 @@ latLongArray.forEach(eachLatLong => {
       guestLong: position.coords.longitude
     });
     // console.log("state jadide", this.state);
+    console.log(
+      "guestLatLong:",
+      position.coords.latitude,
+      "",
+      position.coords.longitude
+    );
     this.GetAddress(this.state.guestLat, this.state.guestLong);
+
     // document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude +
     // "<br>Longitude: " + position.coords.longitude;
   };
@@ -491,6 +489,96 @@ latLongArray.forEach(eachLatLong => {
     });
   };
 
+  
+
+  filterResults = () => {
+    // const originalResults = this.state.results;
+    console.log("I am filter");
+    var e = document.getElementById("filterResult");
+    var selectedRange = e.options[e.selectedIndex].value;
+    // let selectedRange=document.getElementById("filterResult").selectedIndex;
+    console.log("Selected Range:", selectedRange);
+    console.log("Selected Range type:", typeof selectedRange);
+    console.log("Results:", this.state.results);
+    
+    console.log("original Results:", originalResults);
+
+    let caseResults = [];
+    switch (selectedRange) {
+      case "5":
+        console.log("Range Selected: 0 -500m");
+        originalResults.filter(result => {
+          result.distance <= 500 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+
+        break;
+      case "10":
+        console.log("Range Selected: 0 -1000m");
+        originalResults.filter(result => {
+          result.distance <= 1000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+      case "15":
+        console.log("Range Selected: 0 -1500m");
+        originalResults.filter(result => {
+          result.distance <= 1500 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+      case "20":
+        console.log("Range Selected: 0 - 2000m");
+        originalResults.filter(result => {
+          result.distance <= 2000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+        case "50":
+        console.log("Range Selected: 0 - 5000m");
+        originalResults.filter(result => {
+          result.distance <= 5000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+        
+      default:
+      this.setState({
+        results: originalResults
+      });
+        console.log("Range Selected: All");
+    }
+  };
   ////////////////////////////////////////
   render() {
     return (
@@ -509,7 +597,6 @@ latLongArray.forEach(eachLatLong => {
             errorMessage={this.state.errorMessage}
             giftTypeStock={this.giftTypeStock}
             giftType={this.state.giftType}
-            distanceCalc={this.distanceCalc}
             getLocation={this.getLocation}
             latLong={this.latLong}
             guestAddress={this.state.guestAddress}
@@ -519,10 +606,28 @@ latLongArray.forEach(eachLatLong => {
 
           {this.state.hasSearched ? (
             <div>
+              <hr style={{height:'1px',backgroundColor:'#e81e17',width:'80%', textAlign:'center', margin: '0 auto'}}/>
               <h3 className="resultTitle">Results</h3>
+              <div className="col-sm-3">
+                <label htmlFor="item">Select Your Range</label>
+                <br />
+                <select
+                  onChange={this.filterResults}
+                  name="distance"
+                  className="searchRange"
+                  id="filterResult"
+                >
+                  <option value="All">All</option>
+                  <option value="5">0 - 500m</option>
+                  <option value="10">0 - 1000m</option>
+                  <option value="15">0 -1500m</option>
+                  <option value="20">0 - 2000m</option>
+                  <option value="50">0 - 5000m</option>
+                </select>
+              </div>
               <Container>
                 <Row>
-                  {this.state.results.map((result,index) => (
+                  {this.state.results.map((result, index) => (
                     <SearchResults
                       index={index}
                       id={result._id}
@@ -531,16 +636,12 @@ latLongArray.forEach(eachLatLong => {
                       gifts={result.gifts}
                       email={result.email}
                       city={result.city}
-                      zipCode={result.zipCode}
-                      // lat={result.lat}
-                      // long={result.long}
-                      // distance= {result.distanceCalc(result.userLat,result.userLong,result.guestLat,result.guestLong)}
+                      address={result.address}
                       results={this.state.results}
                       guestLat={this.state.guestLat}
                       guestLong={this.state.guestLong}
                       openModal={this.openModal}
                       sendEmail={this.sendEmail}
-                      distanceCalc={this.distanceCalc}
                       getLocation={this.getLocation}
                       userLat={this.state.userLat}
                       userLong={this.state.userLong}
