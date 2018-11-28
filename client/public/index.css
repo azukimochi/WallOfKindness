@@ -1,0 +1,29 @@
+
+/**Media Queries for mobile phones with a width of 450px and under**/
+    @media (max-width: 450px) {
+        body{
+            min-width:420px;
+        }
+
+        h1.welcomeMsg{
+            font-size: 60px !important;
+        }
+        h2.subText{
+            font-size:2.0rem;
+        }
+
+        .col-donate{
+            margin-top:40px;
+        }
+    }
+
+    @media (min-width: 451px) and (max-width: 1140px) {
+        
+        h1.welcomeMsg{
+            font-size: 60px !important;
+        }
+        h2.subText{
+            font-size:2.0rem;
+        }
+       
+    }
