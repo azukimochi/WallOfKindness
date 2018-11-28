@@ -5,7 +5,7 @@
     background-size: cover;
     position: relative;
     margin-top:-20px;
-    height: 400px;
+    height: auto;
     clear: "both";
     padding-top: 120;
     text-align: "center";
@@ -15,28 +15,14 @@
     text-shadow: 1px 1.5px black; 
    
 }
-/* 
-.opaque{
-    height: 400px;
-    padding-top: 2em;
-    opacity: 0.5;
-    background: black;
-    /* border-top: 3px solid #ccc; */
-    /* border-bottom: 3px solid #ccc; */
-    /* z-index:1;
-    position: relative;
-    bottom: 253px;
-    */
-/* } */ */
-
-
 
 .jumbotron .container{
     max-width: 80%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     text-align: center !important;
     /* position: relative;
     z-index: 999999; */
     
 
 }
+

@@ -31,7 +31,7 @@ const SearchWall = props => (
             getItemValue={item => item.name}
             onChange={props.handleGiftsInputChange}
             // onSelect={props.handleGiftsType}
-            renderMenu={children => <div className="menu">{children}</div>}
+            renderMenu={children => <div className="menu" style={{marginTop: "37px", zIndex:"999999"}}>{children}</div>}
             renderItem={(item, isHighlighted) => (
               <div
                 className={`item ${isHighlighted ? "item-highlighted" : ""}`}
@@ -69,10 +69,11 @@ const SearchWall = props => (
             name="distance"
             className="searchRange"
             id="inputRange"
+            
             >
-            <option value="five">5 km</option>
-            <option value="ten">10 km</option>
-            <option value="fifteen" className="fifteen">15 km</option>
+            <option value="5">5 km</option>
+            <option value="10">10 km</option>
+            <option value="15" className="fifteen">15 km</option>
           </select>
         </div> */}
         <br />
