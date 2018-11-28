@@ -19,8 +19,6 @@ const WallBody = props => (
             onChange={props.handleItemChange}
             name="name"
             placeholder="Full Name (required)"
-            // data-group="names"
-            // data-attribute="fullName"
             id="UserfirstName"
           />
 
@@ -30,8 +28,6 @@ const WallBody = props => (
             onChange={props.handleItemChange}
             name="wallName"
             placeholder="Wall Name (required)"
-            // data-group="wall"
-            // data-attribute="wallName"
             id="wallName"
           />
 
@@ -40,18 +36,14 @@ const WallBody = props => (
             onChange={props.handleItemChange}
             name="city"
             placeholder="City (required)"
-            // data-group="address"
-            // data-attribute="city"
             id="UserAddress"
           />
 
           <Input
-            value={props.zipCode}
+            value={props.address}
             onChange={props.handleItemChange}
-            name="zipCode"
+            name="address"
             placeholder="Zip Code (required)"
-            // data-group="address"
-            // data-attribute="zipCode"
             id="UserAddress"
           />
           <Input
@@ -59,8 +51,6 @@ const WallBody = props => (
             onChange={props.handleItemChange}
             name="email"
             placeholder="Email (required)"
-            // data-group="user"
-            // data-attribute="email"
             id="UserEmail"
           />
 
@@ -72,16 +62,16 @@ const WallBody = props => (
             Add More Items
                 </button>
 
-          {/* <Col size="lg-12 md-6 sm-12"> */}
+          
 
               <Row>
                 <Col size="lg-12">
             {props.gifts.map((item, index) => (
-              // <span>
+           
                 <Col size="lg-6">
                   
                   <div key={index}>
-                    {/* <Row> */}
+                  
                     <Col size="lg-2">
                       <i
                         className="fas fa-trash-alt"
@@ -102,17 +92,13 @@ const WallBody = props => (
                         <option value="Food">Food</option>
                         <option value="Clothing">Clothing</option>
                       </select>
-                      {/* <Input
-                value={props.categories[index]}
-                name="category"
-                onChange={(event) => props.handleCategoryChange(index, event)}
-                /> */}
+                   
                     </Col>
-                    {/* </Row> */}
+                   
                   </div>
                   
                   </Col>
-                  // </span>
+                
                 ))}
                 </Col>
             </Row>
@@ -120,23 +106,11 @@ const WallBody = props => (
 
             <br />
 
-          {/* </Col> */}
-          {/* <Col size="md-6 sm-12">
-             
-                {/* <button
-                  id="gifts"
-                  className="button btn btn-primary"
-                  onClick={props.addClick}
-                >
-                  Add Gifts
-                </button> */}
-          {/* </Col> */}
           {props.updateStatus}
 
           <button
             id="updateWallButton"
             className="btn btn-success ld-over-full-inverse"
-          // disabled={!(this.state.author && this.state.title)}
           >
             <div className="ld ld-ball ld-flip"></div>Update Wall
               </button>
@@ -150,7 +124,7 @@ const WallBody = props => (
             <h5>{`Wall Name: ${props.wallName}`}</h5>
             <h5>{`Email: ${props.email} `}</h5>
             <h5>{`City: ${props.city} `}</h5>
-            <h5>{`Zip Code: ${props.zipCode} `}</h5>
+            <h5>{`Zip Code: ${props.address} `}</h5>
           </Jumbotron>
         </Col>
       </Row>
@@ -162,186 +136,4 @@ const WallBody = props => (
 export default WallBody;
 
 
-// class WallBody extends Component {
-//   state = {
-//     giftType: "",
-//     giftName: "",
-//     secretData: "",
-//     user: {},
-//     names: {
-//       firstName: "",
-//       lastName: ""
-//     },
-//     address: {
-//       zipCode: ""
 
-//     },
-//     categories: [],
-//     gifts: [],
-//     wall: {
-//       wallName: "Aboozar"
-//     }
-//   };
-
-//   render() {
-
-//     let categories = props.categories.map((item, index) => (
-//       <li key={index}>
-//         <input
-//         name="categories"
-//           data-group="categories"
-//           data-attribute={index}
-//           onChange={props.inputChangeHandlerGifts}
-//           type="text"
-//           value={item}
-//         />
-//         <i
-//           className="fas fa-trash-alt"
-//           aria-hidden="true"
-//           data-group="categories"
-//           data-attribute={index}
-//           onClick={props.removeClickHandler}
-//         />
-//       </li>
-//     ));
-
-//     let gifts = props.gifts.map((item, index) => (
-//       <li key={index}>
-//         <input
-//          name="gifts"
-//           data-attribute={index}
-//           data-group="gifts"
-//           onChange={props.inputChangeHandlerGifts}
-//           type="text"
-//           value={item}
-//         />
-//         <br />
-//         <i
-//           className="fas fa-trash-alt"
-//           aria-hidden="true"
-//           data-group="gifts"
-//           data-attribute={index}
-//           onClick={props.removeClickHandler}
-//         />
-//       </li>
-//     ));
-
-//     return (
-//       <Container fluid>
-//         <form>
-//           <Row>
-//             <Col size="md-6">
-//               <h3 style={{ textAlign: "center" }}>
-//                 Welcome, {props.donor}
-//               </h3>
-
-//               <Input
-//                 value={props.donor}
-//                 onChange={props.inputChangeHandler}
-//                 name="name"
-//                 placeholder="Full Name"
-//                 data-group="names"
-//                 data-attribute="fullName"
-//                 id="UserfirstName"
-//               />
-
-//               <Input
-
-//                 value={props.wallName}
-//                 onChange={props.inputChangeHandler}
-//                 name="wallName"
-//                 placeholder="Wall Name"
-//                 data-group="wall"
-//                 data-attribute="wallName"
-//                 id="wallName"
-//               />
-
-//               <Input
-//                 value={props.city}
-//                 onChange={props.inputChangeHandler}
-//                 name="city"
-//                 placeholder="City (required)"
-//                 data-group="address"
-//                 data-attribute="city"
-//                 id="UserAddress"
-//               />
-
-//               <Input
-//                 value={props.zipCode}
-//                 onChange={props.inputChangeHandler}
-//                 name="zipCode"
-//                 placeholder="Zip Code (required)"
-//                 data-group="address"
-//                 data-attribute="zipCode"
-//                 id="UserAddress"
-//               />
-//               <Input
-//                 value={props.email}
-//                 onChange={props.inputChangeHandler}
-//                 name="email"
-//                 placeholder="Email (required)"
-//                 data-group="user"
-//                 data-attribute="email"
-//                 id="UserEmail"
-//               />
-
-//               <Col size="md-6 sm-12">
-
-//                 <button
-//                   id="categories"
-//                   className="button btn btn-primary"
-//                   onClick={props.addCategoryBtnClick}
-//                 >
-//                   Add Categories
-//                 </button>
-//                 <ol>
-//                   {/* {this.state.giftType} for testing */}
-//                   {categories}
-//                 </ol>
-//                 <br />
-//               </Col>
-//               <Col size="md-6 sm-12">
-
-//                 <button
-//                   id="gifts"
-//                   className="button btn btn-primary"
-//                   onClick={props.addGiftBtnClick}
-//                 >
-//                   Add Gifts
-//                 </button>
-
-//                 <ol>
-
-//                   {gifts}
-//                 </ol>
-//               </Col>
-
-//               <button
-//                 id="updateWallButton"
-//                 className="btn btn-success ld-over-full-inverse"
-//                 // disabled={!(this.state.author && this.state.title)}
-//                 onClick={props.submitBtnClick}
-//               >
-//                 <div className="ld ld-ball ld-flip"></div>Update Wall
-//               </button>
-//               <br />
-
-//             </Col>
-//             <Col size="md-6 sm-12">
-//               <br />
-//               <Jumbotron>
-//                 <h5>{`Donor Name: ${props.donor}`}</h5>
-//                 <h5>{`Wall Name: ${props.wallName}`}</h5>
-//                 <h5>{`Email: ${props.email} `}</h5>
-//                 <h5>{`City: ${props.city} `}</h5>
-//                 <h5>{`Zip Code: ${props.zipCode} `}</h5>
-//               </Jumbotron>
-//             </Col>
-//           </Row>
-//         </form>
-//       </Container>
-//     );
-//   }
-// }
-
-// export default WallBody;

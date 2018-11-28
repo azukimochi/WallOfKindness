@@ -16,7 +16,7 @@ const SearchWall = props => (
       <p className="errorMessage">{props.errorMessage}</p>
 
       <div className="row inputRows">
-        <div className="col-sm-3">
+        <div className="col-sm-6">
           <label htmlFor="item">Item</label>
           <br />
           <Autocomplete
@@ -43,7 +43,7 @@ const SearchWall = props => (
           />
         </div>
 
-        <div className="col-sm-3">
+        <div className="col-sm-6">
           <label htmlFor="area">Area</label>
           <br />
           <input
@@ -61,7 +61,7 @@ const SearchWall = props => (
 
 
 
-        <div className="col-sm-3">
+        {/* <div className="col-sm-3">
           <label htmlFor="item">Select Your Range</label>
           <br />
           <select
@@ -75,7 +75,7 @@ const SearchWall = props => (
             <option value="10">10 km</option>
             <option value="15" className="fifteen">15 km</option>
           </select>
-        </div>
+        </div> */}
         <br />
         <div className="col-sm-3">
           <span />

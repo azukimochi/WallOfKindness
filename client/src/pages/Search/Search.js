@@ -16,6 +16,12 @@ import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
 import { Container, Row, Col } from "react-grid-system";
 
+let addressArray = [];
+let latLongArray = [];
+let longArray = [];
+let distanceArray = [];
+let originalResults=[];
+
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
     position: toast.POSITION.TOP_CENTER
@@ -54,15 +60,21 @@ class Search extends Component {
     guestLat: "",
     guestLong: "",
     guestAddress: "",
-    userLat: "",
-    userLong: "",
-    reqButton:""
+    userLat: [],
+    userLong: [],
+    eachLat: "",
+    eachLong: "",
+    reqButton: "",
+    latArray: [],
+    longArray: [],
+    distances: [],
+    latLongArray: []
   };
 
   componentDidMount = () => {
     this.handleGiftAutocomplete();
     this.getLocation();
-    this.latLong();
+    // this.latLong();
     // this.GetAddress();
   };
 
@@ -77,7 +89,7 @@ class Search extends Component {
           wallName={result.wallName}
           name={result.name}
           email={result.email}
-          zipCode={result.zipCode}
+          address={result.address}
           city={result.city}
           latitude={result.latitude}
           longtude={result.longtude}
@@ -87,31 +99,30 @@ class Search extends Component {
     });
   };
 
-  openModal = (event) => {
-    event.persist()
-    this.setState({ 
-      modalIsOpen: true,
-      reqButton:event.target.name
-      
-    
-    }, () => console.log("taaaarget",event.target.name));
+  openModal = event => {
+    event.persist();
+    this.setState(
+      {
+        modalIsOpen: true,
+        reqButton: event.target.name
+      },
+      () => console.log("target", event.target.name)
+    );
   };
 
   afterOpenModal = () => {
-    console.log("Open Modal");
+    // console.log("Open Modal");
   };
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false,
-    reqButton:""
-    });
+    this.setState({ modalIsOpen: false, reqButton: "" });
   };
 
   handleErrorMessage = () => {
     this.setState({
       errorMessage: "Please fill in all fields before searching."
     });
-    console.log(this.state.errorMessage);
+    // console.log(this.state.errorMessage);
   };
   handleGiftsChange = event => {
     this.setState({ gifts: event.target.value.toLowerCase() });
@@ -129,7 +140,7 @@ class Search extends Component {
     event.preventDefault();
     document.getElementById("emailForm").classList.remove("invisible");
 
-    console.log("hello");
+    // console.log("hello");
   };
 
   clearEmailForm() {
@@ -154,8 +165,8 @@ class Search extends Component {
         emailBody: document.getElementById("emailBody").value
       }
     }).then(response => {
-      console.log(response);
-      console.log(this.state.results[0].email);
+      // console.log(response);
+      // console.log(this.state.results[0].email);
     });
 
     this.clearEmailForm();
@@ -193,13 +204,13 @@ class Search extends Component {
 
   handleGiftAutocomplete = event => {
     let giftListFromDatabaseRaw = [];
-    console.log("hello autocomplete", this.state.giftType);
+    // console.log("hello autocomplete", this.state.giftType);
     if (this.state.giftType || this.state.autoCompleteState.length === 0) {
       API.getAllGifts({
         gifts: this.state.giftType
       })
         .then(res => {
-          console.log("new res:", res.data);
+          // console.log("new res:", res.data);
           let resDataObj = res.data;
           resDataObj.map(item => {
             item.gifts.map(insideItem => {
@@ -207,40 +218,12 @@ class Search extends Component {
             });
           });
 
-          console.log(
-            "giftListFromDatabase before filter for duplicate",
-            giftListFromDatabaseRaw
-          );
           let giftListFromDatabase = giftListFromDatabaseRaw;
           let finalGiftArray = [];
           let uniqueArray;
           let giftAutoCompleteArray;
           let autoCompleteArray = [];
-          //////////Autocomplete old function/////////////////////////
-          //           giftListFromDatabase.forEach(element => {
-          //             let gifts = element.gifts;
-          //             if (gifts.length === 1) {
-          //               finalGiftArray.push(gifts[0]);
-          //             } else {
-          //               gifts.forEach(element => {
-          //                 finalGiftArray.push(element);
-          //               });
-          //             }
-          // console.log('finalGiftArray',finalGiftArray)
-          //             let removeDuplicates = arr => {
-          //               uniqueArray = arr.filter(function (elem, index, self) {
-          //                 return index == self.indexOf(elem);
-          //               });
-          //               return uniqueArray;
-          //             };
 
-          //             giftAutoCompleteArray = removeDuplicates(finalGiftArray);
-
-          //             return giftAutoCompleteArray;
-          //           });
-          //////////End of autocomplete old function/////////////////////////
-
-          ///////////New Codes for autocomplete ////////////////
           let removeDuplicates = arr => {
             uniqueArray = arr.filter(function(elem, index, self) {
               return index == self.indexOf(elem);
@@ -249,12 +232,11 @@ class Search extends Component {
           };
 
           giftAutoCompleteArray = removeDuplicates(giftListFromDatabase);
-          console.log(
-            "giftListFromDatabase after filter for duplicate",
-            giftAutoCompleteArray
-          );
+          // console.log(
+          //   "giftListFromDatabase after filter for duplicate",
+          //   giftAutoCompleteArray
+          // );
 
-          /////////// End of New Codes for autocomplete ////////////////
           giftAutoCompleteArray.forEach(element => {
             let giftObject = { abbr: element, name: element };
             autoCompleteArray.push(giftObject);
@@ -275,49 +257,136 @@ class Search extends Component {
     }, 2000);
   }
 
+  latLong = address => {
+    Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
+    Geocode.enableDebug();
+
+    Geocode.fromAddress(address).then(
+      response => {
+        let { lat, lng } = response.results[0].geometry.location;
+        let obj = {
+          lat: lat,
+          lng: lng
+        };
+        latLongArray.push(obj);
+        console.log("testing latLong function", latLongArray);
+        console.log(addressArray.length);
+
+        if (latLongArray.length === addressArray.length) {
+          this.goToDistance();
+        }
+        // latLongArray.push(
+        //   {lat:lat,
+        //     lng:lng
+        //   }
+        //   )
+
+        // longArray.push(lng)
+        // console.log("guest lat",guestLat)
+        // this.distanceCalc(lat,lng,guestLat,guestLong)
+        // newLat=lat;
+        // newLong=lng;
+        //  console.log('latArray',latArray)
+        //  console.log('longArray',longArray)
+
+        // latLongShow(lat,lng)
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    // return {
+    //   longArray:longArray,
+    //   latArray:latArray
+    // }
+  };
+
   handleSearchBtnSubmit = event => {
     event.preventDefault();
-
+    // latArray=[];
+    // longArray=[];
     if (this.state.giftType) {
       API.lookForGifts({
         gifts: this.state.giftType,
-        address: this.state.address,
-        range: this.state.range
+        address: this.state.address
+        
       })
 
         .then(res => {
+          console.log("karen res", res.data);
           let resultsArray = [];
-          console.log("results kiri:", res);
           res.data.forEach(function(element) {
-            console.log("element:", element);
             resultsArray.push(element);
           });
           console.log("result array:", resultsArray);
-          this.setState({ results: resultsArray });
-          // console.log("new state:", this.state.results[0].zipCode);
-          let newAddress = this.state.results[0].zipCode;
-          console.log("newAddress:", newAddress);
-          this.latLong(newAddress);
 
-          console.log("new state isssssss:", this.state);
+          this.setState({ results: resultsArray });
+          console.log(
+            "results isssssssssssssssssssssssssss:",
+            this.state.results
+          );
+          let newAddress = this.state.results;
+
+          newAddress.map(userAddress => {
+            addressArray.push(userAddress.address);
+          });
+
+          addressArray.forEach(eachAddress => {
+            this.latLong(eachAddress);
+          });
+
+          //           latLongArray.map((eachLatLong,index)=>{
+
+          //             this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
+          // console.log("jakesh", eachLatLong.lat)
+          //            })
+
+          // latArray.map()
+
+          console.log("gueslat", this.state.guestLat);
+          console.log("addressArray2", addressArray);
+          // console.log('lat Long Array',latLongArray)
+          console.log("long Array", longArray);
+          console.log("distance Array", distanceArray);
+
+          // this.goToDistance()
         })
         .catch(err => console.log(err));
     }
     if (
-      this.state.giftType === "" ||
-      this.state.address === "" ||
-      this.state.range === ""
+      this.state.giftType === ""
+      
+      
     ) {
       this.handleErrorMessage();
-      console.log("working");
+      // console.log("working");
     }
 
-    this.setState({
-      hasSearched: true
+    console.log("final state before sending", this.state);
+    
+  };
+
+  goToDistance = () => {
+    console.log("Length of latLongArray", latLongArray.length);
+    console.log("Type of LatLongArray", typeof latLongArray);
+    let isArr =
+      Object.prototype.toString.call(latLongArray) == "[object Array]";
+    console.log(isArr);
+    latLongArray.forEach(eachLatLong => {
+      console.log("Hi");
+      this.distanceCalc(
+        eachLatLong.lat,
+        eachLatLong.lng,
+        this.state.guestLat,
+        this.state.guestLong,
+        'K'
+      );
     });
+    // console.log("jakesh", eachLatLong.lat)
   };
 
   distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
+    console.log("Hi");
     let radlat1 = (Math.PI * lat1) / 180;
     let radlat2 = (Math.PI * lat2) / 180;
     let theta = lon1 - lon2;
@@ -332,37 +401,38 @@ class Search extends Component {
     dist = (dist * 180) / Math.PI;
     dist = dist * 60 * 1.1515;
     if (unit == "K") {
-      dist = dist * 1.609344;
+      dist = dist * 1.609344 * 1000;
     }
     if (unit == "N") {
       dist = dist * 0.8684;
     }
-    return dist;
-  };
+    // this.setState({
+    //   results.dist:dist
+    // })
+    distanceArray.push(dist);
+    console.log("distanceArray", distanceArray);
+    let sortedDistance = distanceArray.sort((a, b) => a - b);
+    console.log("sortedDistance", sortedDistance);
+    let results = [];
+    this.state.results.map((result, index) => {
+      result.distance = distanceArray[index];
 
-  latLong = address => {
-    Geocode.setApiKey("AIzaSyC_nTVvqzEckQ6WzQmCV_POw6a80BmOQPo");
+      results.push(result);
+    });
+    this.setState({
+      results: results
+    });
+    if (distanceArray.length === latLongArray.length) {
+      this.setState({
+        hasSearched: true
+      });
+      originalResults = this.state.results;
+      console.log("originalResults",originalResults);
+      console.log("Length is good for distance and latLongArray");
+    }
 
-    // Enable or disable logs. Its optional.
-    Geocode.enableDebug();
-    Geocode.fromAddress(address).then(
-      response => {
-        let { lat, lng } = response.results[0].geometry.location;
-        console.log("lat and long are:", lat, lng);
-        let newLat = lat;
-        let newLong = lng;
-        console.log("newlat and newlong are:", newLat, newLong);
-
-        this.setState({
-          userLat: newLat,
-          userLong: newLong
-        });
-      },
-      error => {
-        console.error(error);
-      }
-      // ,
-    );
+    // console.log('distanceArray too function',distanceArray)
+    // return dist;
   };
 
   //////////////////////////////////////////
@@ -378,8 +448,15 @@ class Search extends Component {
       guestLat: position.coords.latitude,
       guestLong: position.coords.longitude
     });
-    console.log("state jadide", this.state);
+    // console.log("state jadide", this.state);
+    console.log(
+      "guestLatLong:",
+      position.coords.latitude,
+      "",
+      position.coords.longitude
+    );
     this.GetAddress(this.state.guestLat, this.state.guestLong);
+
     // document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude +
     // "<br>Longitude: " + position.coords.longitude;
   };
@@ -391,7 +468,7 @@ class Search extends Component {
     script.src = `http://maps.googleapis.com/maps/api/js?sensor=false`;
     script.async = true;
     document.body.appendChild(script);
-    console.log("alan state chie:", this.state);
+    // console.log("alan state chie:", this.state);
     // let lat = this.state.guestLat; //43.6532; //parseFloat(document.getElementById("txtLatitude").value);
     // let lng = this.state.guestLong; //-79.3832; //parseFloat(document.getElementById("txtLongitude").value);
     const google = window.google;
@@ -403,15 +480,105 @@ class Search extends Component {
           this.setState({
             guestAddress: results[1].formatted_address
           });
-          console.log("State after grabbing Address", this.state);
-          console.log("////////////////////////");
-          console.log("here address", results[1].formatted_address);
-          console.log("////////////////////////");
+          // console.log("State after grabbing Address", this.state);
+          // console.log("////////////////////////");
+          // console.log("here address", results[1].formatted_address);
+          // console.log("////////////////////////");
         }
       }
     });
   };
 
+  
+
+  filterResults = () => {
+    // const originalResults = this.state.results;
+    console.log("I am filter");
+    var e = document.getElementById("filterResult");
+    var selectedRange = e.options[e.selectedIndex].value;
+    // let selectedRange=document.getElementById("filterResult").selectedIndex;
+    console.log("Selected Range:", selectedRange);
+    console.log("Selected Range type:", typeof selectedRange);
+    console.log("Results:", this.state.results);
+    
+    console.log("original Results:", originalResults);
+
+    let caseResults = [];
+    switch (selectedRange) {
+      case "5":
+        console.log("Range Selected: 0 -500m");
+        originalResults.filter(result => {
+          result.distance <= 500 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+
+        break;
+      case "10":
+        console.log("Range Selected: 0 -1000m");
+        originalResults.filter(result => {
+          result.distance <= 1000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+      case "15":
+        console.log("Range Selected: 0 -1500m");
+        originalResults.filter(result => {
+          result.distance <= 1500 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+      case "20":
+        console.log("Range Selected: 0 - 2000m");
+        originalResults.filter(result => {
+          result.distance <= 2000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+        case "50":
+        console.log("Range Selected: 0 - 5000m");
+        originalResults.filter(result => {
+          result.distance <= 5000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+        
+      default:
+      this.setState({
+        results: originalResults
+      });
+        console.log("Range Selected: All");
+    }
+  };
   ////////////////////////////////////////
   render() {
     return (
@@ -430,7 +597,6 @@ class Search extends Component {
             errorMessage={this.state.errorMessage}
             giftTypeStock={this.giftTypeStock}
             giftType={this.state.giftType}
-            distanceCalc={this.distanceCalc}
             getLocation={this.getLocation}
             latLong={this.latLong}
             guestAddress={this.state.guestAddress}
@@ -440,31 +606,50 @@ class Search extends Component {
 
           {this.state.hasSearched ? (
             <div>
+              <hr style={{height:'1px',backgroundColor:'#e81e17',width:'80%', textAlign:'center', margin: '0 auto'}}/>
               <h3 className="resultTitle">Results</h3>
+              <div className="col-sm-3">
+                <label htmlFor="item">Select Your Range</label>
+                <br />
+                <select
+                  onChange={this.filterResults}
+                  name="distance"
+                  className="searchRange"
+                  id="filterResult"
+                >
+                  <option value="All">All</option>
+                  <option value="5">0 - 500m</option>
+                  <option value="10">0 - 1000m</option>
+                  <option value="15">0 -1500m</option>
+                  <option value="20">0 - 2000m</option>
+                  <option value="50">0 - 5000m</option>
+                </select>
+              </div>
               <Container>
                 <Row>
-                  {this.state.results.map(result => (
+                  {this.state.results.map((result, index) => (
                     <SearchResults
-                      key={result.id}
+                      index={index}
+                      id={result._id}
                       name={result.name}
                       wallName={result.wallName}
                       gifts={result.gifts}
                       email={result.email}
                       city={result.city}
-                      zipCode={result.zipCode}
-                      // distance= {result.distanceCalc(result.userLat,result.userLong,result.guestLat,result.guestLong)}
+                      address={result.address}
                       results={this.state.results}
                       guestLat={this.state.guestLat}
                       guestLong={this.state.guestLong}
                       openModal={this.openModal}
                       sendEmail={this.sendEmail}
-                      distanceCalc={this.distanceCalc}
                       getLocation={this.getLocation}
                       userLat={this.state.userLat}
                       userLong={this.state.userLong}
                       giftType={this.state.giftType}
-                      
-
+                      latLong={this.latLong}
+                      latArray={this.state.latArray}
+                      longArray={this.state.longArray}
+                      distance={distanceArray[index]}
                       // latLong={this.latLong}
                     />
                   ))}
