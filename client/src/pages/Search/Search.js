@@ -55,6 +55,7 @@ class Search extends Component {
     hasSearched: false,
     showEmailForm: false,
     giftType: "",
+    searchResult: "",
     giftName: "",
     distance: "",
     guestLat: "",
@@ -130,6 +131,12 @@ class Search extends Component {
 
   handleGiftsInputChange = (event, giftType) => {
     this.setState({ giftType: event.target.value.toLowerCase() });
+  };
+
+  handleGiftsInputSelect = (val, giftType) => {
+console.log("value",val)
+
+    this.setState({ giftType: val.toLowerCase() });
   };
 
   handleAreaChange = event => {
@@ -320,16 +327,38 @@ class Search extends Component {
           });
           console.log("result array:", resultsArray);
 
+
           this.setState({ results: resultsArray });
           console.log(
             "results isssssssssssssssssssssssssss:",
             this.state.results
           );
+
+          let itemsSearch = this.state.results;
+          let giftsArray =[];
+//           itemsSearch.map((itemSearch, i)=>{
+// itemSearch.map(gifts => {
+//   gifts.map(items => {
+//     let giftNamesArray =[];
+//     giftNamesArray.push(items.item);
+//     // let giftNames =[];
+//   if giftNamesArray.includes(this.state.giftType){
+//     giftsArray.push();
+//   }
+//   })
+// })
+//             giftsArray.push(itemSearch.gifts);
+//             console.log("giftsArray:", giftsArray);
+
+
+//           })
           let newAddress = this.state.results;
 
           newAddress.map(userAddress => {
             addressArray.push(userAddress.address);
           });
+
+          
 
           addressArray.forEach(eachAddress => {
             this.latLong(eachAddress);
@@ -590,6 +619,7 @@ class Search extends Component {
             handleGiftsChange={this.handleGiftsChange}
             // handleGiftsType={this.handleGiftsType}
             handleGiftsInputChange={this.handleGiftsInputChange}
+            handleGiftsInputSelect={this.handleGiftsInputSelect}
             handleAreaChange={this.handleAreaChange}
             handleRangeChange={this.handleRangeChange}
             handleSearchBtnSubmit={this.handleSearchBtnSubmit}
@@ -608,7 +638,7 @@ class Search extends Component {
             <div>
               <hr style={{height:'1px',backgroundColor:'#e81e17',width:'80%', textAlign:'center', margin: '0 auto'}}/>
               <h3 className="resultTitle">Results</h3>
-              <div className="col-sm-3">
+              <div style={{width:'30%', textAlign:'center', margin: '0 auto'}}>
                 <label htmlFor="item">Select Your Range</label>
                 <br />
                 <select
