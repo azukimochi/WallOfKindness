@@ -1,6 +1,7 @@
 import React from "react";
 import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
+import "./autocomplete.css"
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
     geocodeByAddress,
@@ -30,7 +31,7 @@ const SearchWall = props => (
             items={props.values}
             getItemValue={item => item.name}
             onChange={props.handleGiftsInputChange}
-            // onSelect={props.handleGiftsType}
+            onSelect={props.handleGiftsInputSelect}
             renderMenu={children => <div className="menu" style={{marginTop: "37px", zIndex:"999999"}}>{children}</div>}
             renderItem={(item, isHighlighted) => (
               <div
