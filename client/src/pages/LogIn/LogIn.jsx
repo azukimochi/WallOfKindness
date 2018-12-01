@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import API from "../../utils/API.js"
-import { withRouter } from 'react-router-dom'
 import "./LogIn.css";
 
 class LogIn extends Component {

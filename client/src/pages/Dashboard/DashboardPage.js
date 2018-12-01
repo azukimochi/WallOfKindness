@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom'
 import WallBody from '../../components/WallBody/WallBody.js';
 import API from "../../utils/API.js"
 
@@ -123,7 +122,7 @@ class DashboardPage extends Component {
     let date;
     let updatedGiftsArr = [];
     copyOfGifts.forEach((gift, index) => {
-      if (copyOfDates[index] == "") {
+      if (copyOfDates[index] === "") {
         date = new Date();
       } else {
         date = copyOfDates[index]

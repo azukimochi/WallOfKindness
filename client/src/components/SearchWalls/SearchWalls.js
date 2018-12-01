@@ -2,12 +2,7 @@ import React from "react";
 import "./SearchWall.css";
 import Autocomplete from "react-autocomplete";
 import "./autocomplete.css"
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {
-    geocodeByAddress,
-    geocodeByPlaceId,
-    getLatLng,
-  } from 'react-places-autocomplete';
+
 
 
 const SearchWall = props => (
@@ -57,6 +52,7 @@ const SearchWall = props => (
             placeholder="Enter address or zip code"
             id="inputAddress"
             defaultValue={props.guestAddress}
+            
           />
         </div>
 

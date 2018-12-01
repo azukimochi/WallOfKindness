@@ -1,6 +1,6 @@
 import React from 'react'; 
 import  MessageList  from '../../components/Chat/MessageList'
-import { withRouter } from 'react-router-dom'
+
 import API from "../../utils/API";
 import "./Chat.css";
 
