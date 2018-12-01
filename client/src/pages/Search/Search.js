@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import Wrapper from "../../components/Wrapper";
 import Geocode from "react-geocode";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
 import SearchResults from "../../components/SearchResults/SearchResults.js";
@@ -15,13 +15,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "react-modal";
 import "../../components/SearchResults/SearchResults.css";
-import { Container, Row, Col } from "react-grid-system";
+import { Container, Row } from "react-grid-system";
 
 let addressArray = [];
 let latLongArray = [];
-let longArray = [];
 let distanceArray = [];
 let originalResults = [];
+
 
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
@@ -203,11 +203,7 @@ class Search extends Component {
     }, 2000);
   }
 
-  clearEmailForm() {
-    document.getElementById("emailFrom").value = "";
-    document.getElementById("emailSubject").value = "";
-    document.getElementById("emailBody").value = "";
-  }
+ 
 
   emailSentMessage() {
     let toast = document.getElementById("toast");
@@ -241,7 +237,7 @@ class Search extends Component {
           });
 
           let giftListFromDatabase = giftListFromDatabaseRaw;
-          let finalGiftArray = [];
+          
           let uniqueArray;
           let giftAutoCompleteArray;
           let autoCompleteArray = [];
@@ -331,11 +327,13 @@ class Search extends Component {
 
     this.setState({
       hasSearched: false,
-      resultsNotFound: false
+      resultsNotFound: false,
+      
     })
+    console.log('Guest Address',this.state.guestAddress)
  
     if (this.state.giftType !== "" && 
-        this.state.address !== "" &&
+        // this.state.address !== "" &&
         this.state.category !== "None") {
       API.lookForGifts({
         gifts: this.state.giftType,
@@ -393,6 +391,7 @@ class Search extends Component {
             giftArray[i][j].address = resultsArray[i].address;
             giftArray[i][j].name = resultsArray[i].name;
             giftArray[i][j].wallName = resultsArray[i].wallName;
+            giftArray[i][j].email = resultsArray[i].email;
             cleanedAllGiftsArr.push(giftArray[i][j])
           }
         }
@@ -523,7 +522,7 @@ class Search extends Component {
     // this.setState({
     //   results.dist:dist
     // })
-    distanceArray.push(dist.toFixed(0));
+    distanceArray.push(parseInt(dist.toFixed(0)));
     console.log("distanceArray", distanceArray);
     let sortedDistance = distanceArray.sort((a, b) => a - b);
     console.log("sortedDistance", sortedDistance);
@@ -545,7 +544,7 @@ class Search extends Component {
           giftType: "",
           category: ""
         }, () => console.log("Length is good for distance and latLongArray", this.state.results));
-        // originalResults = this.state.results;
+        originalResults = this.state.results;
         // console.log("originalResults", originalResults);
         // console.log("Length is good for distance and latLongArray");
       }
@@ -600,6 +599,8 @@ class Search extends Component {
           this.setState({
             guestAddress: results[1].formatted_address
           });
+
+
           // console.log("State after grabbing Address", this.state);
           // console.log("////////////////////////");
           // console.log("here address", results[1].formatted_address);
@@ -627,6 +628,8 @@ class Search extends Component {
     switch (selectedRange) {
       case "5":
         console.log("Range Selected: 0 -500m");
+        console.log("originalResults",originalResults);
+
         originalResults.filter(result => {
           result.distance <= 500 ? caseResults.push(result) : null;
         });
@@ -666,7 +669,7 @@ class Search extends Component {
         });
         break;
       case "20":
-        console.log("Range Selected: 0 - 2000m");
+        console.log("Range Selected: 0 - 2km");
         originalResults.filter(result => {
           result.distance <= 2000 ? caseResults.push(result) : null;
         });
@@ -679,9 +682,23 @@ class Search extends Component {
         });
         break;
       case "50":
-        console.log("Range Selected: 0 - 5000m");
+        console.log("Range Selected: 0 - 5km");
         originalResults.filter(result => {
           result.distance <= 5000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+
+        case "100":
+        console.log("Range Selected: 0 - 10km");
+        originalResults.filter(result => {
+          result.distance <= 10000 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -753,8 +770,9 @@ class Search extends Component {
                   <option value="5">0 - 500m</option>
                   <option value="10">0 - 1000m</option>
                   <option value="15">0 -1500m</option>
-                  <option value="20">0 - 2000m</option>
-                  <option value="50">0 - 5000m</option>
+                  <option value="20">0 - 2km</option>
+                  <option value="50">0 - 5km</option>
+                  <option value="100">0 - 10km</option>
                 </select>
               </div>
               <Container>
@@ -766,7 +784,7 @@ class Search extends Component {
                       name={result.name}
                       wallName={result.wallName}
                       item={result.item}
-                      // email={result.email}
+                      email={result.email}
                       // city={result.city}
                       // address={result.address}
                       // guestLat={this.state.guestLat}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 // import httpClient from '../../httpClient'
 import API from "../../utils/API.js"
-import { withRouter } from 'react-router-dom'
 import "./SignUp.css";
 // const wallControllers = require("../../controllers/wallControllers");
 // import routes from '../../routes/api'
@@ -16,11 +15,11 @@ class SignUp extends Component {
 
 	onInputChange = event => {
 		this.setState({[event.target.name]: event.target.value}, 
-			() => {
-			console.log(this.state.name),
-			console.log(this.state.email)
-			// console.log(this.state.password)
-			}
+			// () => {
+			// console.log(this.state.name),
+			// console.log(this.state.email)
+			// // console.log(this.state.password)
+			// }
 		)}
 
 	onFormSubmit = event => {

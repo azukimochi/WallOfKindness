@@ -1,6 +1,6 @@
 import React from "react";
 import "./SearchResults.css";
-import { Col } from "react-grid-system";
+
 
 const NoResults = () =>
     <div>
