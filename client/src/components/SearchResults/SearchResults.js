@@ -21,10 +21,10 @@ const SearchResults = props =>
             <p className="card-text">Full Name: {props.name}</p>
             <p className="card-text">Wall Name: {props.wallName.toUpperCase()}</p>
             <p className="card-text"> Gift Name: {props.item}</p>
+            <p className="card-text"> Distance: {props.distance} m</p>
             {/* <p className="card-text"> Email Address: {props.email}</p> */}
             {/* <p className="card-text"> City: {props.city.toUpperCase()}</p> */}
             {/* <p className="card-text"> Address: {props.address}</p> */}
-            {/* <p className="card-text"> Distance: {props.distance.toFixed(0)} m</p> */}
 
             <button
               className="registerBtn "

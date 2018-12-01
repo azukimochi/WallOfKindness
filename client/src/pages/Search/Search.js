@@ -311,6 +311,9 @@ class Search extends Component {
 
   handleSearchBtnSubmit = event => {
     event.preventDefault();
+    addressArray = [];
+    latLongArray = [];
+    distanceArray = [];
     
     // latArray=[];
     // longArray=[];
@@ -379,21 +382,7 @@ class Search extends Component {
       }
     }
 
-    // Note from Karen: This function will replace the gifts in the master results array with the cleaned up gifts array that only includes the matching items
-    // replaceGifts = (cleanedAllGiftsArr, resultsArray) => {
-    //   let finalGiftArray = [...resultsArray];
-    //   let lengthOfArray = 0;
-    //   finalGiftArray.forEach((user, index) => {
-    //     user.gifts = cleanedAllGiftsArr[index]
-    //     lengthOfArray++
-    //   })
-    //   if (lengthOfArray === finalGiftArray.length) {
-    //     console.log("All replacements are done. The final gift array:", finalGiftArray)
-    //   }
-    // }
-
     getAddresses = () => {
-      console.log("Hi")
       let newAddress = this.state.results;
 
           newAddress.map(userAddress => {
@@ -404,11 +393,6 @@ class Search extends Component {
           addressArray.forEach(eachAddress => {
             this.latLong(eachAddress);
           });
-
-          // console.log("gueslat", this.state.guestLat);
-          // console.log("addressArray2", addressArray);
-          // console.log("long Array", longArray);
-          // console.log("distance Array", distanceArray);
     }
 
           //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
@@ -515,7 +499,7 @@ class Search extends Component {
     // this.setState({
     //   results.dist:dist
     // })
-    distanceArray.push(dist);
+    distanceArray.push(dist.toFixed(0));
     console.log("distanceArray", distanceArray);
     let sortedDistance = distanceArray.sort((a, b) => a - b);
     console.log("sortedDistance", sortedDistance);
@@ -760,7 +744,7 @@ class Search extends Component {
                       // latLong={this.latLong}
                       // latArray={this.state.latArray}
                       // longArray={this.state.longArray}
-                      // distance={result.distance}
+                      distance={result.distance}
                     // latLong={this.latLong}
                     />
                   ))}
