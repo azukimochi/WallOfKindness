@@ -154,6 +154,7 @@ class DashboardPage extends Component {
       address: this.state.address,
     }
     console.log("reqObj for submitting data", reqObj)
+    this.updateButtonEffect()
     API.updateUserInfo(id, token, reqObj)
     .then(res => {
       if (res.data.status === "404") {
