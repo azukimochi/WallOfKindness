@@ -20,7 +20,7 @@ let addressArray = [];
 let latLongArray = [];
 let longArray = [];
 let distanceArray = [];
-let originalResults=[];
+let originalResults = [];
 
 const emailConfirmation = () =>
   toast.success("Your e-mail has been successfully sent", {
@@ -86,7 +86,7 @@ class Search extends Component {
         <SearchResults
           id={result._id}
           key={result._id}
-          gifts={result.gifts}
+          gifts={result.giftType}
           wallName={result.wallName}
           name={result.name}
           email={result.email}
@@ -134,7 +134,7 @@ class Search extends Component {
   };
 
   handleGiftsInputSelect = (val, giftType) => {
-console.log("value",val)
+    console.log("value", val)
 
     this.setState({ giftType: val.toLowerCase() });
   };
@@ -183,7 +183,7 @@ console.log("value",val)
   emailButtonEffect() {
     let effect = document.getElementById("emailSendButton");
     effect.classList.add("running");
-    setTimeout(function() {
+    setTimeout(function () {
       effect.classList.remove("running");
     }, 2000);
   }
@@ -198,7 +198,7 @@ console.log("value",val)
     let toast = document.getElementById("toast");
     toast.classList.remove("invisible");
 
-    setTimeout(function() {
+    setTimeout(function () {
       toast.classList.add("invisible");
     }, 2000);
     document.getElementById("emailForm").classList.add("invisible");
@@ -232,7 +232,7 @@ console.log("value",val)
           let autoCompleteArray = [];
 
           let removeDuplicates = arr => {
-            uniqueArray = arr.filter(function(elem, index, self) {
+            uniqueArray = arr.filter(function (elem, index, self) {
               return index == self.indexOf(elem);
             });
             return uniqueArray;
@@ -259,7 +259,7 @@ console.log("value",val)
   searchButtonEffect() {
     let effect = document.getElementById("effect");
     effect.classList.add("running");
-    setTimeout(function() {
+    setTimeout(function () {
       effect.classList.remove("running");
     }, 2000);
   }
@@ -316,49 +316,65 @@ console.log("value",val)
       API.lookForGifts({
         gifts: this.state.giftType,
         address: this.state.address
-        
+
       })
 
         .then(res => {
           console.log("karen res", res.data);
           let resultsArray = [];
-          res.data.forEach(function(element) {
+          res.data.forEach(function (element) {
             resultsArray.push(element);
           });
           console.log("result array:", resultsArray);
 
 
+      
+          //***********Extract giftName ************************/
+          let searchResults = resultsArray;
+          let giftsItemArray = [];
+          let giftArray = [];
+          //loop through resultsArray and store each gift array in varible giftArray
+          searchResults.forEach(function (search) {
+            giftArray.push(search.gifts);
+            console.log("GA:", giftArray);
+          })
+          //name of gift typed by the guest in the search input box
+          let giftTypeOfInput = this.state.giftType;
+          console.log("GTI:", giftTypeOfInput);
+
+          //not sure why item is showing up as undefined. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
+          giftArray.forEach(function (result, i) {
+            console.log("resultItem:", result);
+            if (giftTypeOfInput === result[i].item) {
+              giftsItemArray.push(result[i].item);
+              console.log("giftsitem:", giftsItemArray);
+              //creatin a new property in resultsArray called giftType and setting its value to item names from giftItemArray
+              resultsArray.giftType = giftsItemArray[0]
+              console.log("resultsArrayPropertyValue:", resultsArray.giftType)
+            }
+          })
+
+          //was trying to extract/manipulate data above before setting state below.
           this.setState({ results: resultsArray });
           console.log(
             "results isssssssssssssssssssssssssss:",
             this.state.results
           );
 
-          let itemsSearch = this.state.results;
-          let giftsArray =[];
-//           itemsSearch.map((itemSearch, i)=>{
-// itemSearch.map(gifts => {
-//   gifts.map(items => {
-//     let giftNamesArray =[];
-//     giftNamesArray.push(items.item);
-//     // let giftNames =[];
-//   if giftNamesArray.includes(this.state.giftType){
-//     giftsArray.push();
-//   }
-//   })
-// })
-//             giftsArray.push(itemSearch.gifts);
-//             console.log("giftsArray:", giftsArray);
+          //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
+          //gift in the cards. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
+          //Then in
+          // But when I do that,  gift name doesn't show up on results page.
 
+          //***************************************************** */
 
-//           })
           let newAddress = this.state.results;
 
           newAddress.map(userAddress => {
             addressArray.push(userAddress.address);
           });
 
-          
+
 
           addressArray.forEach(eachAddress => {
             this.latLong(eachAddress);
@@ -384,15 +400,15 @@ console.log("value",val)
     }
     if (
       this.state.giftType === ""
-      
-      
+
+
     ) {
       this.handleErrorMessage();
       // console.log("working");
     }
 
     console.log("final state before sending", this.state);
-    
+
   };
 
   goToDistance = () => {
@@ -456,7 +472,7 @@ console.log("value",val)
         hasSearched: true
       });
       originalResults = this.state.results;
-      console.log("originalResults",originalResults);
+      console.log("originalResults", originalResults);
       console.log("Length is good for distance and latLongArray");
     }
 
@@ -518,7 +534,7 @@ console.log("value",val)
     });
   };
 
-  
+
 
   filterResults = () => {
     // const originalResults = this.state.results;
@@ -529,7 +545,7 @@ console.log("value",val)
     console.log("Selected Range:", selectedRange);
     console.log("Selected Range type:", typeof selectedRange);
     console.log("Results:", this.state.results);
-    
+
     console.log("original Results:", originalResults);
 
     let caseResults = [];
@@ -587,7 +603,7 @@ console.log("value",val)
           results: caseResults
         });
         break;
-        case "50":
+      case "50":
         console.log("Range Selected: 0 - 5000m");
         originalResults.filter(result => {
           result.distance <= 5000 ? caseResults.push(result) : null;
@@ -600,11 +616,11 @@ console.log("value",val)
           results: caseResults
         });
         break;
-        
+
       default:
-      this.setState({
-        results: originalResults
-      });
+        this.setState({
+          results: originalResults
+        });
         console.log("Range Selected: All");
     }
   };
@@ -636,9 +652,9 @@ console.log("value",val)
 
           {this.state.hasSearched ? (
             <div>
-              <hr style={{height:'1px',backgroundColor:'#e81e17',width:'80%', textAlign:'center', margin: '0 auto'}}/>
+              <hr style={{ height: '1px', backgroundColor: '#e81e17', width: '80%', textAlign: 'center', margin: '0 auto' }} />
               <h3 className="resultTitle">Results</h3>
-              <div style={{width:'30%', textAlign:'center', margin: '0 auto'}}>
+              <div style={{ width: '30%', textAlign: 'center', margin: '0 auto' }}>
                 <label htmlFor="item">Select Your Range</label>
                 <br />
                 <select
@@ -680,7 +696,7 @@ console.log("value",val)
                       latArray={this.state.latArray}
                       longArray={this.state.longArray}
                       distance={distanceArray[index]}
-                      // latLong={this.latLong}
+                    // latLong={this.latLong}
                     />
                   ))}
                 </Row>
@@ -739,15 +755,15 @@ console.log("value",val)
               </Modal>
             </div>
           ) : (
-            <div className="welcomeDiv">
-              <h1 className="welcomeBanner">Welcome!</h1>
-              <p id="welcomeNote">
-                Feel free to search our list of gifts available to you from our
-                donors. If you like what you see, you can request it from an
-                angel and organize a time to pick it up!
+              <div className="welcomeDiv">
+                <h1 className="welcomeBanner">Welcome!</h1>
+                <p id="welcomeNote">
+                  Feel free to search our list of gifts available to you from our
+                  donors. If you like what you see, you can request it from an
+                  angel and organize a time to pick it up!
               </p>
-            </div>
-          )}
+              </div>
+            )}
 
           <ToastContainer />
         </Wrapper>
