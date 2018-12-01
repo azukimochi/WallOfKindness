@@ -60,6 +60,16 @@ const SearchWall = props => (
           />
         </div>
 
+        <div className="col-sm-6">
+          <br />
+
+          <select name="category" value={props.category} onChange={props.handleCategoryChange}>
+            <option value="None">Category</option>
+            <option value="Food">Food</option>
+            <option value="Clothing">Clothing</option>
+          </select>
+        </div>
+
 
 
         {/* <div className="col-sm-3">

@@ -6,7 +6,8 @@ import Geocode from "react-geocode";
 import { withRouter } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
-import SearchResults from "../../components/SearchResults";
+import SearchResults from "../../components/SearchResults/SearchResults.js";
+import NoResults from "../../components/SearchResults/NoResults.js";
 import API from "../../utils/API";
 import axios from "axios";
 import "./Search.css";
@@ -46,10 +47,11 @@ class Search extends Component {
     autoCompleteState: [],
     modalIsOpen: false,
     gifts: "",
+    category: "None",
     address: "",
     range: "",
     errorMessage: "",
-    results: [],
+    results: "",
     sectionTitle: "",
     limit: null,
     hasSearched: false,
@@ -69,7 +71,8 @@ class Search extends Component {
     latArray: [],
     longArray: [],
     distances: [],
-    latLongArray: []
+    latLongArray: [],
+    resultsNotFound: false
   };
 
   componentDidMount = () => {
@@ -129,8 +132,18 @@ class Search extends Component {
     this.setState({ gifts: event.target.value.toLowerCase() });
   };
 
+  handleCategoryChange = event => {
+    this.setState({ 
+      category: event.target.value
+    }, 
+    () => console.log(this.state.category));
+  };
+
   handleGiftsInputChange = (event, giftType) => {
-    this.setState({ giftType: event.target.value.toLowerCase() });
+    this.setState({ 
+      giftType: event.target.value
+    }, 
+      () => console.log(this.state.giftType));
   };
 
   handleGiftsInputSelect = (val, giftType) => {
@@ -140,7 +153,9 @@ class Search extends Component {
   };
 
   handleAreaChange = event => {
-    this.setState({ address: event.target.value });
+    this.setState({ 
+      address: event.target.value,
+     });
   };
 
   handleRequestButton = event => {
@@ -276,12 +291,12 @@ class Search extends Component {
           lng: lng
         };
         latLongArray.push(obj);
-        console.log("testing latLong function", latLongArray);
-        console.log(addressArray.length);
-
+        
         if (latLongArray.length === addressArray.length) {
+          console.log("all lat and long completed. This is the latLongArray:", latLongArray);
           this.goToDistance();
         }
+
         // latLongArray.push(
         //   {lat:lat,
         //     lng:lng
@@ -310,99 +325,160 @@ class Search extends Component {
 
   handleSearchBtnSubmit = event => {
     event.preventDefault();
-    // latArray=[];
-    // longArray=[];
-    if (this.state.giftType) {
+    addressArray = [];
+    latLongArray = [];
+    distanceArray = [];
+
+    this.setState({
+      hasSearched: false,
+      resultsNotFound: false
+    })
+ 
+    if (this.state.giftType !== "" && 
+        this.state.address !== "" &&
+        this.state.category !== "None") {
       API.lookForGifts({
         gifts: this.state.giftType,
-        address: this.state.address
-
+        address: this.state.address,
+        category: this.state.category
       })
-
         .then(res => {
           console.log("karen res", res.data);
-          let resultsArray = [];
-          res.data.forEach(function (element) {
-            resultsArray.push(element);
-          });
-          console.log("result array:", resultsArray);
+          if (res.data.length !== 0) {
+            let resultsArray = [];
+            res.data.forEach(element => {
+              resultsArray.push(element);
+            })
+            this.takeOutGifts(resultsArray);
+          } else {
+            this.setState({resultsNotFound: true})
+          }
+        })
+          .catch(err => console.log(err))
 
+      } else {
+        console.log("Can't search")
+        this.handleErrorMessage()
+      }
+    }
+    
+    //***********Extract giftName ************************/
 
-      
-          //***********Extract giftName ************************/
-          let searchResults = resultsArray;
-          let giftsItemArray = [];
-          let giftArray = [];
-          //loop through resultsArray and store each gift array in varible giftArray
-          searchResults.forEach(function (search) {
-            giftArray.push(search.gifts);
-            console.log("GA:", giftArray);
-          })
-          //gift name typed by guest in the search input box = giftTypeOfInput
-          let giftTypeOfInput = this.state.giftType;
-          console.log("GTI:", giftTypeOfInput);
+    //loop through resultsArray and store each gift array in varible giftArray
+    takeOutGifts = resultsArray => {
+      let giftArray = [];
+      resultsArray.forEach(search => {
+        giftArray.push(search.gifts);
+      }) 
+      if (giftArray.length === resultsArray.length) {
+        console.log("giftArray", giftArray)
+        this.removeUnwantedGifts(giftArray, resultsArray)
+      }
+    }
+    
+    // Note by Karen: This function will go through each giftsArray of the users and determine the objects that include the gifttypeinput (case INSENSITIVE)
+    removeUnwantedGifts = (giftArray, resultsArray) => {
+      //gift name typed by guest in the search input box = giftTypeOfInput
+      let giftTypeOfInput = this.state.giftType;
+      let numOfLoops = 0;
+      const regex = new RegExp(giftTypeOfInput, "i")
+      let cleanedAllGiftsArr = [];
+      console.log("Keyword typed into search:", giftTypeOfInput);
+      for (let i = 0; i<giftArray.length; i++) {
+        for (let j = 0; j<giftArray[i].length; j++) {
+          let includesInput = regex.test(giftArray[i][j].item) //true or false if item includes the keyword that was searched
+          console.log("individual item:", giftArray[i][j])
+          if (includesInput === true) {
+            console.log("There's a matching gift at index:", j, "of user at index", i)
+            giftArray[i][j].address = resultsArray[i].address;
+            giftArray[i][j].name = resultsArray[i].name;
+            giftArray[i][j].wallName = resultsArray[i].wallName;
+            cleanedAllGiftsArr.push(giftArray[i][j])
+          }
+        }
+        numOfLoops++
+        console.log("num of loops", numOfLoops)
+      }
+      console.log("Finished looping. Cleaned up gifts array", cleanedAllGiftsArr)
+      if (numOfLoops === giftArray.length) {
+        this.setState({results: cleanedAllGiftsArr},
+        () => this.getAddresses())
+      }
+    }
 
-          //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
-          giftArray.forEach(function (result, i) {
-            console.log("resultItem:", result);
-            if (giftTypeOfInput === result[i].item) {
-              giftsItemArray.push(result[i].item);
-              console.log("giftsitem:", giftsItemArray);
-              //creating a new property in resultsArray called giftType and setting its value to gift names from giftItemArray
-              resultsArray.giftType = giftsItemArray[0]
-              console.log("resultsArrayPropertyValue:", resultsArray.giftType)
-            }
-          })
-
-          //was trying to extract/manipulate data above before setting state below.
-          this.setState({ results: resultsArray });
-          console.log(
-            "results isssssssssssssssssssssssssss:",
-            this.state.results
-          );
-
-          //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
-          //gift within the cards in the frontend. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
-          // But when I do that,  gift name doesn't show up on results page.
-
-          //***************************************************** */
-
-          let newAddress = this.state.results;
+    getAddresses = () => {
+      let newAddress = this.state.results;
 
           newAddress.map(userAddress => {
             addressArray.push(userAddress.address);
           });
-
-
+          console.log(addressArray)
 
           addressArray.forEach(eachAddress => {
             this.latLong(eachAddress);
           });
+    }
+
+          //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
+  //         giftArray.forEach(function (result, i) {
+  //           if (giftTypeOfInput === result[i].item) {
+  //             giftsItemArray.push(result[i].item);
+  //             console.log("giftsitem:", giftsItemArray);
+  //             //creating a new property in resultsArray called giftType and setting its value to gift names from giftItemArray
+  //             resultsArray.giftType = giftsItemArray[0]
+  //             console.log("resultsArrayPropertyValue:", resultsArray.giftType)
+  //           }
+  //         })
+
+  //         //was trying to extract/manipulate data above before setting state below.
+  //         this.setState({ results: resultsArray });
+  //         console.log(
+  //           "results isssssssssssssssssssssssssss:",
+  //           this.state.results
+  //         );
+
+  //         //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
+  //         //gift within the cards in the frontend. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
+  //         // But when I do that,  gift name doesn't show up on results page.
+
+  //         //***************************************************** */
+
+  //         let newAddress = this.state.results;
+
+  //         newAddress.map(userAddress => {
+  //           addressArray.push(userAddress.address);
+  //         });
+
+
+
+  //         addressArray.forEach(eachAddress => {
+  //           this.latLong(eachAddress);
+  //         });
 
       
 
-          console.log("gueslat", this.state.guestLat);
-          console.log("addressArray2", addressArray);
-          // console.log('lat Long Array',latLongArray)
-          console.log("long Array", longArray);
-          console.log("distance Array", distanceArray);
+  //         console.log("gueslat", this.state.guestLat);
+  //         console.log("addressArray2", addressArray);
+  //         // console.log('lat Long Array',latLongArray)
+  //         console.log("long Array", longArray);
+  //         console.log("distance Array", distanceArray);
 
-          // this.goToDistance()
-        })
-        .catch(err => console.log(err));
-    }
-    if (
-      this.state.giftType === ""
+  //         // this.goToDistance()
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  //   if (
+  //     this.state.giftType === ""
 
 
-    ) {
-      this.handleErrorMessage();
-      // console.log("working");
-    }
+  //   ) {
+  //     this.handleErrorMessage();
+  //     // console.log("working");
+  //   }
 
-    console.log("final state before sending", this.state);
+  //   console.log("final state before sending", this.state);
 
-  };
+  // };
 
   goToDistance = () => {
     console.log("Length of latLongArray", latLongArray.length);
@@ -447,26 +523,32 @@ class Search extends Component {
     // this.setState({
     //   results.dist:dist
     // })
-    distanceArray.push(dist);
+    distanceArray.push(dist.toFixed(0));
     console.log("distanceArray", distanceArray);
     let sortedDistance = distanceArray.sort((a, b) => a - b);
     console.log("sortedDistance", sortedDistance);
-    let results = [];
-    this.state.results.map((result, index) => {
-      result.distance = distanceArray[index];
-
-      results.push(result);
-    });
-    this.setState({
-      results: results
-    });
+    // if (results.length === this.state.results.length) {
+    //   this.setState({
+    //     results: results
+    //   });
+    // }
     if (distanceArray.length === latLongArray.length) {
-      this.setState({
-        hasSearched: true
+      let results = [];
+      this.state.results.map((result, index) => {
+        result.distance = distanceArray[index];
+        results.push(result);
       });
-      originalResults = this.state.results;
-      console.log("originalResults", originalResults);
-      console.log("Length is good for distance and latLongArray");
+      if (results.length === this.state.results.length) {
+        this.setState({
+          results: results,
+          hasSearched: true,
+          giftType: "",
+          category: ""
+        }, () => console.log("Length is good for distance and latLongArray", this.state.results));
+        // originalResults = this.state.results;
+        // console.log("originalResults", originalResults);
+        // console.log("Length is good for distance and latLongArray");
+      }
     }
 
     // console.log('distanceArray too function',distanceArray)
@@ -626,6 +708,8 @@ class Search extends Component {
             handleGiftAutocomplete={this.handleGiftAutocomplete}
             values={this.state.autoCompleteState}
             handleGiftsChange={this.handleGiftsChange}
+            handleCategoryChange={this.handleCategoryChange}
+            category = {this.state.category}
             // handleGiftsType={this.handleGiftsType}
             handleGiftsInputChange={this.handleGiftsInputChange}
             handleGiftsInputSelect={this.handleGiftsInputSelect}
@@ -642,6 +726,15 @@ class Search extends Component {
             onFocusArea={this.onFocusArea}
             onBlurArea={this.onBlurArea}
           />
+
+          {this.state.resultsNotFound ?
+            <Container>
+              <Row>
+                <NoResults>
+                </NoResults>
+              </Row>
+            </Container>
+            : null}
 
           {this.state.hasSearched ? (
             <div>
@@ -669,26 +762,25 @@ class Search extends Component {
                   {this.state.results.map((result, index) => (
                     <SearchResults
                       index={index}
-                      id={result._id}
+                      // id={result._id}
                       name={result.name}
                       wallName={result.wallName}
-                      gifts={result.gifts}
-                      email={result.email}
-                      city={result.city}
-                      address={result.address}
-                      results={this.state.results}
-                      guestLat={this.state.guestLat}
-                      guestLong={this.state.guestLong}
+                      item={result.item}
+                      // email={result.email}
+                      // city={result.city}
+                      // address={result.address}
+                      // guestLat={this.state.guestLat}
+                      // guestLong={this.state.guestLong}
                       openModal={this.openModal}
                       sendEmail={this.sendEmail}
-                      getLocation={this.getLocation}
-                      userLat={this.state.userLat}
-                      userLong={this.state.userLong}
-                      giftType={this.state.giftType}
-                      latLong={this.latLong}
-                      latArray={this.state.latArray}
-                      longArray={this.state.longArray}
-                      distance={distanceArray[index]}
+                      // getLocation={this.getLocation}
+                      // userLat={this.state.userLat}
+                      // userLong={this.state.userLong}
+                      // giftType={this.state.giftType}
+                      // latLong={this.latLong}
+                      // latArray={this.state.latArray}
+                      // longArray={this.state.longArray}
+                      distance={result.distance}
                     // latLong={this.latLong}
                     />
                   ))}

@@ -48,12 +48,14 @@ module.exports = {
     console.log( 'req.query',req.query);
 
       db.User
-      .find({"gifts": {$elemMatch: {"item": {$regex: req.query.gifts, $options: "i"}}}}, {"name":1, "wallName" : 1, "email": 1, "address": 1, "city":1, "latitude":1,"longitude":1,"gifts":1})
+      .find({"gifts": {$elemMatch: {"item": {$regex: req.query.gifts, $options: "i"}, "category": req.query.category}}}, {"name":1, "wallName" : 1, "email": 1, "address": 1, "city":1, "latitude":1,"longitude":1,"gifts":1})
     
       // .sort({ wallName: 1 })
-      .then(dbModel => 
+      .then(dbModel => {
+        console.log(dbModel);
+        res.json(dbModel)
+      })
         // console.log(dbModel),
-        res.json(dbModel))
       .catch(err => res.status(422).json(err));
         
 
