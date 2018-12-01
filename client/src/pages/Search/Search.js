@@ -6,7 +6,8 @@ import Geocode from "react-geocode";
 import { withRouter } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 import SearchWall from "../../components/SearchWalls";
-import SearchResults from "../../components/SearchResults";
+import SearchResults from "../../components/SearchResults/SearchResults.js";
+import NoResults from "../../components/SearchResults/NoResults.js";
 import API from "../../utils/API";
 import axios from "axios";
 import "./Search.css";
@@ -70,7 +71,8 @@ class Search extends Component {
     latArray: [],
     longArray: [],
     distances: [],
-    latLongArray: []
+    latLongArray: [],
+    resultsNotFound: false
   };
 
   componentDidMount = () => {
@@ -131,12 +133,16 @@ class Search extends Component {
   };
 
   handleCategoryChange = event => {
-    this.setState({ category: event.target.value}, 
+    this.setState({ 
+      category: event.target.value
+    }, 
     () => console.log(this.state.category));
   };
 
   handleGiftsInputChange = (event, giftType) => {
-    this.setState({ giftType: event.target.value}, 
+    this.setState({ 
+      giftType: event.target.value
+    }, 
       () => console.log(this.state.giftType));
   };
 
@@ -147,7 +153,9 @@ class Search extends Component {
   };
 
   handleAreaChange = event => {
-    this.setState({ address: event.target.value });
+    this.setState({ 
+      address: event.target.value,
+     });
   };
 
   handleRequestButton = event => {
@@ -320,6 +328,11 @@ class Search extends Component {
     addressArray = [];
     latLongArray = [];
     distanceArray = [];
+
+    this.setState({
+      hasSearched: false,
+      resultsNotFound: false
+    })
  
     if (this.state.giftType !== "" && 
         this.state.address !== "" &&
@@ -331,11 +344,15 @@ class Search extends Component {
       })
         .then(res => {
           console.log("karen res", res.data);
-          let resultsArray = [];
-          res.data.forEach(element => {
-            resultsArray.push(element);
-          })
-          this.takeOutGifts(resultsArray);
+          if (res.data.length !== 0) {
+            let resultsArray = [];
+            res.data.forEach(element => {
+              resultsArray.push(element);
+            })
+            this.takeOutGifts(resultsArray);
+          } else {
+            this.setState({resultsNotFound: true})
+          }
         })
           .catch(err => console.log(err))
 
@@ -524,7 +541,9 @@ class Search extends Component {
       if (results.length === this.state.results.length) {
         this.setState({
           results: results,
-          hasSearched: true
+          hasSearched: true,
+          giftType: "",
+          category: ""
         }, () => console.log("Length is good for distance and latLongArray", this.state.results));
         // originalResults = this.state.results;
         // console.log("originalResults", originalResults);
@@ -708,6 +727,15 @@ class Search extends Component {
             onBlurArea={this.onBlurArea}
           />
 
+          {this.state.resultsNotFound ?
+            <Container>
+              <Row>
+                <NoResults>
+                </NoResults>
+              </Row>
+            </Container>
+            : null}
+
           {this.state.hasSearched ? (
             <div>
               <hr style={{ height: '1px', backgroundColor: '#e81e17', width: '80%', textAlign: 'center', margin: '0 auto' }} />
@@ -741,7 +769,6 @@ class Search extends Component {
                       // email={result.email}
                       // city={result.city}
                       // address={result.address}
-                      results={this.state.results}
                       // guestLat={this.state.guestLat}
                       // guestLong={this.state.guestLong}
                       openModal={this.openModal}

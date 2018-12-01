@@ -3,14 +3,6 @@ import "./SearchResults.css";
 import { Col } from "react-grid-system";
 
 const SearchResults = props =>
-  props.results.length === 0 ? (
-    <div>
-      <div className="row noResults" id="noResults" />
-      <div className="noneResults">
-        <p className="noResults">There are no results for your search, please try again</p>
-      </div>
-    </div>
-  ) : (
     <Col sm={4}>
       <div className="card-deck">
         <div className="card text-center">
@@ -41,6 +33,5 @@ const SearchResults = props =>
         </div>
       </div>
     </Col>
-  );
 
 export default SearchResults;
