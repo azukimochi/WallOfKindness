@@ -316,93 +316,124 @@ class Search extends Component {
       API.lookForGifts({
         gifts: this.state.giftType,
         address: this.state.address
-
       })
-
         .then(res => {
           console.log("karen res", res.data);
           let resultsArray = [];
-          res.data.forEach(function (element) {
+          res.data.forEach(element => {
             resultsArray.push(element);
-          });
-          console.log("result array:", resultsArray);
-
-
-      
-          //***********Extract giftName ************************/
-          let searchResults = resultsArray;
-          let giftsItemArray = [];
-          let giftArray = [];
-          //loop through resultsArray and store each gift array in varible giftArray
-          searchResults.forEach(function (search) {
-            giftArray.push(search.gifts);
-            console.log("GA:", giftArray);
           })
-          //gift name typed by guest in the search input box = giftTypeOfInput
-          let giftTypeOfInput = this.state.giftType;
-          console.log("GTI:", giftTypeOfInput);
+          this.takeOutGifts(resultsArray);
+        })
+          .catch(err => console.log(err))
+
+      } else {
+        console.log("Can't search")
+      }
+    }
+    
+    //***********Extract giftName ************************/
+
+    //loop through resultsArray and store each gift array in varible giftArray
+    takeOutGifts = resultsArray => {
+      let giftArray = [];
+      resultsArray.forEach(search => {
+        giftArray.push(search.gifts);
+      }) 
+      if (giftArray.length === resultsArray.length) {
+        console.log("giftArray", giftArray)
+        this.removeUnwantedGifts(giftArray, resultsArray)
+      }
+    }
+    
+    removeUnwantedGifts = (giftArray, resultsArray) => {
+      // Note by Karen: This function will go through each giftsArray of the users and determine the objects that include the gifttypeinput (case INSENSITIVE)
+      //gift name typed by guest in the search input box = giftTypeOfInput
+      let giftTypeOfInput = this.state.giftType;
+      let numOfLoops = 0;
+      const regex = new RegExp(giftTypeOfInput, "i")
+      let cleanedAllGiftsArr = [];
+      console.log("Keyword typed into search:", giftTypeOfInput);
+      for (let i = 0; i<giftArray.length; i++) {
+        let giftsItemArray = [];
+        for (let j = 0; j<giftArray[i].length; j++) {
+          let includesInput = regex.test(giftArray[i][j].item) //true or false if item includes the keyword that was searched
+          console.log("individual item:", giftArray[i][j])
+          if (includesInput === true) {
+            console.log("There's a matching gift at index:", j, "of user at index", i)
+            giftsItemArray.push(giftArray[i][j])
+          }
+        }
+        cleanedAllGiftsArr.push(giftsItemArray)
+        numOfLoops++
+        console.log("num of loops", numOfLoops)
+      }
+      console.log("Finished looping. Cleaned up gifts array", cleanedAllGiftsArr)
+      if (numOfLoops === giftArray.length) {
+        console.log("all done")
+      }
+    }
 
           //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
-          giftArray.forEach(function (result, i) {
-            console.log("resultItem:", result);
-            if (giftTypeOfInput === result[i].item) {
-              giftsItemArray.push(result[i].item);
-              console.log("giftsitem:", giftsItemArray);
-              //creating a new property in resultsArray called giftType and setting its value to gift names from giftItemArray
-              resultsArray.giftType = giftsItemArray[0]
-              console.log("resultsArrayPropertyValue:", resultsArray.giftType)
-            }
-          })
+  //         giftArray.forEach(function (result, i) {
+  //           if (giftTypeOfInput === result[i].item) {
+  //             giftsItemArray.push(result[i].item);
+  //             console.log("giftsitem:", giftsItemArray);
+  //             //creating a new property in resultsArray called giftType and setting its value to gift names from giftItemArray
+  //             resultsArray.giftType = giftsItemArray[0]
+  //             console.log("resultsArrayPropertyValue:", resultsArray.giftType)
+  //           }
+  //         })
 
-          //was trying to extract/manipulate data above before setting state below.
-          this.setState({ results: resultsArray });
-          console.log(
-            "results isssssssssssssssssssssssssss:",
-            this.state.results
-          );
+  //         //was trying to extract/manipulate data above before setting state below.
+  //         this.setState({ results: resultsArray });
+  //         console.log(
+  //           "results isssssssssssssssssssssssssss:",
+  //           this.state.results
+  //         );
 
-          //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
-          //gift within the cards in the frontend. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
-          // But when I do that,  gift name doesn't show up on results page.
+  //         //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
+  //         //gift within the cards in the frontend. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
+  //         // But when I do that,  gift name doesn't show up on results page.
 
-          //***************************************************** */
+  //         //***************************************************** */
 
-          let newAddress = this.state.results;
+  //         let newAddress = this.state.results;
 
-          newAddress.map(userAddress => {
-            addressArray.push(userAddress.address);
-          });
-
+  //         newAddress.map(userAddress => {
+  //           addressArray.push(userAddress.address);
+  //         });
 
 
-          addressArray.forEach(eachAddress => {
-            this.latLong(eachAddress);
-          });
+
+  //         addressArray.forEach(eachAddress => {
+  //           this.latLong(eachAddress);
+  //         });
 
       
 
-          console.log("gueslat", this.state.guestLat);
-          console.log("addressArray2", addressArray);
-          // console.log('lat Long Array',latLongArray)
-          console.log("long Array", longArray);
-          console.log("distance Array", distanceArray);
+  //         console.log("gueslat", this.state.guestLat);
+  //         console.log("addressArray2", addressArray);
+  //         // console.log('lat Long Array',latLongArray)
+  //         console.log("long Array", longArray);
+  //         console.log("distance Array", distanceArray);
 
-          // this.goToDistance()
-        })
-        .catch(err => console.log(err));
-    }
-    if (
-      this.state.giftType === ""
+  //         // this.goToDistance()
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  //   if (
+  //     this.state.giftType === ""
 
 
-    ) {
-      this.handleErrorMessage();
-      // console.log("working");
-    }
+  //   ) {
+  //     this.handleErrorMessage();
+  //     // console.log("working");
+  //   }
 
-    console.log("final state before sending", this.state);
+  //   console.log("final state before sending", this.state);
 
-  };
+  // };
 
   goToDistance = () => {
     console.log("Length of latLongArray", latLongArray.length);
