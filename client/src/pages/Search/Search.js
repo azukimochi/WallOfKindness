@@ -326,7 +326,8 @@ class Search extends Component {
         this.state.category !== "None") {
       API.lookForGifts({
         gifts: this.state.giftType,
-        address: this.state.address
+        address: this.state.address,
+        category: this.state.category
       })
         .then(res => {
           console.log("karen res", res.data);
