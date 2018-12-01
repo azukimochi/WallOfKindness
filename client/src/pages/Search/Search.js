@@ -46,7 +46,7 @@ class Search extends Component {
     autoCompleteState: [],
     modalIsOpen: false,
     gifts: "",
-    category: "",
+    category: "None",
     address: "",
     range: "",
     errorMessage: "",
@@ -321,7 +321,9 @@ class Search extends Component {
     latLongArray = [];
     distanceArray = [];
  
-    if (this.state.giftType !== "" && this.state.address !== "") {
+    if (this.state.giftType !== "" && 
+        this.state.address !== "" &&
+        this.state.category !== "None") {
       API.lookForGifts({
         gifts: this.state.giftType,
         address: this.state.address
