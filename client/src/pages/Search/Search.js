@@ -338,17 +338,17 @@ class Search extends Component {
             giftArray.push(search.gifts);
             console.log("GA:", giftArray);
           })
-          //name of gift typed by the guest in the search input box
+          //gift name typed by guest in the search input box = giftTypeOfInput
           let giftTypeOfInput = this.state.giftType;
           console.log("GTI:", giftTypeOfInput);
 
-          //not sure why item is showing up as undefined. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
+          //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
           giftArray.forEach(function (result, i) {
             console.log("resultItem:", result);
             if (giftTypeOfInput === result[i].item) {
               giftsItemArray.push(result[i].item);
               console.log("giftsitem:", giftsItemArray);
-              //creatin a new property in resultsArray called giftType and setting its value to item names from giftItemArray
+              //creating a new property in resultsArray called giftType and setting its value to gift names from giftItemArray
               resultsArray.giftType = giftsItemArray[0]
               console.log("resultsArrayPropertyValue:", resultsArray.giftType)
             }
@@ -362,8 +362,7 @@ class Search extends Component {
           );
 
           //trying to pass name of value from resultsArray.giftType as a prop in searchresults.js. The  handleGiftsInputChange from line 132 seems to be changing the name of the
-          //gift in the cards. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
-          //Then in
+          //gift within the cards in the frontend. I was thinking of changing the name giftType to some other name like 'itemName' and passing that as props to break that link between the input box and result card. 
           // But when I do that,  gift name doesn't show up on results page.
 
           //***************************************************** */
@@ -380,13 +379,7 @@ class Search extends Component {
             this.latLong(eachAddress);
           });
 
-          //           latLongArray.map((eachLatLong,index)=>{
-
-          //             this.distanceCalc(eachLatLong.lat,eachLatLong.lng,this.state.guestLat,this.state.guestLong)
-          // console.log("jakesh", eachLatLong.lat)
-          //            })
-
-          // latArray.map()
+      
 
           console.log("gueslat", this.state.guestLat);
           console.log("addressArray2", addressArray);
