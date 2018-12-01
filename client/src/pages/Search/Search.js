@@ -346,8 +346,8 @@ class Search extends Component {
       }
     }
     
+    // Note by Karen: This function will go through each giftsArray of the users and determine the objects that include the gifttypeinput (case INSENSITIVE)
     removeUnwantedGifts = (giftArray, resultsArray) => {
-      // Note by Karen: This function will go through each giftsArray of the users and determine the objects that include the gifttypeinput (case INSENSITIVE)
       //gift name typed by guest in the search input box = giftTypeOfInput
       let giftTypeOfInput = this.state.giftType;
       let numOfLoops = 0;
@@ -370,7 +370,19 @@ class Search extends Component {
       }
       console.log("Finished looping. Cleaned up gifts array", cleanedAllGiftsArr)
       if (numOfLoops === giftArray.length) {
-        console.log("all done")
+        this.replaceGifts(cleanedAllGiftsArr, resultsArray)
+      }
+    }
+    // Note from Karen: This function will replace the gifts in the master results array with the cleaned up gifts array that only includes the matching items
+    replaceGifts = (cleanedAllGiftsArr, resultsArray) => {
+      let finalGiftArray = [...resultsArray];
+      let lengthOfArray = 0;
+      finalGiftArray.forEach((user, index) => {
+        user.gifts = cleanedAllGiftsArr[index]
+        lengthOfArray++
+      })
+      if (lengthOfArray === finalGiftArray.length) {
+        console.log("final gift array", finalGiftArray)
       }
     }
 
