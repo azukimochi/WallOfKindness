@@ -46,6 +46,7 @@ class Search extends Component {
     autoCompleteState: [],
     modalIsOpen: false,
     gifts: "",
+    category: "",
     address: "",
     range: "",
     errorMessage: "",
@@ -127,6 +128,11 @@ class Search extends Component {
   };
   handleGiftsChange = event => {
     this.setState({ gifts: event.target.value.toLowerCase() });
+  };
+
+  handleCategoryChange = event => {
+    this.setState({ category: event.target.value}, 
+    () => console.log(this.state.category));
   };
 
   handleGiftsInputChange = (event, giftType) => {
@@ -314,9 +320,7 @@ class Search extends Component {
     addressArray = [];
     latLongArray = [];
     distanceArray = [];
-    
-    // latArray=[];
-    // longArray=[];
+ 
     if (this.state.giftType !== "" && this.state.address !== "") {
       API.lookForGifts({
         gifts: this.state.giftType,
@@ -682,6 +686,8 @@ class Search extends Component {
             handleGiftAutocomplete={this.handleGiftAutocomplete}
             values={this.state.autoCompleteState}
             handleGiftsChange={this.handleGiftsChange}
+            handleCategoryChange={this.handleCategoryChange}
+            category = {this.state.category}
             // handleGiftsType={this.handleGiftsType}
             handleGiftsInputChange={this.handleGiftsInputChange}
             handleGiftsInputSelect={this.handleGiftsInputSelect}
