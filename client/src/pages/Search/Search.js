@@ -49,7 +49,7 @@ class Search extends Component {
     address: "",
     range: "",
     errorMessage: "",
-    results: [],
+    results: "",
     sectionTitle: "",
     limit: null,
     hasSearched: false,
@@ -276,12 +276,12 @@ class Search extends Component {
           lng: lng
         };
         latLongArray.push(obj);
-        console.log("testing latLong function", latLongArray);
-        console.log(addressArray.length);
-
+        
         if (latLongArray.length === addressArray.length) {
+          console.log("all lat and long completed. This is the latLongArray:", latLongArray);
           this.goToDistance();
         }
+
         // latLongArray.push(
         //   {lat:lat,
         //     lng:lng
@@ -310,6 +310,10 @@ class Search extends Component {
 
   handleSearchBtnSubmit = event => {
     event.preventDefault();
+    addressArray = [],
+    latLongArray = [],
+    distanceArray = []
+    this.setState({results: ""})
     // latArray=[];
     // longArray=[];
     if (this.state.giftType) {
@@ -329,6 +333,7 @@ class Search extends Component {
 
       } else {
         console.log("Can't search")
+        this.handleErrorMessage()
       }
     }
     
@@ -359,8 +364,16 @@ class Search extends Component {
         for (let j = 0; j<giftArray[i].length; j++) {
           let includesInput = regex.test(giftArray[i][j].item) //true or false if item includes the keyword that was searched
           console.log("individual item:", giftArray[i][j])
+          // if (includesInput === true) {
+          //   console.log("There's a matching gift at index:", j, "of user at index", i)
+          //   giftsItemArray.push(giftArray[i][j])
+          // }
+
           if (includesInput === true) {
             console.log("There's a matching gift at index:", j, "of user at index", i)
+            giftArray[i][j].address = resultsArray[i].address;
+            giftArray[i][j].name = resultsArray[i].name;
+            giftArray[i][j].wallName = resultsArray[i].wallName;
             giftsItemArray.push(giftArray[i][j])
           }
         }
@@ -382,8 +395,29 @@ class Search extends Component {
         lengthOfArray++
       })
       if (lengthOfArray === finalGiftArray.length) {
-        console.log("final gift array", finalGiftArray)
+        console.log("All replacements are done. The final gift array:", finalGiftArray)
+        this.setState({results: finalGiftArray},
+        () => this.getAddresses())
       }
+    }
+
+    getAddresses = () => {
+      console.log("Hi")
+      let newAddress = this.state.results;
+
+          newAddress.map(userAddress => {
+            addressArray.push(userAddress.address);
+          });
+          console.log(addressArray)
+
+          addressArray.forEach(eachAddress => {
+            this.latLong(eachAddress);
+          });
+
+          // console.log("gueslat", this.state.guestLat);
+          // console.log("addressArray2", addressArray);
+          // console.log("long Array", longArray);
+          // console.log("distance Array", distanceArray);
     }
 
           //sometimes item shows up as undefined in the console. Trying to grab name of gift if there is a match between what the guest typed in input box to the name of the item in giftArray
@@ -497,7 +531,6 @@ class Search extends Component {
     let results = [];
     this.state.results.map((result, index) => {
       result.distance = distanceArray[index];
-
       results.push(result);
     });
     this.setState({
