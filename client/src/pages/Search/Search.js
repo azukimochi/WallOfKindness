@@ -848,7 +848,7 @@ class Search extends Component {
                 contentLabel="Example Modal"
               >
                 <form id="emailForm">
-                  <div id="emailTo">
+                  <div className="emailTo">
                     To:{" "}
                     <input
                       type="text"
