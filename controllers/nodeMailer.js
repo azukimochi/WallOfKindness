@@ -14,7 +14,8 @@ var nodemailer = require('nodemailer');
         from: 'thewallofkindness@yahoo.com',
         to: emailTo,
         subject: emailSubject,
-        text: `${emailBody} Please reach back out to me at ${emailFrom}`
+        text: `${emailBody}\n
+        Please reach back out to me at ${emailFrom}`
       };
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {

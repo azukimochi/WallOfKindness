@@ -24,7 +24,7 @@ let originalResults = [];
 
 
 const emailConfirmation = () =>
-  toast.success("Your e-mail has been successfully sent", {
+  toast.success("Your e-mail is being sent.", {
     position: toast.POSITION.TOP_CENTER
   });
 const customStyles = {
@@ -206,12 +206,12 @@ class Search extends Component {
  
 
   emailSentMessage() {
-    let toast = document.getElementById("toast");
-    toast.classList.remove("invisible");
+    // let toast = document.getElementById("toast");
+    // toast.classList.remove("invisible");
 
-    setTimeout(function () {
-      toast.classList.add("invisible");
-    }, 2000);
+    // setTimeout(function () {
+    //   toast.classList.add("invisible");
+    // }, 2000);
     document.getElementById("emailForm").classList.add("invisible");
     emailConfirmation();
   }
@@ -857,7 +857,7 @@ class Search extends Component {
                 contentLabel="Example Modal"
               >
                 <form id="emailForm">
-                  <h4>
+                  <div id="emailTo">
                     To:{" "}
                     <input
                       type="text"
@@ -865,7 +865,7 @@ class Search extends Component {
                       placeholder="Donor's Email"
                       value={this.state.reqButton}
                     />{" "}
-                  </h4>
+                  </div>
                   {/* <h4>To: <input type="text" id="emailTo" placeholder="Donor's Email" />{this.state.results.email} </h4> */}
                   <h4>
                     From:{" "}

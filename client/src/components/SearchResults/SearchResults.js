@@ -28,9 +28,9 @@ const SearchResults = props =>
               Request
             </button>
 
-            <h4 className="invisible" id="toast">
-              Email Sent Successfully!
-            </h4>
+            {/* <h4 className="invisible" id="toast">
+              Your email is being sent.
+            </h4> */}
           </div>
         </div>
       </div>
