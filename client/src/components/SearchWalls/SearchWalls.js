@@ -12,7 +12,7 @@ const SearchWall = props => (
       <p className="errorMessage">{props.errorMessage}</p>
 
       <div className="row inputRows">
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           <label htmlFor="item">Item</label>
           <br />
           <Autocomplete
@@ -39,6 +39,7 @@ const SearchWall = props => (
           />
         </div>
 
+
         <div className="col-sm-6">
           <label htmlFor="area">Current Location</label>
           <br />
@@ -55,6 +56,7 @@ const SearchWall = props => (
             
           />
         </div>
+
 
         <div className="col-sm-6">
           <label htmlFor="area">Category</label>
