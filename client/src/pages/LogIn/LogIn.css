@@ -1,4 +1,4 @@
-.logInBtn, .signUpDiv {
+.LogIn, .logInBtn, .signUpDiv {
     text-align: center; 
 }
 
@@ -6,3 +6,4 @@
 font-family: 'Patua One', cursive;
 text-align: center; 
 };
+
