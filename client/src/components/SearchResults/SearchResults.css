@@ -16,11 +16,11 @@
   color: #FFFFFF;
   height:auto;
   width:100%
-
-
 }
 
-
+#emailTo {
+display: none
+}
 
 .searchTitle { 
 font-family: 'Patua One', cursive;

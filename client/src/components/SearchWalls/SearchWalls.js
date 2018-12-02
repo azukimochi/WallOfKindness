@@ -39,8 +39,9 @@ const SearchWall = props => (
           />
         </div>
 
-        <div className="col-sm-4">
-          <label htmlFor="area">Area</label>
+
+        <div className="col-sm-6">
+          <label htmlFor="area">Current Location</label>
           <br />
           <input
             onFocus={props.onFocusArea}
@@ -56,8 +57,9 @@ const SearchWall = props => (
           />
         </div>
 
-        <div className="col-sm-4">
-        <label htmlFor="area">Category</label>
+
+        <div className="col-sm-6">
+          <label htmlFor="area">Category</label>
           <br />
 
           <select name="category" value={props.category} onChange={props.handleCategoryChange}>

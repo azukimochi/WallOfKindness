@@ -32,13 +32,13 @@ class Main extends Component {
           <Row>
             <Col size="sm-6">
               <h3 className="mainHeaders">Search for Donated Items</h3>
-              <p className="pageContainers">Search for food or used clothing and connect with donors through email. Here at our Wall, we try to create a safe and judgement free environment to donate excess Items and reduce wastage. </p>
+              <p className="pageContainers">Search for food or used garments and connect with donors through email. Here at our Wall, we try to create a safe and judgement-free environment to donate unneeded food and clothing and reduce waste. </p>
               <a href="/search"><button className="searchBtn" >Search Page</button></a>
             </Col>
 
             <Col size="sm-6 donate">
               <h3 className="mainHeaders">Donate to Someone in Need</h3>
-              <p className="pageContainers">Sign up to make your 'Wall of Kindness' and become a donor. A recipient may contact you via your email for more information. Sign up and see how you can help your fellow neighbours in a pinch! Everyone is welcome to take part in change.</p>
+              <p className="pageContainers">Sign up to make your 'Wall of Kindness' and become a donor. Users may contact you via email to obtain your donations. Sign up and see how you can help your fellow neighbours in a pinch! Everyone is welcome to take part in change.</p>
               <div className="groupButtons">
                 <a href="signUp"><button disabled={this.state.isAuthorized} className="registerBtn register">Register</button></a>
                 <a href="login"><button disabled={this.state.isAuthorized} className="signInBtn signIn">Sign-In</button></a>

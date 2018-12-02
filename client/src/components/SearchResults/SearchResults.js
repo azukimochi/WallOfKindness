@@ -10,7 +10,7 @@ const SearchResults = props =>
           <div className="card-body" id="resultsDiv">
             {console.log("props is:", props)}
 
-            <p className="card-text">Full Name: {props.name}</p>
+            {/* <p className="card-text">Full Name: {props.name}</p> */}
             <p className="card-text">Wall Name: {props.wallName.toUpperCase()}</p>
             <p className="card-text"> Gift Name: {props.item}</p>
             <p className="card-text"> Distance:</p>
@@ -28,9 +28,9 @@ const SearchResults = props =>
               Request
             </button>
 
-            <h4 className="invisible" id="toast">
-              Email Sent Successfully!
-            </h4>
+            {/* <h4 className="invisible" id="toast">
+              Your email is being sent.
+            </h4> */}
           </div>
         </div>
       </div>

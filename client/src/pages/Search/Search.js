@@ -24,7 +24,7 @@ let originalResults = [];
 
 
 const emailConfirmation = () =>
-  toast.success("Your e-mail has been successfully sent", {
+  toast.success("Your e-mail is being sent.", {
     position: toast.POSITION.TOP_CENTER
   });
 const customStyles = {
@@ -206,12 +206,12 @@ class Search extends Component {
  
 
   emailSentMessage() {
-    let toast = document.getElementById("toast");
-    toast.classList.remove("invisible");
+    // let toast = document.getElementById("toast");
+    // toast.classList.remove("invisible");
 
-    setTimeout(function () {
-      toast.classList.add("invisible");
-    }, 2000);
+    // setTimeout(function () {
+    //   toast.classList.add("invisible");
+    // }, 2000);
     document.getElementById("emailForm").classList.add("invisible");
     emailConfirmation();
   }
@@ -772,12 +772,24 @@ class Search extends Component {
             </Container>
             : null}
 
+          {this.state.hasSearched === false && this.state.resultsNotFound === false ? 
+           <div className="welcomeDiv">
+           <h1 className="welcomeBanner">Welcome!</h1>
+           <p id="welcomeNote">
+           Feel free to search our archive of gifts from our donors.  
+           The searches are based on your current location only.
+           If you like what you see, you can request it from an
+           angel and organize a time to pick the item up!
+           </p>
+           </div>
+          :null}
+
           {this.state.hasSearched ? (
             <div>
               <hr style={{ height: '1px', backgroundColor: '#e81e17', width: '80%', textAlign: 'center', margin: '0 auto' }} />
               <h3 className="resultTitle">Results</h3>
               <div style={{ width: '30%', textAlign: 'center', margin: '0 auto' }}>
-                <label htmlFor="item">Select Your Range</label>
+                <label htmlFor="item">Select a Range in Distance</label>
                 <br />
                 <select
                   onChange={this.filterResults}
@@ -802,7 +814,7 @@ class Search extends Component {
                     <SearchResults
                       index={index}
                       // id={result._id}
-                      name={result.name}
+                      // name={result.name}
                       wallName={result.wallName}
                       item={result.item}
                       email={result.email}
@@ -836,7 +848,7 @@ class Search extends Component {
                 contentLabel="Example Modal"
               >
                 <form id="emailForm">
-                  <h4>
+                  <div id="emailTo">
                     To:{" "}
                     <input
                       type="text"
@@ -844,7 +856,7 @@ class Search extends Component {
                       placeholder="Donor's Email"
                       value={this.state.reqButton}
                     />{" "}
-                  </h4>
+                  </div>
                   {/* <h4>To: <input type="text" id="emailTo" placeholder="Donor's Email" />{this.state.results.email} </h4> */}
                   <h4>
                     From:{" "}
@@ -879,16 +891,9 @@ class Search extends Component {
                 </form>
               </Modal>
             </div>
-          ) : (
-              <div className="welcomeDiv">
-                <h1 className="welcomeBanner">Welcome!</h1>
-                <p id="welcomeNote">
-                  Feel free to search our list of gifts available to you from our
-                  donors. If you like what you see, you can request it from an
-                  angel and organize a time to pick it up!
-              </p>
-              </div>
-            )}
+          ) : null
+             
+            }
 
           <ToastContainer />
         </Wrapper>
