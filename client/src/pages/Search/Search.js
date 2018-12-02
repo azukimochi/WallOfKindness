@@ -534,7 +534,8 @@ class Search extends Component {
     if (distanceArray.length === latLongArray.length) {
       let results = [];
       this.state.results.map((result, index) => {
-        result.distance = distanceArray[index];
+        result.distanceM = distanceArray[index];
+        result.distanceKM = (distanceArray[index]*0.001).toFixed(2)
         results.push(result);
       });
       if (results.length === this.state.results.length) {
@@ -631,7 +632,7 @@ class Search extends Component {
         console.log("originalResults",originalResults);
 
         originalResults.filter(result => {
-          result.distance <= 500 ? caseResults.push(result) : null;
+          result.distanceM <= 500 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -645,7 +646,7 @@ class Search extends Component {
       case "10":
         console.log("Range Selected: 0 -1000m");
         originalResults.filter(result => {
-          result.distance <= 1000 ? caseResults.push(result) : null;
+          result.distanceM <= 1000 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -658,7 +659,7 @@ class Search extends Component {
       case "15":
         console.log("Range Selected: 0 -1500m");
         originalResults.filter(result => {
-          result.distance <= 1500 ? caseResults.push(result) : null;
+          result.distanceM <= 1500 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -671,7 +672,7 @@ class Search extends Component {
       case "20":
         console.log("Range Selected: 0 - 2km");
         originalResults.filter(result => {
-          result.distance <= 2000 ? caseResults.push(result) : null;
+          result.distanceM <= 2000 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -684,7 +685,7 @@ class Search extends Component {
       case "50":
         console.log("Range Selected: 0 - 5km");
         originalResults.filter(result => {
-          result.distance <= 5000 ? caseResults.push(result) : null;
+          result.distanceM <= 5000 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -698,7 +699,35 @@ class Search extends Component {
         case "100":
         console.log("Range Selected: 0 - 10km");
         originalResults.filter(result => {
-          result.distance <= 10000 ? caseResults.push(result) : null;
+          result.distanceM <= 10000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+
+        case "200":
+        console.log("Range Selected: 0 - 20km");
+        originalResults.filter(result => {
+          result.distanceM <= 20000 ? caseResults.push(result) : null;
+        });
+        console.log("result distance:", caseResults);
+        // results.push(result)
+
+        // console.log("result distance:", newResult);
+        this.setState({
+          results: caseResults
+        });
+        break;
+
+        case "300":
+        console.log("Range Selected: 0 - 30km");
+        originalResults.filter(result => {
+          result.distanceM <= 30000 ? caseResults.push(result) : null;
         });
         console.log("result distance:", caseResults);
         // results.push(result)
@@ -767,12 +796,14 @@ class Search extends Component {
                   id="filterResult"
                 >
                   <option value="All">All</option>
-                  <option value="5">0 - 500m</option>
-                  <option value="10">0 - 1000m</option>
-                  <option value="15">0 -1500m</option>
-                  <option value="20">0 - 2km</option>
-                  <option value="50">0 - 5km</option>
-                  <option value="100">0 - 10km</option>
+                  <option value="5">0 - 500 m</option>
+                  <option value="10">0 - 1000 m</option>
+                  <option value="15">0 -1500 m</option>
+                  <option value="20">0 - 2 km</option>
+                  <option value="50">0 - 5 km</option>
+                  <option value="100">0 - 10 km</option>
+                  <option value="200">0 - 20 km</option>
+                  <option value="300">0 - 30 km</option>
                 </select>
               </div>
               <Container>
@@ -798,7 +829,8 @@ class Search extends Component {
                       // latLong={this.latLong}
                       // latArray={this.state.latArray}
                       // longArray={this.state.longArray}
-                      distance={result.distance}
+                      distanceM={result.distanceM}
+                      distanceKM={result.distanceKM}
                     // latLong={this.latLong}
                     />
                   ))}
