@@ -12,7 +12,7 @@ const SearchWall = props => (
       <p className="errorMessage">{props.errorMessage}</p>
 
       <div className="row inputRows">
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           <label htmlFor="item">Item</label>
           <br />
           <Autocomplete
@@ -39,7 +39,7 @@ const SearchWall = props => (
           />
         </div>
 
-        <div className="col-sm-6">
+        <div className="col-sm-4">
           <label htmlFor="area">Area</label>
           <br />
           <input
@@ -56,7 +56,8 @@ const SearchWall = props => (
           />
         </div>
 
-        <div className="col-sm-6">
+        <div className="col-sm-4">
+        <label htmlFor="area">Category</label>
           <br />
 
           <select name="category" value={props.category} onChange={props.handleCategoryChange}>

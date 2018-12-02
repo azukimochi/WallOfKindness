@@ -442,17 +442,7 @@ class Search extends Component {
 
   //         //***************************************************** */
 
-  //         let newAddress = this.state.results;
 
-  //         newAddress.map(userAddress => {
-  //           addressArray.push(userAddress.address);
-  //         });
-
-
-
-  //         addressArray.forEach(eachAddress => {
-  //           this.latLong(eachAddress);
-  //         });
 
       
 
