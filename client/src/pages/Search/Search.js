@@ -823,7 +823,7 @@ class Search extends Component {
                     <SearchResults
                       index={index}
                       // id={result._id}
-                      name={result.name}
+                      // name={result.name}
                       wallName={result.wallName}
                       item={result.item}
                       email={result.email}
