@@ -113,7 +113,7 @@ class DashboardPage extends Component {
     if (errNum === 0 ) {
       this.makeGiftsObj(copyOfCategories, copyOfGifts)
     } else {
-      this.setState({updateStatus: "Update aborted. Please fill out all item names and categories."})
+      this.setState({updateStatus: "Update aborted. Please fill out all item names and categories.  You can only have 5 items at once."})
     }
   }
 
