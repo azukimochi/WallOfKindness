@@ -11,7 +11,8 @@ var nodemailer = require('nodemailer');
   module.exports = {
     sendMail: function(emailTo, emailFrom, emailSubject, emailBody){
       var mailOptions = {
-        from: 'thewallofkindness@yahoo.com',
+        // from: 'thewallofkindness@yahoo.com',
+        from: 'karen.kuak@gmail.com',
         to: emailTo,
         subject: emailSubject,
         text: `${emailBody}\n

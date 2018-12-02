@@ -90,7 +90,6 @@ class LogIn extends Component {
 							<button className="logInBtn registerBtn">Log In</button>
 							</div>
 						</form>
-						<p>Don't have an account? Sign-up for one <a href="/signup">here</a>.</p>
 						{this.state.statusMsg}
 
 					</div>
