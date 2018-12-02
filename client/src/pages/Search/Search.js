@@ -786,9 +786,10 @@ class Search extends Component {
            <div className="welcomeDiv">
            <h1 className="welcomeBanner">Welcome!</h1>
            <p id="welcomeNote">
-           Feel free to search our list of gifts available to you from our
-           donors. If you like what you see, you can request it from an
-           angel and organize a time to pick it up!
+           Feel free to search our archive of gifts from our donors.  
+           The searches are based on your current location only.
+           If you like what you see, you can request it from an
+           angel and organize a time to pick the item up!
            </p>
            </div>
           :null}
@@ -798,7 +799,7 @@ class Search extends Component {
               <hr style={{ height: '1px', backgroundColor: '#e81e17', width: '80%', textAlign: 'center', margin: '0 auto' }} />
               <h3 className="resultTitle">Results</h3>
               <div style={{ width: '30%', textAlign: 'center', margin: '0 auto' }}>
-                <label htmlFor="item">Select Your Range</label>
+                <label htmlFor="item">Select a Range in Distance</label>
                 <br />
                 <select
                   onChange={this.filterResults}

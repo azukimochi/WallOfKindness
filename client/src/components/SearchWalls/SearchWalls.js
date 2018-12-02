@@ -40,7 +40,7 @@ const SearchWall = props => (
         </div>
 
         <div className="col-sm-6">
-          <label htmlFor="area">Your Current Location</label>
+          <label htmlFor="area">Current Location</label>
           <br />
           <input
             onFocus={props.onFocusArea}
