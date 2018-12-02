@@ -782,6 +782,17 @@ class Search extends Component {
             </Container>
             : null}
 
+          {this.state.hasSearched === false && this.state.resultsNotFound === false ? 
+           <div className="welcomeDiv">
+           <h1 className="welcomeBanner">Welcome!</h1>
+           <p id="welcomeNote">
+           Feel free to search our list of gifts available to you from our
+           donors. If you like what you see, you can request it from an
+           angel and organize a time to pick it up!
+           </p>
+           </div>
+          :null}
+
           {this.state.hasSearched ? (
             <div>
               <hr style={{ height: '1px', backgroundColor: '#e81e17', width: '80%', textAlign: 'center', margin: '0 auto' }} />
@@ -889,16 +900,9 @@ class Search extends Component {
                 </form>
               </Modal>
             </div>
-          ) : (
-              <div className="welcomeDiv">
-                <h1 className="welcomeBanner">Welcome!</h1>
-                <p id="welcomeNote">
-                  Feel free to search our list of gifts available to you from our
-                  donors. If you like what you see, you can request it from an
-                  angel and organize a time to pick it up!
-              </p>
-              </div>
-            )}
+          ) : null
+             
+            }
 
           <ToastContainer />
         </Wrapper>
