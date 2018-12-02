@@ -1,16 +1,4 @@
 
-/* nav.navbar.navbar-default {
-    margin-bottom: 0;
-  }
-
-  .nav{
-    background-color: black;
-} */
-/* .navbar-default {
-  background-color:teal;
-  background-image: none;
-  background-repeat: no-repeat;
- } */
 
 @keyframes shine {
   from {
@@ -37,17 +25,34 @@ animation: shine 5s linear infinite;
   border-radius:0px !important;
   padding-top:5px;
 }
+
+
+a{
+  color:white !important;
+}
+
+
+a.activeTwo.active{
+color:white !important;
+
+}
+
+
+
 a.active{
+
   background-color:unset !important;
-  color:#9d9d9d !important
+  color:red !important;
 }
-
-/* .navbar-inverse{
-  background: #ee6e73;
-  color:white;
-}
-
-li .active{
-  background:green;
+/* a.activeTwo.active{
+  color:red !important;
 } */
+/* .activeTwo.active{
+  color:red !important;
+} */
+
+
+
+
+
 
