@@ -102,11 +102,11 @@ const WallBody = props => (
                 ))}
                 </Col>
             </Row>
-
-
             <br />
 
+          <div id="updateStatus">
           {props.updateStatus}
+          </div>
 
           <button
             id="updateWallButton"

@@ -1,4 +1,3 @@
-
 #categories{
     margin-top:25px;
 }
@@ -7,6 +6,9 @@
     margin-bottom:25px;
 }
 
+#updateStatus {
+    text-align: center;
+}
 
 .row{
     margin:0 auto;
