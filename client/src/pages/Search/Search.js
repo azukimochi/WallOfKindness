@@ -487,7 +487,7 @@ class Search extends Component {
 
   GetAddress = (lat, lng) => {
     const script = document.createElement("script");
-    script.src = `http://maps.googleapis.com/maps/api/js?sensor=false`;
+    script.src = `https://maps.googleapis.com/maps/api/js?sensor=false`;
     script.async = true;
     document.body.appendChild(script);
     // console.log("alan state chie:", this.state);
