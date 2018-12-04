@@ -7,6 +7,8 @@ import NavBar from './components/Navbar'
 import LogIn from './pages/LogIn'
 import LogOut from './pages/LogOut'
 import SignUp from './pages/SignUp'
+import Footer from "./components/Footer";
+import NoMatch from "./pages/NoMatch";
 // import VIP from './views/VIP'
 // import Home from './views/Home'
 
@@ -42,7 +44,9 @@ const App = () => (
 		  <Route exact path="/dashboard" component={DashboardPage} />
 		  <Route exact path="/messages" component={Chat} />
 		  <Route exact path="/" component={Main} />
+		  <Route component={NoMatch} />
 		</Switch>
+		<Footer />
 	  </div>
 	</Router>
   );
