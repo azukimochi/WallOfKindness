@@ -4,7 +4,7 @@ import "./Navbar.css";
 
 class NavBar extends Component {
   componentDidMount = () => {
-    // console.log("Nav bar mounted");
+    console.log("Nav bar mounted");
   };
   render() {
     const isAuthenticated = localStorage.getItem("auth");

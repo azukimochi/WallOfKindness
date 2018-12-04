@@ -4,7 +4,7 @@ import axios from "axios";
 export default {
   // Gets all books
   lookForGifts: function(searchParams) {
-    // console.log('searchParams',searchParams)
+    console.log('searchParams',searchParams)
     // return axios.get("/api/searchGifts");
     return axios.get("/api/walls/searchGifts?gifts=" + searchParams.gifts + "&area=" + searchParams.address + "&category=" + searchParams.category)
   },
