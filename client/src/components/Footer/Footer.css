@@ -12,10 +12,16 @@
     width: 100%;
     background-color: black;
     color: white;
+    /* margin:90px auto; */
     /* text-align: center; */
     padding:10px;
     height:40px;
  }
+
+ /* .footer-content{
+    width:90%;
+    
+ } */
   
 /* #copyright {
   margin-left:10px;
@@ -25,8 +31,15 @@
     margin-left:100px;
     
     } */
-    .left {float:left;}
-    .right {float:right;}
+    .left {
+      float:left;
+      /* width:90%; */
+    }
+    .right {
+      /* padding:10px; */
+      float:right;
+      /* width:90%; */
+    }
  
 
  
