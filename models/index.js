@@ -1,3 +1,6 @@
 module.exports = {
-  User: require("./User")
+	Walls: require("./Walls"),
+	// guestMessage: require("./guestMessage"),
+	// SavedDonors: require("./SavedDonors"),
+	User:require("./User")
 };
