@@ -43,4 +43,4 @@ This app was created by:
 * [aboozarmodeh](https://github.com/aboozarmojdeh)
 * [Apbh](https://github.com/Apbh)
 
-
+![screenshot](https://azukimochi.github.io/WallOfKindness/README_images/screenshot.png)
