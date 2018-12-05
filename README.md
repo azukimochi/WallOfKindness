@@ -1,90 +1,46 @@
+# Wall of Kindness - Reduce Waste and Give Back
 
-# Wall of Kindness
-### [Click here](???) to see the deployed version
+## Problem to Solve/Purpose
 
-## UofT Coding Bootcamp - Final Project
+This app aims to reduce organic and textile waste while providing food and garments to those in need.
 
-### Developed by:
-**  Aparajita - [GitHub](https://github.com/Apbh) **
+## Solution
 
-** Aboozar Mojdeh - [GitHub](https://github.com/aboozarmojdeh) **
+The core of this app is its community-driven functionality to gift basic necessities, primarily clothing and food items.  Individuals/businesses can register for an account to become donors.  They are then allowed to advertise  food/clothing items that they no longer need.  These donations are searchable by the public, so individuals/businesses who are in need of these food/clothing items can contact the donors to receive the items.  Therefore, donors and users can reduce their total organic and textile wastage while feeding/clothing those in need. 
 
-** Marshall - [GitHub](https://github.com/hippiestyle) **
+## Main Functionalities
 
-** Luke Ramsay - [GitHub](https://github.com/ramsayyl) **
+* Donors advertise unneeded food and clothing items (reduce organic and textile waste while helping others in need)
+* Users can publicly search for food and garments that they need and then contact donors via email to coordinate the exchange
+* Search results show distances between the donations and the recipients (based on the recipient's current location).  These distances are calculated in metres and kilometres, so they are accessible for both recipients who can only walk to destinations and recipients who can drive/commute.
 
-## Why Wall of Kindness?
-### There is so much waste in our day-to-day lives and so many people that require basic items. We want to connect them to those that want to help but unsure how to proceed
+## Security
 
+* Donors must sign up for an account 
+* Passwords are encrypted in the database 
+* Session tokens are provided upon a successful login 
+* Sessions last 300s (roughly 5 minutes) for testing purposes
+* Session tokens are validated upon every API call for the donors (if the token has expired, the user must login again to proceed)
+* User profiles and donations/gifts are account-based, so a donor cannot view the details of other donors
+* Emails of the donors are not rendered in the view for the public when making a request to contact a donor to receive donations  
 
-* Food or any other donations at the moment isn’t accessible to everyone through an online platform
-* We knew that food wastage is a big issue in Canada, whereby approximately 170kg of food is wasted in Toronto per person/year
-* We know that people that need such services the most,  might not be willing to create an account or have access to internet
-* Our app can be accessed through mobile and for those without internet, through wifi offered by the Toronto public library
+## Technologies/Tools
 
-## Problems to Solve
-* Make it easy for guests to search for donations through our app without the need for an account with us
-* Guests can also see through the search results the closest gift donation based on distance in km
-* We allow users to directly request an item through email
-* Autocomplete feature makes it easy for guests to see the items available in our database
-* Easy for users to add/remove gifts from their dashboard
+React.js, MongoDB, Node.js, Express.js, CSS, JWT, Bcrypt, other node packages, YARN
 
-## User Story
-* As an angel we want to be able provide any items or products that can be given away to those in need. 
-* As a recipient, we want to be able to have quick and easy access to food, items and other household items when we need them the most. 
+## Installation/Using the Deployed App 
 
-### Our application was structured from two perspectives:
-### Angel:
-* Register with the app
-* Update their profile
-* Add gifts for donation
-* Remove gifts from donation.
-* Receive emails from guests for donation.
+* Git clone the repo
+* In the command line, run **yarn install** at the root and in the client folder
+* Cd back to the root after installing all the node modules and run **yarn start**
+* Deployment on Heroku: 
 
-### Guest: 
-* Search for Gifts 
-* Request Gifts via email
-* Get results based on closest donors in KM
+## Creators
 
+This app was created by:
 
-
-
-## Technologies used:
-### Front-end:
-* React
-* React Router
-* Bootstrap
-* HTML5
-* CSS3
-* Toaster
-### Back-end:
-* Node Js
-* express
-* Mongoose
-* Axios
-* Yarn
-* JWT
-
-
-## Future Developments
-* Update Wall feature
-* Drag and drop items with list items
-* Sort geolocation based on location and range. 
-* Sending gift requests based on SMS or in-app communication
-* Allow organizations to create an account as a user. 
-* Ability to add task functions with multiple rates associated. 
-* Change Mongo to MySQL to make data more relational
-* Make an Android and iOS application
-
-
-## Cloning down the repo
-If you wish to clone the app down to your local machine...
-  1. Ensure that you have MongoDB set up on your machine
-  2. Once you are set up, `cd` into this repo and run `npm install or yarn install`.
-  3. Then open another bash or terminal window and run `mongod`
-  4. Run the script with `yarn start`.
-  5. The app will automatocally open the `localhost:3000` in your browser.
-  6. Enjoy!!!
-
+* [azukimochi] (https://github.com/azukimochi)
+* [aboozarmodeh] (https://github.com/aboozarmojdeh)
+* [Apbh] (https://github.com/Apbh)
 
 
