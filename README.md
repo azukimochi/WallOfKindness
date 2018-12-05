@@ -26,7 +26,7 @@ The core of this app is its community-driven functionality to gift basic necessi
 
 ## Technologies/Tools
 
-React.js, MongoDB, Node.js, Express.js, CSS, JWT, Bcrypt, other node packages, YARN
+React.js, MongoDB, Node.js, Express.js, CSS, JWT, Bcrypt, Nodemailer, other node packages, YARN
 
 ## Installation/Using the Deployed App 
 
