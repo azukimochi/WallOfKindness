@@ -39,8 +39,8 @@ React.js, MongoDB, Node.js, Express.js, CSS, JWT, Bcrypt, other node packages, Y
 
 This app was created by:
 
-* [azukimochi] (https://github.com/azukimochi)
-* [aboozarmodeh] (https://github.com/aboozarmojdeh)
-* [Apbh] (https://github.com/Apbh)
+* [azukimochi](https://github.com/azukimochi)
+* [aboozarmodeh](https://github.com/aboozarmojdeh)
+* [Apbh](https://github.com/Apbh)
 
 
