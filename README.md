@@ -33,7 +33,8 @@ React.js, MongoDB, Node.js, Express.js, CSS, JWT, Bcrypt, other node packages, Y
 * Git clone the repo
 * In the command line, run **yarn install** at the root and in the client folder
 * Cd back to the root after installing all the node modules and run **yarn start**
-* Deployment on Heroku: 
+* Deployment on Heroku: https://wallofkindness-donationapp.herokuapp.com/
+* On the deployed site, you can search for cherries, noodles, scarf, and hat. 
 
 ## Creators
 
