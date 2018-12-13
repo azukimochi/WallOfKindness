@@ -11,7 +11,6 @@ router.use("/auth", verifytoken, securedRoutes);
 
 // Verify Token Before Continuting with API routes 
 function verifytoken(req, res, next) {
-    // console.log("Hello", req)
     //Get auth header value
      const bearerHeader = req.headers['authorization'];
     //Check if bearer is undefined
@@ -21,9 +20,7 @@ function verifytoken(req, res, next) {
       // Get token from array
       const bearerToken = bearer[1];
       //Set the token
-      req.token = bearerToken;
-      //Check you have the correct token    
-      console.log("I am req.token", req.token)
+      req.token = bearerToken; 
       //Use JWT to verify that the token is active session   
         jwt.verify(req.token, 'secretkey', (err, authData) => {
 
