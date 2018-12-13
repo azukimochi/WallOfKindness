@@ -62,16 +62,14 @@ const WallBody = props => (
             Add More Items
                 </button>
 
-          
+          <Row>
+            <Col size="lg-12">
+              {props.gifts.map((item, index) => (
 
-              <Row>
-                <Col size="lg-12">
-            {props.gifts.map((item, index) => (
-           
                 <Col size="lg-6">
-                  
+
                   <div key={index}>
-                  
+
                     <Col size="lg-2">
                       <i
                         className="fas fa-trash-alt"
@@ -92,20 +90,20 @@ const WallBody = props => (
                         <option value="Food">Food</option>
                         <option value="Clothing">Clothing</option>
                       </select>
-                   
+
                     </Col>
-                   
+
                   </div>
-                  
-                  </Col>
-                
-                ))}
+
                 </Col>
-            </Row>
-            <br />
+
+              ))}
+            </Col>
+          </Row>
+          <br />
 
           <div id="updateStatus">
-          {props.updateStatus}
+            {props.updateStatus}
           </div>
 
           <button

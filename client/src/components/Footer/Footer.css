@@ -1,11 +1,4 @@
-
-/* .footer {
-    min-height: 100px;
-    background: #E5E5E5;
-    position: relative;
-  } */
-
-  .footer {
+.footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -13,37 +6,18 @@
     background-color: black;
     color: white;
     opacity:.9;
-    /* margin:90px auto; */
-    /* text-align: center; */
-    /* padding:10px; */
     height:auto;
  }
 
- /* .footer-content{
-    width:90%;
-    
-    
-    
- } */
-  
-/* #copyright {
-  margin-left:10px;
-  display: inline-block;
-  }
-#authors {
-    margin-left:100px;
-    
-    } */
-    .left {
+.left {
       text-align:center;
       margin-bottom:0px;
-    }
-    .right {
+}
+
+.right {
       text-align:center;
-      /* padding-top:0px; */
-      /* margin:0; */
       margin-bottom:0px;
-    }
+}
  
 
  
