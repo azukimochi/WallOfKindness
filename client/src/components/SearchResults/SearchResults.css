@@ -3,7 +3,6 @@
   }
 
 .resultsBox {
-    /* width: 80%;  */
     margin: 0 auto; 
   }
 
@@ -24,7 +23,6 @@ display: none
 
 .searchTitle { 
 font-family: 'Patua One', cursive;
-
 }
 
 .card-body { 
@@ -33,8 +31,6 @@ background-color: #f5f5f5;
 
 .card-header {
   background-color: #38425B !important; 
- 
-
 }
 
 #resultsHeader {
@@ -46,7 +42,6 @@ background-color: #f5f5f5;
   background-color: #38425B;
   color: white; 
   border-color: #38425B;
-
 }
 
 .requestBtn:hover { 

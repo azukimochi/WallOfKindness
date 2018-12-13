@@ -1,10 +1,11 @@
 var nodemailer = require('nodemailer');
+require('dotenv').config();
 
   var transporter = nodemailer.createTransport({
     service: 'Yahoo',
     auth: {
-      user: 'thewallofkindness',
-      pass: 'finalproject'
+      user: process.env.EMAIL,
+      pass: process.env.PASS
     }
   });
 
@@ -20,7 +21,7 @@ var nodemailer = require('nodemailer');
         if (error) {
           console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+          console.log('Email sent!');
         }
       });
   

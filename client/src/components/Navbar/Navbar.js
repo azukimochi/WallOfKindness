@@ -3,9 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 class NavBar extends Component {
-  componentDidMount = () => {
-    console.log("Nav bar mounted");
-  };
+
   render() {
     const isAuthenticated = localStorage.getItem("auth");
 
@@ -15,7 +13,7 @@ class NavBar extends Component {
           <li
             className={
               window.location.pathname === "/" ||
-              window.location.pathname === "/home"
+                window.location.pathname === "/home"
                 ? "active"
                 : ""
             }
@@ -59,7 +57,7 @@ class NavBar extends Component {
           <li
             className={
               window.location.pathname === "/" ||
-              window.location.pathname === "/home"
+                window.location.pathname === "/home"
                 ? "active"
                 : ""
             }
