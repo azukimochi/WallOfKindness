@@ -17,7 +17,6 @@
     0 20px 20px rgba(0,0,0,.15);
 }
 
-
 .subText{
     text-align: center;
     font-family: 'Montserrat', sans-serif;
@@ -75,8 +74,6 @@
 .pageContainers {
     min-height: 50px; 
     font-family: 'Montserrat', sans-serif;
-
-
 };
 
 

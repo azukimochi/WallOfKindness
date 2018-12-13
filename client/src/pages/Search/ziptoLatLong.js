@@ -1,13 +1,12 @@
-// const axios =require('axios')
 import axios from "axios"
 function lonlat() {
 	
-	var input = document.getElementById('zip');	
-	var lonlat = document.getElementById('lonlat');
+	let input = document.getElementById('zip');	
+	let lonlat = document.getElementById('lonlat');
 	
 	if (event.keyCode === 13 && input.value.length === 6) {
 
-		var address = input.value;
+		let address = input.value;
 
         axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
             params:{

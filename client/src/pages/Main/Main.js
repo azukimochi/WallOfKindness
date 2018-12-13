@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import Jumbotron from "../../components/Jumbotron";
-// import Container from "../components/Container";
-// import Row from "../components/Row";
-// import Col from "../components/Col";
 import { Col, Row, Container } from "../../components/Grid";
 import "./Main.css"
-
-
 
 class Main extends Component {
   state = {
@@ -23,10 +18,7 @@ class Main extends Component {
       <div>
         <Jumbotron>
           <h1 className="welcomeMsg">Wall of Kindness</h1>
-          {/* <h2 className="subText">The average Canadian consumer throws out an estimated 170kg of food a year. </h2> */}
           <h2 className="subText">feed your heart and your stomach</h2>
-
-
         </Jumbotron>
         <Container style={{ marginTop: 30 }}>
           <Row>
