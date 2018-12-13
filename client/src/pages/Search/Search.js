@@ -652,9 +652,7 @@ class Search extends Component {
               </Modal>
             </div>
           ) : null
-
           }
-
           <ToastContainer />
         </Wrapper>
       </div>

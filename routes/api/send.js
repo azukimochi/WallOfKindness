@@ -1,5 +1,5 @@
 const express = require('express');
-const mail = require('../../controllers/nodeMailer');
+const mail = require('../../nodeMailer');
 const router2 = new express.Router();
 
 	router2.post('/info', function(req, res){
